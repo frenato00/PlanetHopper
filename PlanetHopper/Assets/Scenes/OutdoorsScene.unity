@@ -838,6 +838,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   crouchScale: 0.6
+  dashImpulse: 25
+  shortDashCooldown: 0.5
+  dashCooldown: 3
+  maxDashes: 3
 --- !u!114 &1441397032
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -22,8 +22,19 @@ public class PlayerMovement : MonoBehaviour
     float verticalInput;
     bool jumpInput;
     float lastJumpTime = 0f;
+
     bool isCrouching = false;
     public float crouchScale;
+
+    public float dashImpulse;
+    public float shortDashCooldown;
+    public float dashCooldown;
+    public int maxDashes;
+    float dashTime = 0f;
+    int dashCounter = 0;
+    bool isDashing = false;
+    bool airDashAvailable=true;
+    float forwardMag;
 
     Vector3 moveDirection;
 
@@ -39,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
         jumpInput = Input.GetButton("Jump");
+        if(grounded) airDashAvailable=true;
         if(!isCrouching){
             if(Input.GetButton("Run")) moveSpeed = sprintSpeed;
             else moveSpeed = walkSpeed;
@@ -57,53 +69,84 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x, 1, transform.localScale.z);
 
         }
+        if(Input.GetButtonDown("Run")&& !isCrouching && grounded){
+            if (dashCounter < maxDashes && Time.time - dashTime > shortDashCooldown){
+                isDashing = true;
+                dashTime = Time.time;
+                dashCounter++;
+            } else if(Time.time - dashTime > dashCooldown){
+                isDashing = true;
+                dashTime = Time.time;
+                dashCounter = 1;
+            }
+        }
+        if(!grounded && airDashAvailable && Input.GetButtonDown("Jump")){
+            isDashing=true;
+            airDashAvailable=false;
+        }
     }
 
 
 
-    private void ClearInput(){
-        horizontalInput = 0f;
-        verticalInput = 0f;
-        jumpInput = false;
-    }
+    // private void AirInput(){
+    //     // horizontalInput = 0f;
+    //     // verticalInput = 0f;
+    //     jumpInput = false;
+    // }
     // Update is called once per frame
     void Update()
     {
         //ground check
         grounded = Physics.Raycast(transform.position, - transform.up, playerHeight*0.5f+0.1f,whatIsGround);
-        if (grounded){
-            MyInput();
-        }
-        else{
-            ClearInput();
-        }
+        // if (grounded){
+        MyInput();
+        // }
+        // else{
+        //     AirInput();
+        // }
     }
 
     private void MovePlayer(){
         //planar motion
         moveDirection = transform.forward* verticalInput + transform.right * horizontalInput;
-
-        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-
-        // jump
-        if (jumpInput && (Time.time-lastJumpTime >0.1f)){
-            rb.AddForce(transform.up.normalized*jumpForce,ForceMode.Impulse);
-            lastJumpTime=Time.time;
+        if(grounded){
+            Vector3 forwardVel = Vector3.Dot(rb.velocity,transform.forward)*transform.forward+Vector3.Dot(rb.velocity,transform.right)*transform.right;
+            if(forwardVel.magnitude > moveSpeed){
+                //if it is going above speed limit it can only decelerate or change direction
+                forwardMag = Vector3.Dot(forwardVel.normalized,moveDirection);
+                if (forwardMag>0){
+                    // if force in the direction of movement add only the coponent normal to the movement
+                    moveDirection -= forwardVel.normalized*forwardMag;
+                }
+            }
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            // jump
+            if (jumpInput && (Time.time-lastJumpTime >0.1f)){
+                rb.AddForce(transform.up.normalized*jumpForce,ForceMode.Impulse);
+                lastJumpTime=Time.time;
+            }
+            Debug.Log("Forward:"+forwardVel.magnitude.ToString("n2") + "; Total: " + rb.velocity.magnitude.ToString("n2"));
+        }
+        
+        if(isDashing){
+            isDashing = false;
+            rb.AddForce(moveDirection.normalized*dashImpulse,ForceMode.Impulse);
         }
     }
 
     private void FixedUpdate() {
         MovePlayer();
-        SpeedLimit();
+        // LimitSpeed();
     }
 
-    private void SpeedLimit(){
+    //Deprecated
+    private void LimitSpeed(){
         Vector3 forwardVel = Vector3.Dot(rb.velocity,transform.forward)*transform.forward+Vector3.Dot(rb.velocity,transform.right)*transform.right;
         if(forwardVel.magnitude > moveSpeed){
             Vector3 maxVel = forwardVel.normalized*moveSpeed + transform.up*Vector3.Dot(rb.velocity,transform.up);
             rb.velocity = maxVel;
         }
-        // Debug.Log(forwardVel.magnitude.ToString("n2") + " : " + rb.velocity.magnitude.ToString("n2"));
+        Debug.Log("Forward:"+forwardVel.magnitude.ToString("n2") + "; Total: " + rb.velocity.magnitude.ToString("n2"));
 
     }
 }
