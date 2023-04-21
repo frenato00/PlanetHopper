@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 4
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2158.2637, g: 2260.4883, b: 3278.4375, a: 1}
+  m_IndirectSpecularColor: {r: 2158.3164, g: 2260.4883, b: 3278.3477, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 229672670}
   - component: {fileID: 229672669}
   - component: {fileID: 229672668}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -791,7 +791,7 @@ Rigidbody:
   m_GameObject: {fileID: 1441397028}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1
+  m_Drag: 0
   m_AngularDrag: 0.2
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -828,12 +828,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cfac9fe8d221a04e8d57e6f68d5ed88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
+  walkSpeed: 8
+  sprintSpeed: 16
+  crouchSpeed: 5
+  jumpForce: 20
   groundDrag: 0
-  playerHeight: 0
+  playerHeight: 2
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
+  crouchScale: 0.6
 --- !u!114 &1441397032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1084,7 +1088,7 @@ GameObject:
   - component: {fileID: 1993999456}
   - component: {fileID: 1993999455}
   - component: {fileID: 1993999454}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1331,6 +1335,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1441397032}
+    - target: {fileID: 7809613940054243100, guid: 6a0131e7ea884854095da74a58cb287c,
+        type: 3}
+      propertyPath: gravity
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7809613940054243103, guid: 6a0131e7ea884854095da74a58cb287c,
         type: 3}
       propertyPath: m_Name
