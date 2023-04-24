@@ -23,7 +23,7 @@ public class GravityScript : MonoBehaviour
             Vector3 dir = transform.position - player.transform.position;
             player.AddForce(dir.normalized*gravity);
             // Debug.Log(gravity);
-            player.GetComponent<Rigidbody>().drag=1;
+            player.GetComponent<Rigidbody>().drag=0.1f;
         }
     }
 
