@@ -6,6 +6,7 @@ public class PlayerGravity : MonoBehaviour
 {
 
     Vector3 resultingForce;
+    float gravity;
     Vector3 up;
     Rigidbody rb;
     public void AddForce(Vector3 gravity){
@@ -23,8 +24,13 @@ public class PlayerGravity : MonoBehaviour
     void FixedUpdate()
     {
         rb.AddForce(resultingForce, ForceMode.Force);
-        if(resultingForce.magnitude > 0.1)
+        if(resultingForce.magnitude > 0.1){
             up = -resultingForce.normalized;
+            gravity = resultingForce.magnitude;
+        }
+        else{
+            gravity = 0f;
+        }
         resultingForce = new Vector3(0f,0f,0f);
     }
 
@@ -36,5 +42,8 @@ public class PlayerGravity : MonoBehaviour
         // Vector3 forward = transform.forward;
         // transform.up = -resultingForce.normalized;
         transform.rotation = Quaternion.FromToRotation(transform.up,-resultingForce)*transform.rotation;
+    }
+    public float GetGravity(){
+        return gravity;
     }
 }

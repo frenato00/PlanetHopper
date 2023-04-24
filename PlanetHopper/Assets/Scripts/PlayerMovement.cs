@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
     public float crouchSpeed;
     private float moveSpeed;
     public float jumpForce;
-    public float groundDrag;
     
     [Header("Ground Check")]
     public float playerHeight;
@@ -33,7 +32,9 @@ public class PlayerMovement : MonoBehaviour
     float dashTime = 0f;
     int dashCounter = 0;
     bool isDashing = false;
-    bool airDashAvailable=true;
+
+    [HideInInspector]
+    public bool airDashAvailable=true;
     float forwardMag;
 
     Vector3 moveDirection;
@@ -109,28 +110,27 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer(){
         //planar motion
         moveDirection = transform.forward* verticalInput + transform.right * horizontalInput;
-        if(grounded){
-            Vector3 forwardVel = Vector3.Dot(rb.velocity,transform.forward)*transform.forward+Vector3.Dot(rb.velocity,transform.right)*transform.right;
-            if(forwardVel.magnitude > moveSpeed){
-                //if it is going above speed limit it can only decelerate or change direction
-                forwardMag = Vector3.Dot(forwardVel.normalized,moveDirection);
-                if (forwardMag>0){
-                    // if force in the direction of movement add only the coponent normal to the movement
-                    moveDirection -= forwardVel.normalized*forwardMag;
-                }
+        Vector3 forwardVel = Vector3.Dot(rb.velocity,transform.forward)*transform.forward+Vector3.Dot(rb.velocity,transform.right)*transform.right;
+        if(forwardVel.magnitude > moveSpeed){
+            //if it is going above speed limit it can only decelerate or change direction
+            forwardMag = Vector3.Dot(forwardVel.normalized,moveDirection);
+            if (forwardMag>0){
+                // if force in the direction of movement add only the coponent normal to the movement
+                moveDirection -= forwardVel.normalized*forwardMag;
             }
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-            // jump
-            if (jumpInput && (Time.time-lastJumpTime >0.1f)){
-                rb.AddForce(transform.up.normalized*jumpForce,ForceMode.Impulse);
-                lastJumpTime=Time.time;
-            }
-            Debug.Log("Forward:"+forwardVel.magnitude.ToString("n2") + "; Total: " + rb.velocity.magnitude.ToString("n2"));
         }
-        
+        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        // jump
+        if (grounded && jumpInput && (Time.time-lastJumpTime >0.1f)){
+            rb.AddForce(transform.up.normalized*jumpForce,ForceMode.Impulse);
+            lastJumpTime=Time.time;
+        }
+        // Debug.Log("Forward:"+forwardVel.magnitude.ToString("n2") + "; Total: " + rb.velocity.magnitude.ToString("n2"));
+    
         if(isDashing){
             isDashing = false;
-            rb.AddForce(moveDirection.normalized*dashImpulse,ForceMode.Impulse);
+            if(!grounded) rb.AddForce(transform.up.normalized*jumpForce,ForceMode.Impulse);
+            else rb.AddForce(moveDirection.normalized*dashImpulse,ForceMode.Impulse);
         }
     }
 
