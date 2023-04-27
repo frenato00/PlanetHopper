@@ -7,10 +7,13 @@ public class PlayerGravity : MonoBehaviour
 
     Vector3 resultingForce;
     float gravity;
+    int attractors=0;
+    bool inSpace=true;
     Vector3 up;
     Rigidbody rb;
     public void AddForce(Vector3 gravity){
         resultingForce+=gravity;
+        attractors++;
     }
     // Start is called before the first frame update
     void Start()
@@ -32,6 +35,8 @@ public class PlayerGravity : MonoBehaviour
             gravity = 0f;
         }
         resultingForce = new Vector3(0f,0f,0f);
+        inSpace = attractors==0;
+        attractors=0;
     }
 
     void Update()
@@ -45,5 +50,9 @@ public class PlayerGravity : MonoBehaviour
     }
     public float GetGravity(){
         return gravity;
+    }
+
+    public bool IsInSpace(){
+        return inSpace;
     }
 }
