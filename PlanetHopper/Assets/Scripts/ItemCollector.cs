@@ -13,18 +13,26 @@ public class ItemCollector : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Medallion"))
+        if (other.gameObject.CompareTag("Consumable"))
         {
-            Destroy(other.gameObject);
-            points +=1 ;
-            Debug.Log("Points: " + points); 
-        }
-        else if (other.gameObject.CompareTag("Heart"))
-        {
-            if(playerLife.GainHealth()){
-                Destroy(other.gameObject);
+            Item consumable = other.gameObject.GetComponent<Consumable>().item;
+            if(consumable != null){
+                Debug.Log("Consumable: " + consumable.objectName);
+                switch(consumable.itemType){
+                    case Item.ItemType.Oxygen:
+                        playerLife.RefillOxygen(consumable.quantity);
+                        Destroy(other.gameObject);
+                        break;
+                    case Item.ItemType.Health:
+                        if(playerLife.GainHealth(consumable.quantity))
+                            Destroy(other.gameObject);
+                        break;
+                    case Item.ItemType.Medallion:
+                        points += consumable.quantity;
+                        Destroy(other.gameObject);
+                        break;
+                }
             }
-            Debug.Log("Health: " + playerLife.GetCurrentHealth());
         }
     }
 }

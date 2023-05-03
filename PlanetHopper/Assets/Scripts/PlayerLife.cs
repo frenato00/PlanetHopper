@@ -4,9 +4,45 @@ using UnityEngine;
 
 public class PlayerLife : MonoBehaviour
 {
-    [SerializeField] static int maxHealth = 3;
-    int health = maxHealth;
+    public int maxHealth = 3;
+    public int maxOxygen = 80;
+    int oxygen = 0;
+    int health = 0;
     bool isDead = false;
+    Coroutine ReduceOxygenCoroutine = null;
+
+    PlayerGravity playerGravity; 
+
+    private void Start(){
+        playerGravity = GetComponent<PlayerGravity>(); 
+        health = maxHealth;
+        oxygen = maxOxygen;
+        
+    }
+
+    private void Update(){
+        if(!isDead && oxygen > 0 && playerGravity.IsInSpace()){
+            if(ReduceOxygenCoroutine == null){
+                ReduceOxygenCoroutine = StartCoroutine(ReduceOxygen());
+            }
+        }
+        else if(oxygen <= 0){
+            Die();
+        }
+
+        if(!playerGravity.IsInSpace()){
+            if(ReduceOxygenCoroutine != null){
+                StopCoroutine(ReduceOxygenCoroutine);
+                ReduceOxygenCoroutine = null;
+            }
+            if(oxygen < maxOxygen){
+                RefillOxygen(maxOxygen);
+            }
+        }
+
+        Debug.Log("Oxygen: " + oxygen);
+        
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -30,15 +66,30 @@ public class PlayerLife : MonoBehaviour
         yield return new WaitForSeconds(1);
     }
 
+    IEnumerator ReduceOxygen()
+    {
+        while(true){
+            if(oxygen <= 0){
+                Die();
+                yield break;
+            }
+            yield return new WaitForSeconds(1);
+            oxygen -= 1;
+        }
+    }
+
     void Die()
     {   
+
+        StopAllCoroutines();
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<PlayerMovement>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
         isDead = true;
+
     }
 
-    public bool GainHealth()
+    public bool GainHealth(int amount = 1)
     {
         if(health < maxHealth)
         {
@@ -49,8 +100,21 @@ public class PlayerLife : MonoBehaviour
         return false;
     }
 
+    public bool RefillOxygen(int amount)
+    {
+        oxygen += amount;
+        oxygen = oxygen > maxOxygen ? maxOxygen : oxygen;
+
+        return true;
+    }
+
     public int GetCurrentHealth()
     {
         return health;
+    }
+
+    public int GetCurrentOxygen()
+    {
+        return oxygen;
     }
 }
