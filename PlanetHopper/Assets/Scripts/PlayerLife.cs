@@ -38,12 +38,15 @@ public class PlayerLife : MonoBehaviour
         isDead = true;
     }
 
-    public void GainHealth()
+    public bool GainHealth()
     {
         if(health < maxHealth)
         {
             health += 1;
+            return true;
         }
+
+        return false;
     }
 
     public int GetCurrentHealth()

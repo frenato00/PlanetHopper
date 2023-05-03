@@ -21,8 +21,9 @@ public class ItemCollector : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Heart"))
         {
-            Destroy(other.gameObject);
-            playerLife.GainHealth();
+            if(playerLife.GainHealth()){
+                Destroy(other.gameObject);
+            }
             Debug.Log("Health: " + playerLife.GetCurrentHealth());
         }
     }
