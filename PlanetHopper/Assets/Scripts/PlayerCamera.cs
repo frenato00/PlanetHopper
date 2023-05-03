@@ -33,6 +33,7 @@ public class PlayerCamera : MonoBehaviour
         // transform.rotation = Quaternion.Slerp(transform.rotation,targetRotation,25*Time.deltaTime);
         // transform.rotation = Quaternion.FromToRotation(transform.up, orientation.up);
         orientation.rotation *= Quaternion.Euler(0, mouseX, 0);
+        // orientation.rotation = targetRotation;
 
     }
 }

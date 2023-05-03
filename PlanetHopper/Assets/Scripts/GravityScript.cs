@@ -24,13 +24,13 @@ public class GravityScript : MonoBehaviour
             Vector3 dir = transform.position - player.transform.position;
             player.AddForce(dir.normalized*gravity);
             // Debug.Log(gravity);
-            rb.drag=0.1f;
+            // rb.drag=0.1f;
         }
     }
 
     void OnTriggerExit(Collider other){
         if(other.CompareTag("Player")){
-            rb.drag=0;
+            // rb.drag=0;
         }
     }
 }

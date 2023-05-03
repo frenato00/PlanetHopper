@@ -56,4 +56,13 @@ public class Grappling : MonoBehaviour
     void pullGrapple(){
 
     }
+    
+    public Vector3 getGrapplePoint()
+    {
+        return grapplePoint;
+    }
+    public void setGrapplePoint(Vector3 newPoint)
+    {
+        grapplePoint = newPoint;
+    }
 }
