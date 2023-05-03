@@ -17,7 +17,6 @@ public class ItemCollector : MonoBehaviour
         {
             Item consumable = other.gameObject.GetComponent<Consumable>().item;
             if(consumable != null){
-                Debug.Log("Consumable: " + consumable.objectName);
                 switch(consumable.itemType){
                     case Item.ItemType.Oxygen:
                         playerLife.RefillOxygen(consumable.quantity);

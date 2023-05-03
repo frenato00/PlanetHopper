@@ -40,7 +40,6 @@ public class PlayerLife : MonoBehaviour
             }
         }
 
-        Debug.Log("Oxygen: " + oxygen);
         
     }
 

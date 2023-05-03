@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59e1a1ed91718eb45bbdb3ec95263f68, type: 3}
   m_Name: Medallion
   m_EditorClassIdentifier: 
-  objectName: 
-  quantity: 0
-  itemType: 0
+  objectName: medallion
+  quantity: 1
+  itemType: 2

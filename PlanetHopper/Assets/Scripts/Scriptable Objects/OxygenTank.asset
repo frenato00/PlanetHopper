@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59e1a1ed91718eb45bbdb3ec95263f68, type: 3}
   m_Name: OxygenTank
   m_EditorClassIdentifier: 
-  objectName: 
-  quantity: 0
+  objectName: oxygen
+  quantity: 80
   itemType: 0

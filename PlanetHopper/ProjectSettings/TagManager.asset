@@ -4,10 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Medallion
-  - Heart
   - Planet
   - Platform
+  - Consumable
   layers:
   - Default
   - TransparentFX
