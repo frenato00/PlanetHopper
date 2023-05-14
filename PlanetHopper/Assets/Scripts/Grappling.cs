@@ -15,6 +15,7 @@ public class Grappling : MonoBehaviour
     private Vector3 grapplePoint;
     private bool isGrappling = false;
     private RaycastHit hit;
+    private Platform platform = null;
 
 
     // Start is called before the first frame update
@@ -32,13 +33,21 @@ public class Grappling : MonoBehaviour
     }
 
     private void LateUpdate() {
-        if(isGrappling) lr.SetPosition(0,gunTip.position);
+        if (isGrappling)
+        {
+            lr.SetPosition(0,gunTip.position);
+        }
     }
 
     void beginGrapple(){
         isGrappling = true;
         if(Physics.Raycast(cam.position,cam.forward,out hit, maxDist,whatIsGrappable)){
-            grapplePoint=hit.point;
+            grapplePoint = hit.point;
+            if(hit.collider.CompareTag("Platform"))
+            {
+                platform = hit.collider.GetComponent<Platform>();
+                platform.setGrapple(this);
+            }
             Invoke(nameof(pullGrapple),grappleDelayTime);
         }else{
             grapplePoint = cam.position+cam.forward*maxDist;
@@ -51,6 +60,8 @@ public class Grappling : MonoBehaviour
     void cancelGrapple(){
         isGrappling = false;
         lr.enabled = false;
+        platform.unsetGrapple();
+        platform = null;
     }
 
     void pullGrapple(){
@@ -63,6 +74,10 @@ public class Grappling : MonoBehaviour
     }
     public void setGrapplePoint(Vector3 newPoint)
     {
-        grapplePoint = newPoint;
+        if (isGrappling)
+        {
+            grapplePoint = newPoint;
+            lr.SetPosition(1, grapplePoint);
+        }
     }
 }

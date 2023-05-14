@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8366748768611488143}
   - component: {fileID: 8366748768611488130}
   m_Layer: 6
-  m_Name: Platform
+  m_Name: Conveyor Belt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,13 +100,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDestructable: 0
   isJumpPad: 0
-  isConveyorBelt: 0
+  isConveyorBelt: 1
   deltaPosition: {x: 0, y: 0, z: 0}
   movingTime: 2
   waitingTime: 1
   restartTime: 2
   jumpForce: 20
-  conveyorForce: {x: 5, y: 5}
+  conveyorForce: {x: 10, y: 0}
   gameObject: {fileID: 8366748768611488136}
 --- !u!65 &8366748768611488143
 BoxCollider:

@@ -11,16 +11,19 @@ public class Platform : MonoBehaviour
     public Vector3 deltaPosition = new Vector3(0, 0, 0);
     public float movingTime = 0;
     public float waitingTime = 0;
+    public float restartTime = 0;
     public float jumpForce = 10f;
     public Vector2 conveyorForce = new Vector2(5f, 5f);
     public GameObject gameObject;
 
+    private Grappling grapplingObject;
     private Transform transform;
     private BoxCollider collider;
     private MeshRenderer meshRenderer;
     private Material[] materials;
     private Vector3 startingPosition;
     private Vector3 finalPosition;
+    private Vector3 deltaGrapplePosition;
     private bool returning;
     private bool destroying;
     private float currentTime;
@@ -36,17 +39,34 @@ public class Platform : MonoBehaviour
         meshRenderer = GetComponent<MeshRenderer>();
         startingPosition = transform.position;
         finalPosition = startingPosition + deltaPosition;
-        currentAlpha = 1;
-        UpdateAlpha(currentAlpha);
+        currentAlpha = meshRenderer.materials[0].color.a;
+        grapplingObject = null;
         currentTime = 0;
+    }
+
+    public void setGrapple(Grappling grappling)
+    {
+        grapplingObject = grappling;
+        deltaGrapplePosition = grapplingObject.getGrapplePoint() - transform.position;
+    }
+    
+    public void unsetGrapple()
+    {
+        grapplingObject = null;
+    }
+    
+    private IEnumerator Restart()
+    {
+        new WaitForSeconds(restartTime);
+        Start();
+        yield return null;
     }
 
     private void UpdateAlpha(float newAlpha)
     {
-        materials = meshRenderer.materials;
-        //materials[0].color = new Color(materials[0].color.r, materials[0].color.g, materials[0].color.b,  newAlpha);
-        materials[0].color = new Color(newAlpha, newAlpha, newAlpha,  newAlpha);
-        meshRenderer.materials = materials;
+        Color color = meshRenderer.material.color;
+        color.a = newAlpha;
+        meshRenderer.material.color = color;
     }
     
     void Update()
@@ -68,7 +88,11 @@ public class Platform : MonoBehaviour
         {
             currentPosition = Vector3.Lerp(startingPosition, finalPosition, currentTime / movingTime);
         }
-        
+
+        if (grapplingObject)
+        {
+            grapplingObject.setGrapplePoint(currentPosition + deltaGrapplePosition);
+        }
         transform.position = currentPosition;
         
         if (destroying)
@@ -78,6 +102,7 @@ public class Platform : MonoBehaviour
             if (currentAlpha <= 0)
             {
                 gameObject.SetActive(false);
+                //StartCoroutine(Restart());
             }
         }
     }

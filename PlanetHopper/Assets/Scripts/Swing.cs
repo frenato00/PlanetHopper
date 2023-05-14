@@ -14,6 +14,7 @@ public class Swing : MonoBehaviour
     float currentLineDist, grappleTime, grappleTimeOut;
     private Vector3 swingPoint, currentGrapplePosition;
     private SpringJoint joint;
+    private Grappling grappling;
     RaycastHit hitRay, hitSphere;
     Rigidbody rb;
     PlayerGravity gravity;
@@ -21,6 +22,7 @@ public class Swing : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        grappling = player.GetComponent<Grappling>();
         playerMovement = player.GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody>();
         gravity = GetComponent<PlayerGravity>();
@@ -151,8 +153,10 @@ public class Swing : MonoBehaviour
     void DrawRope(){
         if(!isSwinging) return;
 
-        currentGrapplePosition = Vector3.Lerp(currentGrapplePosition, swingPoint, Time.deltaTime*8f);
+        predictionPoint.position = grappling.getGrapplePoint();
+
+        //currentGrapplePosition = Vector3.Lerp(currentGrapplePosition, swingPoint, Time.deltaTime*8f);
         line.SetPosition(0, gunTip.position);
-        line.SetPosition(1, currentGrapplePosition);
+        //line.SetPosition(1, currentGrapplePosition);
     }
 }

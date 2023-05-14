@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8366748768611488143}
   - component: {fileID: 8366748768611488130}
   m_Layer: 6
-  m_Name: Platform
+  m_Name: Destructable Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d346745b4ce44e5ab3e1c8be9c3b3458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDestructable: 0
+  isDestructable: 1
   isJumpPad: 0
   isConveyorBelt: 0
   deltaPosition: {x: 0, y: 0, z: 0}
