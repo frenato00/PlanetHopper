@@ -11,6 +11,7 @@ public class PlayerGravity : MonoBehaviour
     bool inSpace=true;
     Vector3 up;
     Rigidbody rb;
+    
     public void AddForce(Vector3 gravity){
         resultingForce+=gravity;
         attractors++;
