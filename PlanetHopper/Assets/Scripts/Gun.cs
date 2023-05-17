@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Gun : MonoBehaviour
 {
@@ -8,8 +9,10 @@ public class Gun : MonoBehaviour
     [Header("References")]
     [SerializeField] GunData gunData;
     [SerializeField] Transform cam;
+    [SerializeField] BulletParticle bulletParticle;
 
     float timeSinceLastShot;
+
 
     private void Start(){
         PlayerShoot.shootInput += Shoot;
@@ -20,10 +23,6 @@ public class Gun : MonoBehaviour
 
     private void Shoot(){
         if(CanShoot()){
-            if(Physics.Raycast(cam.position, cam.forward, out RaycastHit hit, gunData.maxDistance)){
-                IDamageable damageable = hit.transform.GetComponent<IDamageable>();
-                damageable?.TakeDamage(gunData.damage);
-            }
 
             timeSinceLastShot = 0f;
             OnGunShot();
@@ -38,8 +37,10 @@ public class Gun : MonoBehaviour
     }
 
     private void OnGunShot(){
+        
         // Play sound
         // Play particle effect
+        bulletParticle.Play();
         // Play animation
     }
 }
