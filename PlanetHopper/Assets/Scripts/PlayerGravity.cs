@@ -29,7 +29,7 @@ public class PlayerGravity : MonoBehaviour
     {
         rb.AddForce(resultingForce, ForceMode.Force);
         if(resultingForce.magnitude > 0.1){
-            up = -resultingForce.normalized;
+            up = Vector3.Lerp(transform.up,-resultingForce.normalized, Time.deltaTime*10f);
             gravity = resultingForce.magnitude;
         }
         else{
@@ -47,7 +47,7 @@ public class PlayerGravity : MonoBehaviour
         // transform.rotation = Quaternion.Slerp(transform.rotation,targetRotation,25*Time.deltaTime);
         // Vector3 forward = transform.forward;
         // transform.up = -resultingForce.normalized;
-        transform.rotation = Quaternion.FromToRotation(transform.up,-resultingForce)*transform.rotation;
+        transform.rotation = Quaternion.FromToRotation(transform.up,up)*transform.rotation;
     }
     public float GetGravity(){
         return gravity;
