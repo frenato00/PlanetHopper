@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerLife : MonoBehaviour
 {
     public int maxHealth = 3;
-    public int maxOxygen = 80;
+    public int maxOxygen = 10;
     int oxygen = 0;
     int health = 0;
     bool isDead = false;
@@ -25,9 +26,6 @@ public class PlayerLife : MonoBehaviour
             if(ReduceOxygenCoroutine == null){
                 ReduceOxygenCoroutine = StartCoroutine(ReduceOxygen());
             }
-        }
-        else if(oxygen <= 0){
-            Die();
         }
 
         if(!playerGravity.IsInSpace()){
@@ -61,7 +59,7 @@ public class PlayerLife : MonoBehaviour
         if(health <= 0)
         {   
             Die();
-            yield break;
+            yield return null;
         }
 
         yield return new WaitForSeconds(1);
@@ -72,7 +70,7 @@ public class PlayerLife : MonoBehaviour
         while(true){
             if(oxygen <= 0){
                 Die();
-                yield break;
+                yield return null;
             }
             yield return new WaitForSeconds(1);
             oxygen -= 1;
@@ -83,10 +81,10 @@ public class PlayerLife : MonoBehaviour
     {   
 
         StopAllCoroutines();
-        GetComponent<MeshRenderer>().enabled = false;
         GetComponent<PlayerMovement>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
         isDead = true;
+        GameManager.instance.GameOver();
 
     }
 

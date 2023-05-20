@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class GravityScript : MonoBehaviour
 {
-    private PlayerGravity player;
     public float gravity;
-    Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
-        rb = player.GetComponent<Rigidbody>();
+        //rb = player.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame

@@ -29,29 +29,29 @@ public class Swing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Fire2")){
+        if(GameManager.instance.IsAcceptingPlayerInput() && Input.GetButtonDown("Fire2")){
             isSwinging = !isSwinging;
             if(isSwinging) StartSwing();
             else StopGrapple();
         }
         if(joint){
-            if(Input.GetKey(KeyCode.E)){
+            if(GameManager.instance.IsAcceptingPlayerInput() && Input.GetKey(KeyCode.E)){
                 currentLineDist-=ropeSpeed;
                 joint.maxDistance = currentLineDist;
                 rb.AddForce(swingPoint-player.position,ForceMode.Force);
             }
-            else if(Input.GetKey(KeyCode.Q)){
+            else if(GameManager.instance.IsAcceptingPlayerInput() && Input.GetKey(KeyCode.Q)){
                 currentLineDist+=ropeSpeed;
                 joint.maxDistance = currentLineDist;
             }
-            if(Input.GetButtonDown("Crouch")){
+            if(GameManager.instance.IsAcceptingPlayerInput() && Input.GetButtonDown("Crouch")){
                 PullGrapple();
             }
         
         }
         if(!isSwinging){
             CheckSwingPoint();
-        }else if(Input.GetButtonDown("Jump")){
+        }else if(GameManager.instance.IsAcceptingPlayerInput() && Input.GetButtonDown("Jump")){
             StopGrapple();
         }
     }

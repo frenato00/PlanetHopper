@@ -5468,7 +5468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
-  maxOxygen: 80
+  maxOxygen: 10
 --- !u!114 &1625425536198020743
 MonoBehaviour:
   m_ObjectHideFlags: 0

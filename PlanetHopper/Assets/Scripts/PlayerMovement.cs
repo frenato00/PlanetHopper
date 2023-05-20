@@ -53,24 +53,24 @@ public class PlayerMovement : MonoBehaviour
         jumpInput = Input.GetButton("Jump");
         if(grounded) airDashAvailable=true;
         if(!isCrouching){
-            if(Input.GetButton("Run")) moveSpeed = sprintSpeed;
+            if(GameManager.instance.IsAcceptingPlayerInput() && Input.GetButton("Run")) moveSpeed = sprintSpeed;
             else moveSpeed = walkSpeed;
         }
-        if(Input.GetButtonDown("Crouch") && !isCrouching){
+        if(GameManager.instance.IsAcceptingPlayerInput() && Input.GetButtonDown("Crouch") && !isCrouching){
             isCrouching = true;
             moveSpeed=crouchSpeed;
             //TODO crouch
             transform.localScale = new Vector3(transform.localScale.x, crouchScale, transform.localScale.z);
             rb.AddForce(-transform.up*5f,ForceMode.Impulse);
         }
-        if(Input.GetButtonUp("Crouch") && isCrouching){
+        if(GameManager.instance.IsAcceptingPlayerInput() && Input.GetButtonUp("Crouch") && isCrouching){
             isCrouching = false;
             moveSpeed = walkSpeed;
             //TODO undo crouch
             transform.localScale = new Vector3(transform.localScale.x, 1, transform.localScale.z);
 
         }
-        if(Input.GetButtonDown("Run")&& !isCrouching && grounded){
+        if(GameManager.instance.IsAcceptingPlayerInput() && Input.GetButtonDown("Run")&& !isCrouching && grounded){
             if (dashCounter < maxDashes && Time.time - dashTime > shortDashCooldown){
                 isDashing = true;
                 dashTime = Time.time;
@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
                 dashCounter = 1;
             }
         }
-        if(!grounded && airDashAvailable && Input.GetButtonDown("Jump")){
+        if(GameManager.instance.IsAcceptingPlayerInput() && !grounded && airDashAvailable && Input.GetButtonDown("Jump")){
             isDashing=true;
             airDashAvailable=false;
         }
