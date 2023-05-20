@@ -6,8 +6,6 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
     public bool isDestructable = false;
-    public bool isJumpPad = false;
-    public bool isConveyorBelt = false;
     public Vector3 deltaPosition = new Vector3(0, 0, 0);
     public float movingTime = 0;
     public float waitingTime = 0;
@@ -16,16 +14,18 @@ public class Platform : MonoBehaviour
     public Vector2 conveyorForce = new Vector2(5f, 5f);
     public GameObject gameObject;
 
-    private Grappling grapplingObject;
+    private Swing grapplingObject;
     private Transform transform;
     private BoxCollider collider;
     private MeshRenderer meshRenderer;
+    private Rigidbody rb;
     private Material[] materials;
     private Vector3 startingPosition;
     private Vector3 finalPosition;
     private Vector3 deltaGrapplePosition;
     private bool returning;
     private bool destroying;
+    private bool destroyed = false;
     private float currentTime;
     private float currentAlpha;
     private float disappearTime = 2;
@@ -34,20 +34,21 @@ public class Platform : MonoBehaviour
     {
         destroying = false;
         returning = false;
+        rb = GetComponent<Rigidbody>();
         transform = GetComponent<Transform>();
         collider = GetComponent<BoxCollider>();
         meshRenderer = GetComponent<MeshRenderer>();
         startingPosition = transform.position;
         finalPosition = startingPosition + deltaPosition;
-        currentAlpha = meshRenderer.materials[0].color.a;
+        currentAlpha = 1;
         grapplingObject = null;
         currentTime = 0;
     }
 
-    public void setGrapple(Grappling grappling)
+    public void setGrapple(Swing grappling)
     {
         grapplingObject = grappling;
-        deltaGrapplePosition = grapplingObject.getGrapplePoint() - transform.position;
+        deltaGrapplePosition = grapplingObject.getSwingPoint() - transform.position;
     }
     
     public void unsetGrapple()
@@ -57,9 +58,16 @@ public class Platform : MonoBehaviour
     
     private IEnumerator Restart()
     {
-        new WaitForSeconds(restartTime);
+        UpdateAlpha(0);
+        rb.detectCollisions = false;
+        meshRenderer.enabled = false;
+        transform.position = startingPosition;
+        yield return new WaitForSeconds(restartTime);
         Start();
-        yield return null;
+        rb.detectCollisions = true;
+        meshRenderer.enabled = true;
+        UpdateAlpha(1);
+        destroyed = false;
     }
 
     private void UpdateAlpha(float newAlpha)
@@ -71,59 +79,65 @@ public class Platform : MonoBehaviour
     
     void Update()
     {
-        if (currentTime >= (movingTime + waitingTime))
+        if (!destroyed)
         {
-            returning = !returning;
-            currentTime = 0;
-        }
-        
-        currentTime += Time.deltaTime;
-        Vector3 currentPosition = transform.position;
-        
-        if (returning)
-        {
-            currentPosition = Vector3.Lerp(finalPosition, startingPosition, currentTime / movingTime);
-        }
-        else
-        {
-            currentPosition = Vector3.Lerp(startingPosition, finalPosition, currentTime / movingTime);
-        }
-
-        if (grapplingObject)
-        {
-            grapplingObject.setGrapplePoint(currentPosition + deltaGrapplePosition);
-        }
-        transform.position = currentPosition;
-        
-        if (destroying)
-        {
-            currentAlpha -= Time.deltaTime / disappearTime;
-            UpdateAlpha(currentAlpha);
-            if (currentAlpha <= 0)
+            if (currentTime >= (movingTime + waitingTime))
             {
-                gameObject.SetActive(false);
-                //StartCoroutine(Restart());
+                returning = !returning;
+                currentTime = 0;
+            }
+        
+            currentTime += Time.deltaTime;
+            Vector3 currentPosition = transform.position;
+        
+            if (returning)
+            {
+                currentPosition = Vector3.Lerp(finalPosition, startingPosition, currentTime / movingTime);
+            }
+            else
+            {
+                currentPosition = Vector3.Lerp(startingPosition, finalPosition, currentTime / movingTime);
+            }
+
+            if (grapplingObject)
+            {
+                grapplingObject.setSwingPoint(currentPosition + deltaGrapplePosition);
+            }
+            transform.position = currentPosition;
+        
+            if (destroying)
+            {
+                currentAlpha -= Time.deltaTime / disappearTime;
+                UpdateAlpha(currentAlpha);
+                if (currentAlpha <= 0)
+                {
+                    destroyed = true;
+                    StartCoroutine(Restart());
+                }
             }
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.collider.CompareTag("Player"))
+        if (!destroyed)
         {
-            if (isDestructable)
+            if(collision.collider.CompareTag("Player"))
             {
-                destroying = true;
-            }
+                if (isDestructable)
+                {
+                    destroying = true;
+                }
 
-            if (isJumpPad)
-            {
-                collision.rigidbody.AddForce(transform.up.normalized * jumpForce, ForceMode.Impulse);
-            }
+                if (jumpForce > 0)
+                {
+                    collision.rigidbody.AddForce(transform.up.normalized * jumpForce, ForceMode.Impulse);
+                }
             
-            if (isConveyorBelt)
-            {
-                collision.rigidbody.AddForce(transform.right.normalized * conveyorForce.x + transform.forward.normalized * conveyorForce.y, ForceMode.Impulse);
+                if (conveyorForce != Vector2.zero)
+                {
+                    collision.rigidbody.AddForce(transform.right.normalized * conveyorForce.x + transform.forward.normalized * conveyorForce.y, ForceMode.Impulse);
+                }
             }
         }
     }

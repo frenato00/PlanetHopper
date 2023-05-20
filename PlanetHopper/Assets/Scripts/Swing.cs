@@ -17,10 +17,13 @@ public class Swing : MonoBehaviour
     RaycastHit hitRay, hitSphere;
     Rigidbody rb;
     PlayerGravity gravity;
+    
+    private Platform platform = null;
 
     // Start is called before the first frame update
     void Start()
     {
+        platform = null;
         playerMovement = player.GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody>();
         gravity = GetComponent<PlayerGravity>();
@@ -69,10 +72,28 @@ public class Swing : MonoBehaviour
     void CheckSwingPoint(){
         if(Physics.Raycast(cam.position, cam.forward, out hitRay, maxLineDist, whatIsGrappleable)){
             swingPoint = hitRay.point;
+            if(hitRay.collider.CompareTag("Platform"))
+            {
+                if (platform)
+                {
+                    platform.unsetGrapple();
+                }
+                platform = hitRay.collider.GetComponent<Platform>();
+                platform.setGrapple(this);
+            }
             predictionPoint.position = swingPoint;
             predictionPoint.localScale = Vector3.one*hitRay.distance*0.02f;
         }else if(Physics.SphereCast(cam.position, sphereCastRadius, cam.forward, out hitSphere, maxLineDist, whatIsGrappleable)){    
             swingPoint = hitSphere.point;
+            if(hitSphere.collider.CompareTag("Platform"))
+            {
+                if (platform)
+                {
+                    platform.unsetGrapple();
+                }
+                platform = hitSphere.collider.GetComponent<Platform>();
+                platform.setGrapple(this);
+            }
             predictionPoint.position = swingPoint;
             predictionPoint.localScale = Vector3.one*hitSphere.distance*0.02f;
         }else{
@@ -120,6 +141,11 @@ public class Swing : MonoBehaviour
     }
 
     void StopGrapple(){
+        if (platform)
+        {
+            platform.unsetGrapple();
+            platform = null;
+        }
         isGrappling = false;
         StopSwing();
         // joint = player.gameObject.AddComponent<SpringJoint>();
@@ -132,6 +158,18 @@ public class Swing : MonoBehaviour
         // joint.spring = 4f;
         // joint.damper = 7f;
         // joint.massScale = 4.5f;
+    }
+    
+    public Vector3 getSwingPoint()
+    {
+        return swingPoint;
+    }
+    public void setSwingPoint(Vector3 newPoint)
+    {
+        currentGrapplePosition = newPoint;
+        swingPoint = newPoint;
+        if(joint) joint.connectedAnchor = swingPoint;
+        predictionPoint.localScale = Vector3.zero;
     }
 
     Vector3 CalculateLaunchVelocity(){
