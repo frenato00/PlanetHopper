@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GravityScript : MonoBehaviour
 {
-    public PlayerGravity player;
+    private PlayerGravity player;
     public float gravity;
     Rigidbody rb;
     // Start is called before the first frame update
@@ -21,6 +21,7 @@ public class GravityScript : MonoBehaviour
 
     void OnTriggerStay(Collider other){
         if(other.CompareTag("Player")){
+            PlayerGravity player = other.GetComponentInParent<PlayerGravity>(); 
             Vector3 dir = transform.position - player.transform.position;
             player.AddForce(dir.normalized*gravity);
             // Debug.Log(gravity);
