@@ -8,6 +8,7 @@ TagManager:
   - Platform
   - Consumable
   - Enemy
+  - Switch
   layers:
   - Default
   - TransparentFX

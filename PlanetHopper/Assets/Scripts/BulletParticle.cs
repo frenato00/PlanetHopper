@@ -16,6 +16,11 @@ public class BulletParticle : MonoBehaviour
 
         for (int i= 0; i< events; i++){
 
+            if (collisionEvents[i].colliderComponent.CompareTag("Switch"))
+            {
+                Switch hitSwitch = collisionEvents[i].colliderComponent.GetComponent<Switch>();
+                hitSwitch.activate();
+            }
             IDamageable damageable = collisionEvents[i].colliderComponent.GetComponent<IDamageable>();
             damageable?.TakeDamage(50f);
             Instantiate(spark, collisionEvents[i].intersection, Quaternion.LookRotation(collisionEvents[i].normal));

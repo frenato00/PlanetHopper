@@ -23,7 +23,6 @@ public class Gun : MonoBehaviour
 
     private void Shoot(){
         if(CanShoot()){
-
             timeSinceLastShot = 0f;
             OnGunShot();
         }
@@ -32,7 +31,6 @@ public class Gun : MonoBehaviour
 
     private void Update(){
         timeSinceLastShot += Time.deltaTime;
-
         Debug.DrawRay(cam.position, cam.forward * gunData.maxDistance, Color.red);
     }
 
