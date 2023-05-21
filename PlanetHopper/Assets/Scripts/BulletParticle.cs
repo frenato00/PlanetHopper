@@ -23,6 +23,8 @@ public class BulletParticle : MonoBehaviour
     }
 
     public void Play(){
-        particleSystem.Play();
+        if(particleSystem != null){
+            particleSystem.Play();
+        }
     }
 }

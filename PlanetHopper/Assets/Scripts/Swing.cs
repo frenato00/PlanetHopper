@@ -15,6 +15,7 @@ public class Swing : MonoBehaviour
     private Vector3 swingPoint, currentGrapplePosition;
     private SpringJoint joint;
     RaycastHit hitRay, hitSphere;
+    GameObject hitObject;
     Rigidbody rb;
     PlayerGravity gravity;
 
@@ -71,10 +72,15 @@ public class Swing : MonoBehaviour
             swingPoint = hitRay.point;
             predictionPoint.position = swingPoint;
             predictionPoint.localScale = Vector3.one*hitRay.distance*0.02f;
+
+            hitObject = hitRay.collider.gameObject;
+
         }else if(Physics.SphereCast(cam.position, sphereCastRadius, cam.forward, out hitSphere, maxLineDist, whatIsGrappleable)){    
             swingPoint = hitSphere.point;
             predictionPoint.position = swingPoint;
             predictionPoint.localScale = Vector3.one*hitSphere.distance*0.02f;
+
+            hitObject = hitSphere.collider.gameObject;
         }else{
             swingPoint = Vector3.zero;
             predictionPoint.localScale = Vector3.zero;
@@ -82,6 +88,10 @@ public class Swing : MonoBehaviour
     }
     void StartSwing(){
         if(swingPoint != Vector3.zero){    
+
+            if(hitObject.CompareTag("Finish")){
+                GameManager.instance.Win();
+            }
             
             joint = player.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;

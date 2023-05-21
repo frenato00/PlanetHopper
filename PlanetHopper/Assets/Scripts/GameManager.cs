@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
+
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
     public GameObject deathScreen;
+    public GameObject winScreen;
+
+    public static Action endLevelTakeOff;
 
     private bool acceptPlayerInput = true;
 
@@ -37,6 +42,21 @@ public class GameManager : MonoBehaviour
         StartCoroutine(Restart());
     }
 
+    public void Win(){
+        Debug.Log("Win");
+        acceptPlayerInput = false;
+        endLevelTakeOff?.Invoke();
+        
+    }
+
+    public void WinGameAfterSwitchCamera(){
+        GameObject winUI =  Instantiate(winScreen);
+        winUI.transform.SetParent(canvas.transform, false);
+        winUI.SetActive(true);
+
+        StartCoroutine(Restart());
+    }
+
     private IEnumerator Restart(){
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -54,6 +74,5 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        
     }
 }
