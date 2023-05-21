@@ -15,4 +15,4 @@ MonoBehaviour:
   name: M9
   damage: 25
   maxDistance: 200
-  fireRate: 100
+  fireRate: 200
