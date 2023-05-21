@@ -7,6 +7,7 @@ TagManager:
   - Planet
   - Platform
   - Consumable
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
+  - Player
   - 
   - 
   - 
