@@ -10,7 +10,7 @@ public class Platform : MonoBehaviour
     public float movingTime = 0;
     public float waitingTime = 0;
     public float restartTime = 0;
-    public float jumpForce = 10f;
+    public float jumpForce = 0;
     public Vector2 conveyorForce = new Vector2(5f, 5f);
     public GameObject gameObject;
 
@@ -56,6 +56,47 @@ public class Platform : MonoBehaviour
         grapplingObject = null;
     }
     
+    public Vector3 getDeltaPosition()
+    {
+        return deltaPosition;
+    }
+    
+    public Vector2 getConveyorForce()
+    {
+        return conveyorForce;
+    }
+    
+    public void setDeltaPosition(Vector3 newPosition)
+    {
+        deltaPosition = newPosition;
+        finalPosition = startingPosition + deltaPosition;
+        movingTime = 2;
+        waitingTime = 1;
+    }
+    
+    public void setConveyorForce(Vector2 newForce)
+    {
+        conveyorForce = newForce;
+    }
+    
+    public void setJumpForce(float newForce)
+    {
+        jumpForce = newForce;
+    }
+
+    
+    public void turnDestructable()
+    {
+        isDestructable = true;
+        disappearTime = 2;
+        restartTime = 5;
+    }
+    
+    public void turnPermanent()
+    {
+        isDestructable = false;
+    }
+    
     private IEnumerator Restart()
     {
         UpdateAlpha(0);
@@ -81,30 +122,33 @@ public class Platform : MonoBehaviour
     {
         if (!destroyed)
         {
-            if (currentTime >= (movingTime + waitingTime))
+            if (deltaPosition != Vector3.zero)
             {
-                returning = !returning;
-                currentTime = 0;
-            }
+                if (currentTime >= (movingTime + waitingTime))
+                {
+                    returning = !returning;
+                    currentTime = 0;
+                }
         
-            currentTime += Time.deltaTime;
-            Vector3 currentPosition = transform.position;
+                currentTime += Time.deltaTime;
+                Vector3 currentPosition = transform.position;
         
-            if (returning)
-            {
-                currentPosition = Vector3.Lerp(finalPosition, startingPosition, currentTime / movingTime);
-            }
-            else
-            {
-                currentPosition = Vector3.Lerp(startingPosition, finalPosition, currentTime / movingTime);
-            }
+                if (returning)
+                {
+                    currentPosition = Vector3.Lerp(finalPosition, startingPosition, currentTime / movingTime);
+                }
+                else
+                {
+                    currentPosition = Vector3.Lerp(startingPosition, finalPosition, currentTime / movingTime);
+                }
 
-            if (grapplingObject)
-            {
-                grapplingObject.setSwingPoint(currentPosition + deltaGrapplePosition);
+                if (grapplingObject)
+                {
+                    grapplingObject.setSwingPoint(currentPosition + deltaGrapplePosition);
+                }
+                transform.position = currentPosition;
             }
-            transform.position = currentPosition;
-        
+            
             if (destroying)
             {
                 currentAlpha -= Time.deltaTime / disappearTime;
