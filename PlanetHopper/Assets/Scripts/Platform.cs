@@ -10,7 +10,7 @@ public class Platform : MonoBehaviour
     public float movingTime = 0;
     public float waitingTime = 0;
     public float restartTime = 0;
-    public float jumpForce = 10f;
+    public float jumpForce = 0;
     public Vector2 conveyorForce = new Vector2(5f, 5f);
     public GameObject gameObject;
 
@@ -26,6 +26,7 @@ public class Platform : MonoBehaviour
     private bool returning;
     private bool destroying;
     private bool destroyed = false;
+    private bool moving = false;
     private float currentTime;
     private float currentAlpha;
     private float disappearTime = 2;
@@ -56,6 +57,52 @@ public class Platform : MonoBehaviour
         grapplingObject = null;
     }
     
+    public Vector3 getDeltaPosition()
+    {
+        return deltaPosition;
+    }
+    
+    public Vector2 getConveyorForce()
+    {
+        return conveyorForce;
+    }
+    
+    public float getJumpForce()
+    {
+        return jumpForce;
+    }
+    
+    public void setDeltaPosition(Vector3 newPosition)
+    {
+        deltaPosition = newPosition;
+        finalPosition = startingPosition + deltaPosition;
+        movingTime = 2;
+        waitingTime = 1;
+    }
+    
+    public void setConveyorForce(Vector2 newForce)
+    {
+        conveyorForce = newForce;
+    }
+    
+    public void setJumpForce(float newForce)
+    {
+        jumpForce = newForce;
+    }
+
+    
+    public void turnDestructable()
+    {
+        isDestructable = true;
+        disappearTime = 2;
+        restartTime = 5;
+    }
+    
+    public void turnPermanent()
+    {
+        isDestructable = false;
+    }
+    
     private IEnumerator Restart()
     {
         UpdateAlpha(0);
@@ -81,30 +128,42 @@ public class Platform : MonoBehaviour
     {
         if (!destroyed)
         {
-            if (currentTime >= (movingTime + waitingTime))
+            if (deltaPosition != Vector3.zero)
             {
-                returning = !returning;
-                currentTime = 0;
-            }
+                if (currentTime >= (movingTime + waitingTime))
+                {
+                    returning = !returning;
+                    currentTime = 0;
+                }
         
-            currentTime += Time.deltaTime;
-            Vector3 currentPosition = transform.position;
+                currentTime += Time.deltaTime;
+                Vector3 currentPosition = transform.position;
         
-            if (returning)
-            {
-                currentPosition = Vector3.Lerp(finalPosition, startingPosition, currentTime / movingTime);
-            }
-            else
-            {
-                currentPosition = Vector3.Lerp(startingPosition, finalPosition, currentTime / movingTime);
-            }
+                if (returning)
+                {
+                    currentPosition = Vector3.Lerp(finalPosition, startingPosition, currentTime / movingTime);
+                }
+                else
+                {
+                    currentPosition = Vector3.Lerp(startingPosition, finalPosition, currentTime / movingTime);
+                }
 
-            if (grapplingObject)
-            {
-                grapplingObject.setSwingPoint(currentPosition + deltaGrapplePosition);
+                if (grapplingObject)
+                {
+                    grapplingObject.setSwingPoint(currentPosition + deltaGrapplePosition);
+                }
+
+                if (transform.position == currentPosition)
+                {
+                    moving = false;
+                }
+                else
+                {
+                    moving = true;
+                    transform.position = currentPosition;
+                }
             }
-            transform.position = currentPosition;
-        
+            
             if (destroying)
             {
                 currentAlpha -= Time.deltaTime / disappearTime;
@@ -124,6 +183,9 @@ public class Platform : MonoBehaviour
         {
             if(collision.collider.CompareTag("Player"))
             {
+                //TODO: Verify raycast
+                collision.gameObject.transform.SetParent(transform, true);
+                
                 if (isDestructable)
                 {
                     destroying = true;
@@ -139,6 +201,14 @@ public class Platform : MonoBehaviour
                     collision.rigidbody.AddForce(transform.right.normalized * conveyorForce.x + transform.forward.normalized * conveyorForce.y, ForceMode.Impulse);
                 }
             }
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            collision.gameObject.transform.parent = null;
         }
     }
 }
