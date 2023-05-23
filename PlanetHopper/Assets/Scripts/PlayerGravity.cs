@@ -9,7 +9,7 @@ public class PlayerGravity : MonoBehaviour
     float gravity;
     int attractors=0;
     bool inSpace=true;
-    Vector3 up;
+    Vector3 up, lerpUp;
     Rigidbody rb;
     
     public void AddForce(Vector3 gravity){
@@ -22,6 +22,7 @@ public class PlayerGravity : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         resultingForce = new Vector3(0f,0f,0f);
         up = new Vector3(0f,0f,0f);
+        lerpUp = new Vector3(0f,0f,0f);
     }
 
     // Update is called once per frame
@@ -29,7 +30,8 @@ public class PlayerGravity : MonoBehaviour
     {
         rb.AddForce(resultingForce, ForceMode.Force);
         if(resultingForce.magnitude > 0.1){
-            up = Vector3.Lerp(transform.up,-resultingForce.normalized, Time.deltaTime*10f);
+            up = -resultingForce.normalized;
+            lerpUp = Vector3.Lerp(transform.up,-resultingForce.normalized, Time.deltaTime*10f);
             gravity = resultingForce.magnitude;
         }
         else{
@@ -47,7 +49,8 @@ public class PlayerGravity : MonoBehaviour
         // transform.rotation = Quaternion.Slerp(transform.rotation,targetRotation,25*Time.deltaTime);
         // Vector3 forward = transform.forward;
         // transform.up = -resultingForce.normalized;
-        transform.rotation = Quaternion.FromToRotation(transform.up,up)*transform.rotation;
+        if(Physics.Raycast(transform.position, -up, 2f))
+            transform.rotation = Quaternion.FromToRotation(transform.up,lerpUp)*transform.rotation;
     }
     public float GetGravity(){
         return gravity;
