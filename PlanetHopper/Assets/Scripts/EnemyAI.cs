@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    public Transform player,orientation;
+    public Transform orientation;
+    Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
     public float health;
 
@@ -17,20 +18,24 @@ public class EnemyAI : MonoBehaviour
     //Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
-    public GameObject projectile;
+    // public GameObject projectile;
     Rigidbody rb;
 
     //States
     public float sightRange, attackRange, speed;
     bool playerInSightRange, playerInAttackRange;
 
-    private void Awake() {
-        player = GameObject.Find("Player").transform;
+    private void Start() {
+        player = GameObject.FindWithTag("Player").transform;
         rb = transform.GetComponent<Rigidbody>();
     }
 
     private void Update() {
         //Check for sight and attack range
+        if(!player){
+            player = GameObject.FindWithTag("Player").transform;
+            return;
+        }
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
         if (!playerInSightRange && !playerInAttackRange) Patrolling();
@@ -75,9 +80,9 @@ public class EnemyAI : MonoBehaviour
 
         if (!alreadyAttacked) {
             // Attack code here
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(orientation.forward * 32f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+            // Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            // rb.AddForce(orientation.forward * 32f, ForceMode.Impulse);
+            // rb.AddForce(transform.up * 8f, ForceMode.Impulse);
 
 
             alreadyAttacked = true;
