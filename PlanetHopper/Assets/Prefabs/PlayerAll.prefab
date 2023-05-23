@@ -5225,7 +5225,7 @@ GameObject:
   - component: {fileID: 46735606565828646}
   - component: {fileID: 519974571902898811}
   - component: {fileID: 8639778795353414970}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -5317,7 +5317,6 @@ MonoBehaviour:
   line: {fileID: 1625425536956589729}
   gunTip: {fileID: 1625425535478625050}
   cam: {fileID: 1625425536848507071}
-  player: {fileID: 1625425536198020746}
   predictionPoint: {fileID: 1625425535755556704}
   whatIsGrappleable:
     serializedVersion: 2

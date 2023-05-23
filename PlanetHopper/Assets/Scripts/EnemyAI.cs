@@ -12,7 +12,7 @@ public class EnemyAI : MonoBehaviour
 
     //Patrolling
     Vector3 walkPoint;
-    bool walkPointSet;
+    bool walkPointSet=false;
     public float walkPointRange;
 
     //Attacking
@@ -26,8 +26,8 @@ public class EnemyAI : MonoBehaviour
     bool playerInSightRange, playerInAttackRange;
 
     private void Start() {
-        player = GameObject.FindWithTag("Player").transform;
-        rb = transform.GetComponent<Rigidbody>();
+        player = GameObject.FindGameObjectsWithTag("Player")[0].transform;
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Update() {
@@ -36,6 +36,12 @@ public class EnemyAI : MonoBehaviour
             player = GameObject.FindWithTag("Player").transform;
             return;
         }
+        if(!rb){
+            rb = GetComponent<Rigidbody>();
+            return;
+        }
+        Debug.Log(walkPointSet);
+        Debug.Log(walkPoint);
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
         if (!playerInSightRange && !playerInAttackRange) Patrolling();
@@ -61,7 +67,7 @@ public class EnemyAI : MonoBehaviour
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
 
-        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+        walkPoint = transform.position + randomX*transform.forward + randomZ*transform.right;
         RaycastHit hit;
         if (Physics.Raycast(walkPoint, -transform.up, out hit, 10f, whatIsGround))
             walkPoint= hit.point;

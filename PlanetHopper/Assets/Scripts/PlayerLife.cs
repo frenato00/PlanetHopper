@@ -53,7 +53,7 @@ public class PlayerLife : MonoBehaviour
         */
     }
 
-    IEnumerator TakeDamage()
+    public IEnumerator TakeDamage()
     {
         health -= 1;
         if(health <= 0)
