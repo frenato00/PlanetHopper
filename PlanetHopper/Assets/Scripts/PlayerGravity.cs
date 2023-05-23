@@ -49,7 +49,7 @@ public class PlayerGravity : MonoBehaviour
         // transform.rotation = Quaternion.Slerp(transform.rotation,targetRotation,25*Time.deltaTime);
         // Vector3 forward = transform.forward;
         // transform.up = -resultingForce.normalized;
-        if(Physics.Raycast(transform.position, -up, 2f))
+        if(!IsInSpace() && Physics.Raycast(transform.position, -up, 2f))
             transform.rotation = Quaternion.FromToRotation(transform.up,lerpUp)*transform.rotation;
     }
     public float GetGravity(){
