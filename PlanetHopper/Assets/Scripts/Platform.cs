@@ -23,6 +23,7 @@ public class Platform : MonoBehaviour
     private Vector3 startingPosition;
     private Vector3 finalPosition;
     private Vector3 deltaGrapplePosition;
+    private RaycastHit hitRay;
     private bool returning;
     private bool destroying;
     private bool destroyed = false;
@@ -183,8 +184,11 @@ public class Platform : MonoBehaviour
         {
             if(collision.collider.CompareTag("Player"))
             {
-                //TODO: Verify raycast
-                collision.gameObject.transform.SetParent(transform, true);
+                Physics.Raycast(collision.collider.transform.position, - collision.collider.transform.up, out hitRay);
+                if (hitRay.collider.gameObject == gameObject)
+                {
+                    collision.gameObject.transform.SetParent(transform, true);
+                }
                 
                 if (isDestructable)
                 {
