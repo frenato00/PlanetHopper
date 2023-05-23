@@ -186,7 +186,7 @@ public class Swing : MonoBehaviour
         float g = gravity.GetGravity();
         if (gravity.IsInSpace()){
             Vector3 dir = swingPoint-transform.position;
-            return dir.normalized*10f;
+            return dir;
         }
         Vector3 displacement = swingPoint-transform.position;
         float verticalDisplacement = Vector3.Dot(displacement, transform.up);
