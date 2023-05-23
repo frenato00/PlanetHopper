@@ -184,6 +184,10 @@ public class Swing : MonoBehaviour
 
     Vector3 CalculateLaunchVelocity(){
         float g = gravity.GetGravity();
+        if (gravity.IsInSpace()){
+            Vector3 dir = swingPoint-transform.position;
+            return dir.normalized*10f;
+        }
         Vector3 displacement = swingPoint-transform.position;
         float verticalDisplacement = Vector3.Dot(displacement, transform.up);
         float h = grappleOvershoot + verticalDisplacement;
