@@ -6,7 +6,7 @@ public class Swing : MonoBehaviour
 {
     private bool isSwinging = false, isGrappling = false;
     public LineRenderer line;
-    public Transform gunTip, cam, player, predictionPoint;
+    public Transform gunTip, cam, predictionPoint;
     private PlayerMovement playerMovement;
     public LayerMask whatIsGrappleable;
 
@@ -24,7 +24,7 @@ public class Swing : MonoBehaviour
     void Start()
     {
         platform = null;
-        playerMovement = player.GetComponent<PlayerMovement>();
+        playerMovement = GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody>();
         gravity = GetComponent<PlayerGravity>();
     }
@@ -41,7 +41,7 @@ public class Swing : MonoBehaviour
             if(Input.GetKey(KeyCode.E)){
                 currentLineDist-=ropeSpeed;
                 joint.maxDistance = currentLineDist;
-                rb.AddForce(swingPoint-player.position,ForceMode.Force);
+                rb.AddForce(swingPoint-transform.position,ForceMode.Force);
             }
             else if(Input.GetKey(KeyCode.Q)){
                 currentLineDist+=ropeSpeed;
@@ -104,11 +104,11 @@ public class Swing : MonoBehaviour
     void StartSwing(){
         if(swingPoint != Vector3.zero){    
             
-            joint = player.gameObject.AddComponent<SpringJoint>();
+            joint = transform.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
             joint.connectedAnchor = swingPoint;
 
-            currentLineDist = Vector3.Distance(player.position,swingPoint);
+            currentLineDist = Vector3.Distance(transform.position,swingPoint);
             joint.maxDistance = currentLineDist;
             joint.minDistance = 0f;
 
