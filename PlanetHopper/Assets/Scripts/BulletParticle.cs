@@ -19,7 +19,7 @@ public class BulletParticle : MonoBehaviour
             if (collisionEvents[i].colliderComponent.CompareTag("Switch"))
             {
                 Switch hitSwitch = collisionEvents[i].colliderComponent.GetComponent<Switch>();
-                hitSwitch.activate();
+                hitSwitch.changeState();
             }
             IDamageable damageable = collisionEvents[i].colliderComponent.GetComponent<IDamageable>();
             damageable?.TakeDamage(50f);

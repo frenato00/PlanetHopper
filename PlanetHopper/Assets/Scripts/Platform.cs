@@ -26,6 +26,7 @@ public class Platform : MonoBehaviour
     private bool returning;
     private bool destroying;
     private bool destroyed = false;
+    private bool moving = false;
     private float currentTime;
     private float currentAlpha;
     private float disappearTime = 2;
@@ -64,6 +65,11 @@ public class Platform : MonoBehaviour
     public Vector2 getConveyorForce()
     {
         return conveyorForce;
+    }
+    
+    public float getJumpForce()
+    {
+        return jumpForce;
     }
     
     public void setDeltaPosition(Vector3 newPosition)
@@ -146,7 +152,16 @@ public class Platform : MonoBehaviour
                 {
                     grapplingObject.setSwingPoint(currentPosition + deltaGrapplePosition);
                 }
-                transform.position = currentPosition;
+
+                if (transform.position == currentPosition)
+                {
+                    moving = false;
+                }
+                else
+                {
+                    moving = true;
+                    transform.position = currentPosition;
+                }
             }
             
             if (destroying)
@@ -168,6 +183,9 @@ public class Platform : MonoBehaviour
         {
             if(collision.collider.CompareTag("Player"))
             {
+                //TODO: Verify raycast
+                collision.gameObject.transform.SetParent(transform, true);
+                
                 if (isDestructable)
                 {
                     destroying = true;
@@ -183,6 +201,14 @@ public class Platform : MonoBehaviour
                     collision.rigidbody.AddForce(transform.right.normalized * conveyorForce.x + transform.forward.normalized * conveyorForce.y, ForceMode.Impulse);
                 }
             }
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            collision.gameObject.transform.parent = null;
         }
     }
 }

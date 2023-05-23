@@ -10,14 +10,40 @@ public class Switch : MonoBehaviour
     public Platform target;
     public string methodName;
     public float param;
+    public float time;
+    private float currentTime;
+    private float reverseParam;
+    private Vector3 deltaPosition;
+    private Vector2 conveyorForce;
     
-    public void activate()
+    private void activate()
     {
         if (!active)
         {
             Invoke(methodName, 0f);
             meshRenderer.material.color = Color.green;
-            active = true;
+            currentTime = 0;
+        }
+    }
+    
+    private void deactivate()
+    {
+        if (active)
+        {
+            Invoke(methodName, 0f);
+            meshRenderer.material.color = Color.red;
+        }
+    }
+
+    public void changeState()
+    {
+        if (!active)
+        {
+            activate();
+        }
+        else
+        {
+            deactivate();
         }
     }
     
@@ -26,70 +52,194 @@ public class Switch : MonoBehaviour
     {
         active = false;
         meshRenderer = GetComponent<MeshRenderer>();
+        currentTime = 0;
     }
 
     public void stopMoving()
     {
-        target.setDeltaPosition(Vector3.zero);
+        if (!active)
+        {
+            deltaPosition = target.getDeltaPosition();
+            target.setDeltaPosition(Vector3.zero);
+        }
+        else
+        {
+            target.setDeltaPosition(deltaPosition);
+        }
+        active = !active;
     }
     
     public void setMoveX()
     {
-        Vector3 deltaPosition = target.getDeltaPosition();
-        deltaPosition.x = param;
-        target.setDeltaPosition(deltaPosition);
+        if (!active)
+        {
+            Vector3 deltaPosition = target.getDeltaPosition();
+            reverseParam = deltaPosition.x;
+            deltaPosition.x = param;
+            target.setDeltaPosition(deltaPosition);
+        }
+        else
+        {
+            Vector3 deltaPosition = target.getDeltaPosition();
+            deltaPosition.x = reverseParam;
+            target.setDeltaPosition(deltaPosition);
+        }
+        active = !active;
     }
     
     public void setMoveY()
     {
-        Vector3 deltaPosition = target.getDeltaPosition();
-        deltaPosition.y = param;
-        target.setDeltaPosition(deltaPosition);
+        if (!active)
+        {
+            Vector3 deltaPosition = target.getDeltaPosition();
+            reverseParam = deltaPosition.y;
+            deltaPosition.y = param;
+            target.setDeltaPosition(deltaPosition);
+        }
+        else
+        {
+            Vector3 deltaPosition = target.getDeltaPosition();
+            deltaPosition.y = reverseParam;
+            target.setDeltaPosition(deltaPosition);
+        }
+        active = !active;
     }
     
     public void setMoveZ()
     {
-        Vector3 deltaPosition = target.getDeltaPosition();
-        deltaPosition.z = param;
-        target.setDeltaPosition(deltaPosition);
+        if (!active)
+        {
+            Vector3 deltaPosition = target.getDeltaPosition();
+            reverseParam = deltaPosition.z;
+            deltaPosition.z = param;
+            target.setDeltaPosition(deltaPosition);
+        }
+        else
+        {
+            Vector3 deltaPosition = target.getDeltaPosition();
+            deltaPosition.z = reverseParam;
+            target.setDeltaPosition(deltaPosition);
+        }
+        active = !active;
     }
     
     public void setJumpForce()
     {
-        target.setJumpForce(param);
+        if (!active)
+        {
+            reverseParam = target.getJumpForce();
+            target.setJumpForce(param);
+        }
+        else
+        {
+            target.setJumpForce(reverseParam);
+        }
+        active = !active;
     }
     
     public void disableJumpPad()
     {
-        target.setJumpForce(0);
+        if (!active)
+        {
+            reverseParam = target.getJumpForce();
+            target.setJumpForce(0);
+        }
+        else
+        {
+            target.setJumpForce(reverseParam);
+        }
+        active = !active;
     }
     
     public void setConveyorForceX()
     {
-        Vector2 conveyorForce = target.getConveyorForce();
-        conveyorForce.x = param;
-        target.setConveyorForce(conveyorForce);
+        if (!active)
+        {
+            Vector2 conveyorForce = target.getConveyorForce();
+            reverseParam = conveyorForce.x;
+            conveyorForce.x = param;
+            target.setConveyorForce(conveyorForce);
+        }
+        else
+        {
+            Vector2 conveyorForce = target.getConveyorForce();
+            conveyorForce.x = reverseParam;
+            target.setConveyorForce(conveyorForce);
+        }
+        active = !active;
     }
     
     public void setConveyorForceY()
     {
-        Vector2 conveyorForce = target.getConveyorForce();
-        conveyorForce.y = param;
-        target.setConveyorForce(conveyorForce);
+        if (!active)
+        {
+            Vector2 conveyorForce = target.getConveyorForce();
+            reverseParam = conveyorForce.y;
+            conveyorForce.y = param;
+            target.setConveyorForce(conveyorForce);
+        }
+        else
+        {
+            Vector2 conveyorForce = target.getConveyorForce();
+            conveyorForce.y = reverseParam;
+            target.setConveyorForce(conveyorForce);
+        }
+        active = !active;
     }
     
     public void disableConveyorBelt()
     {
-        target.setConveyorForce(Vector2.zero);
+        if (!active)
+        {
+            conveyorForce = target.getConveyorForce();
+            target.setConveyorForce(Vector2.zero);
+        }
+        else
+        {
+            target.setConveyorForce(conveyorForce);
+        }
+        active = !active;
     }
     
     public void turnDestructable()
     {
-        target.turnDestructable();
+        if (!active)
+        {
+            target.turnDestructable();
+        }
+        else
+        {
+            target.turnPermanent();
+        }
+        active = !active;
     }
     
     public void turnPermanent()
     {
-        target.turnPermanent();
+        if (!active)
+        {
+            target.turnPermanent();
+        }
+        else
+        {
+            target.turnDestructable();
+        }
+        active = !active;
+    }
+
+    void Update()
+    {
+        if (time > 0)
+        {
+            currentTime += Time.deltaTime;
+            if (currentTime > time)
+            {
+                if (active)
+                {
+                    deactivate();
+                }
+                currentTime = 0;
+            }
+        }
     }
 }
