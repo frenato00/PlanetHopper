@@ -8,6 +8,8 @@ public class BulletParticle : MonoBehaviour
 
     public GameObject spark;
 
+    public string shooterTag;
+
     List<ParticleCollisionEvent> collisionEvents = new List<ParticleCollisionEvent>();
 
     // Start is called before the first frame update
@@ -15,6 +17,10 @@ public class BulletParticle : MonoBehaviour
         int events = particleSystem.GetCollisionEvents(other, collisionEvents);
 
         for (int i= 0; i< events; i++){
+            if (collisionEvents[i].colliderComponent.CompareTag(shooterTag))
+            {
+                continue;
+            }
 
             if (collisionEvents[i].colliderComponent.CompareTag("Switch"))
             {

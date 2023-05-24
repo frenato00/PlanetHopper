@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerLife : MonoBehaviour
+public class PlayerLife : MonoBehaviour, IDamageable
 {
     public int maxHealth = 3;
     public int maxOxygen = 10;
@@ -51,6 +51,11 @@ public class PlayerLife : MonoBehaviour
             StartCoroutine(TakeDamage());
         }
         */
+    }
+
+    public void TakeDamage(float damage)
+    {
+        StartCoroutine(TakeDamage());
     }
 
     public IEnumerator TakeDamage()

@@ -10,6 +10,8 @@ public class EnemyAI : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
     public float health;
 
+    EnemyShoot enemyShoot;
+
     //Patrolling
     Vector3 walkPoint;
     bool walkPointSet=false;
@@ -28,6 +30,7 @@ public class EnemyAI : MonoBehaviour
     private void Start() {
         player = GameObject.FindGameObjectsWithTag("Player")[0].transform;
         rb = GetComponent<Rigidbody>();
+        enemyShoot = GetComponentInChildren<EnemyShoot>();
     }
 
     private void Update() {
@@ -85,6 +88,7 @@ public class EnemyAI : MonoBehaviour
         orientation.LookAt(player);
 
         if (!alreadyAttacked) {
+            enemyShoot.Shoot();
             // Attack code here
             // Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             // rb.AddForce(orientation.forward * 32f, ForceMode.Impulse);

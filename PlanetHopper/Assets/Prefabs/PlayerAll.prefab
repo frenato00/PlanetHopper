@@ -5206,6 +5206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleSystem: {fileID: 1625425536185009997}
   spark: {fileID: 3425539785331928693, guid: 9fcaacc9dcf394c4b94e95569563f2db, type: 3}
+  shooterTag: Player
 --- !u!1 &1625425536198020744
 GameObject:
   m_ObjectHideFlags: 0
