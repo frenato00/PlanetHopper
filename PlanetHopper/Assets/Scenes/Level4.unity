@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2158.2734, g: 2260.582, b: 3278.4336, a: 1}
+  m_IndirectSpecularColor: {r: 2158.3203, g: 2260.6445, b: 3278.4297, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3573,16 +3573,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy AI
       objectReference: {fileID: 0}
-    - target: {fileID: 6551723563032511770, guid: 2892d512ff801114384c12b23e329fcc,
-        type: 3}
-      propertyPath: speed
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6551723563032511770, guid: 2892d512ff801114384c12b23e329fcc,
-        type: 3}
-      propertyPath: attackRange
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 6551723563032511774, guid: 2892d512ff801114384c12b23e329fcc,
         type: 3}
       propertyPath: m_RootOrder
@@ -3591,17 +3581,17 @@ PrefabInstance:
     - target: {fileID: 6551723563032511774, guid: 2892d512ff801114384c12b23e329fcc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -124.8
+      value: 41.8
       objectReference: {fileID: 0}
     - target: {fileID: 6551723563032511774, guid: 2892d512ff801114384c12b23e329fcc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -23.1
+      value: -27.7
       objectReference: {fileID: 0}
     - target: {fileID: 6551723563032511774, guid: 2892d512ff801114384c12b23e329fcc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -538.2
+      value: 9.5
       objectReference: {fileID: 0}
     - target: {fileID: 6551723563032511774, guid: 2892d512ff801114384c12b23e329fcc,
         type: 3}
