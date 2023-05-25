@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class PlayerUI : MonoBehaviour
@@ -9,6 +10,7 @@ public class PlayerUI : MonoBehaviour
     public PlayerLife playerLife;
 
     public TMP_Text HealthText;
+    public Image OxygenMask;
     public TMP_Text OxygenText;
     public TMP_Text PointsText;
 
@@ -17,6 +19,10 @@ public class PlayerUI : MonoBehaviour
         HealthText.text = "Health: " + playerLife.GetCurrentHealth();
         OxygenText.text = "Oxygen: " + playerLife.GetCurrentOxygen();
         PointsText.text = "Points: " + playerLife.GetCurrentPoints();
+
+        int alpha = (int) (255 * ((((float) playerLife.maxOxygen) - playerLife.GetCurrentOxygen()) / (float) playerLife.maxOxygen));
+
+        OxygenMask.color = new Color32(0, 0, 0, (byte) alpha);
 
 
     }
