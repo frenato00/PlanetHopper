@@ -9,8 +9,14 @@ public class PlayerLife : MonoBehaviour, IDamageable
     public int maxOxygen = 10;
     int oxygen = 0;
     int health = 0;
+    int points = 0;
     bool isDead = false;
     Coroutine ReduceOxygenCoroutine = null;
+
+    public GameObject playerUIPrefab;
+    GameObject playerUI;
+
+    GameObject canvas;
 
     PlayerGravity playerGravity; 
 
@@ -18,6 +24,11 @@ public class PlayerLife : MonoBehaviour, IDamageable
         playerGravity = GetComponent<PlayerGravity>(); 
         health = maxHealth;
         oxygen = maxOxygen;
+        playerUI = Instantiate(playerUIPrefab, transform);
+        PlayerUI playerUIComp = playerUI.GetComponent<PlayerUI>();
+        playerUIComp.playerLife = this;
+        canvas = GameObject.Find("Canvas");
+        playerUI.transform.SetParent(canvas.transform, false);
         
     }
 
@@ -41,16 +52,6 @@ public class PlayerLife : MonoBehaviour, IDamageable
         Debug.Log("Oxygen: " + oxygen);
 
         
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        /*
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            StartCoroutine(TakeDamage());
-        }
-        */
     }
 
     public void TakeDamage(float damage)
@@ -81,11 +82,13 @@ public class PlayerLife : MonoBehaviour, IDamageable
             oxygen -= 1;
         }
     }
+    
 
     void Die()
     {   
 
         StopAllCoroutines();
+        Destroy(playerUI);
         GetComponent<PlayerMovement>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
         isDead = true;
@@ -112,6 +115,11 @@ public class PlayerLife : MonoBehaviour, IDamageable
         return true;
     }
 
+    public void GainPoints(int amount)
+    {
+        points += amount;
+    }
+
     public int GetCurrentHealth()
     {
         return health;
@@ -120,5 +128,10 @@ public class PlayerLife : MonoBehaviour, IDamageable
     public int GetCurrentOxygen()
     {
         return oxygen;
+    }
+
+    public int GetCurrentPoints()
+    {
+        return points;
     }
 }

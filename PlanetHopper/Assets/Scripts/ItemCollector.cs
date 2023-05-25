@@ -27,7 +27,7 @@ public class ItemCollector : MonoBehaviour
                             Destroy(other.gameObject);
                         break;
                     case Item.ItemType.Medallion:
-                        points += consumable.quantity;
+                    playerLife.GainPoints(consumable.quantity);
                         Destroy(other.gameObject);
                         break;
                 }
