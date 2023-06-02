@@ -6,6 +6,7 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
     public bool isDestructable = false;
+    public bool isOneWay = false;
     public Vector3 deltaPosition = new Vector3(0, 0, 0);
     public float movingTime = 0;
     public float waitingTime = 0;
@@ -131,7 +132,7 @@ public class Platform : MonoBehaviour
         {
             if (deltaPosition != Vector3.zero)
             {
-                if (currentTime >= (movingTime + waitingTime))
+                if (!isOneWay && currentTime >= (movingTime + waitingTime))
                 {
                     returning = !returning;
                     currentTime = 0;
