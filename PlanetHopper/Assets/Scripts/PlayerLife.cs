@@ -7,11 +7,10 @@ public class PlayerLife : MonoBehaviour, IDamageable
 {
     public int maxHealth = 3;
     public int maxOxygen = 10;
-    int oxygen = 0;
+    float oxygen = 0f;
     int health = 0;
     int points = 0;
     bool isDead = false;
-    Coroutine ReduceOxygenCoroutine = null;
 
     public GameObject playerUIPrefab;
     GameObject playerUI;
@@ -34,16 +33,14 @@ public class PlayerLife : MonoBehaviour, IDamageable
 
     private void Update(){
         if(!isDead && oxygen > 0 && playerGravity.IsInSpace()){
-            if(ReduceOxygenCoroutine == null){
-                ReduceOxygenCoroutine = StartCoroutine(ReduceOxygen());
+            oxygen -= Time.deltaTime;
+
+            if(oxygen <= 0){
+                Die();
             }
         }
 
         if(!playerGravity.IsInSpace()){
-            if(ReduceOxygenCoroutine != null){
-                StopCoroutine(ReduceOxygenCoroutine);
-                ReduceOxygenCoroutine = null;
-            }
             if(oxygen < maxOxygen){
                 RefillOxygen(maxOxygen);
             }
@@ -71,18 +68,6 @@ public class PlayerLife : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(1);
     }
 
-    IEnumerator ReduceOxygen()
-    {
-        while(true){
-            if(oxygen <= 0){
-                Die();
-                yield return null;
-            }
-            yield return new WaitForSeconds(1);
-            oxygen -= 1;
-        }
-    }
-    
 
     void Die()
     {   
@@ -125,7 +110,7 @@ public class PlayerLife : MonoBehaviour, IDamageable
         return health;
     }
 
-    public int GetCurrentOxygen()
+    public float GetCurrentOxygen()
     {
         return oxygen;
     }

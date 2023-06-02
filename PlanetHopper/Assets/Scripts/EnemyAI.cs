@@ -28,7 +28,7 @@ public class EnemyAI : MonoBehaviour
     bool playerInSightRange, playerInAttackRange;
 
     private void Start() {
-        player = GameObject.FindWithTag("Player").transform;
+        player = GameObject.FindWithTag("Player")?.transform;
         rb = GetComponent<Rigidbody>();
         enemyShoot = GetComponentInChildren<EnemyShoot>();
     }
