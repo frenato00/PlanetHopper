@@ -20,15 +20,15 @@ public class ItemCollector : MonoBehaviour
                 switch(consumable.itemType){
                     case Item.ItemType.Oxygen:
                         playerLife.RefillOxygen(consumable.quantity);
-                        Destroy(other.gameObject);
+                        other.gameObject.SetActive(false);
                         break;
                     case Item.ItemType.Health:
                         if(playerLife.GainHealth(consumable.quantity))
-                            Destroy(other.gameObject);
+                            other.gameObject.SetActive(false);;
                         break;
                     case Item.ItemType.Medallion:
                     playerLife.GainPoints(consumable.quantity);
-                        Destroy(other.gameObject);
+                        other.gameObject.SetActive(false);;
                         break;
                 }
             }

@@ -13,7 +13,9 @@ public class PlayerLife : MonoBehaviour, IDamageable
     bool isDead = false;
 
     public GameObject playerUIPrefab;
-    GameObject playerUI;
+    
+    [HideInInspector]
+    public GameObject playerUI;
 
     GameObject canvas;
 
@@ -73,7 +75,7 @@ public class PlayerLife : MonoBehaviour, IDamageable
     {   
 
         StopAllCoroutines();
-        Destroy(playerUI);
+        playerUI.SetActive(false);
         GetComponent<PlayerMovement>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
         isDead = true;
@@ -118,5 +120,10 @@ public class PlayerLife : MonoBehaviour, IDamageable
     public int GetCurrentPoints()
     {
         return points;
+    }
+
+    public void SetCurrentPoints(int amount)
+    {
+        points = amount;
     }
 }

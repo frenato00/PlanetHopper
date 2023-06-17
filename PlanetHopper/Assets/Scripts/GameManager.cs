@@ -12,6 +12,11 @@ public class GameManager : MonoBehaviour
     public GameObject deathScreen;
     public GameObject winScreen;
 
+    private GameObject deathUI;
+    private GameObject winUI;
+
+    public ICheckpoint currentCheckpoint;
+
     public static Action endLevelTakeOff;
 
     private bool acceptPlayerInput = true;
@@ -35,7 +40,7 @@ public class GameManager : MonoBehaviour
     public void GameOver(){
         Debug.Log("Game Over");
         acceptPlayerInput = false;
-        GameObject deathUI =  Instantiate(deathScreen);
+        deathUI =  Instantiate(deathScreen);
         deathUI.transform.SetParent(canvas.transform, false);
         deathUI.SetActive(true);
 
@@ -50,7 +55,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void WinGameAfterSwitchCamera(){
-        GameObject winUI =  Instantiate(winScreen);
+        winUI =  Instantiate(winScreen);
         winUI.transform.SetParent(canvas.transform, false);
         winUI.SetActive(true);
 
@@ -59,7 +64,16 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator Restart(){
         yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if(deathUI != null){
+            Destroy(deathUI);
+        }
+        if(winUI != null){
+            Destroy(winUI);
+        }
+
+        currentCheckpoint.ResetGameState();
+
+        acceptPlayerInput = true;
     }
 
     public void AcceptPlayerInput(bool accept){
