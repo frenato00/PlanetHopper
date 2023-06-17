@@ -7,14 +7,15 @@ public class PlayerLife : MonoBehaviour, IDamageable
 {
     public int maxHealth = 3;
     public int maxOxygen = 10;
-    int oxygen = 0;
+    float oxygen = 0f;
     int health = 0;
     int points = 0;
     bool isDead = false;
-    Coroutine ReduceOxygenCoroutine = null;
 
     public GameObject playerUIPrefab;
-    GameObject playerUI;
+
+    [HideInInspector]
+    public GameObject playerUI;
 
     GameObject canvas;
 
@@ -34,33 +35,32 @@ public class PlayerLife : MonoBehaviour, IDamageable
 
     private void Update(){
         if(!isDead && oxygen > 0 && playerGravity.IsInSpace()){
-            if(ReduceOxygenCoroutine == null){
-                ReduceOxygenCoroutine = StartCoroutine(ReduceOxygen());
+            oxygen -= Time.deltaTime;
+
+            if(oxygen <= 0){
+                Die();
             }
         }
 
         if(!playerGravity.IsInSpace()){
-            if(ReduceOxygenCoroutine != null){
-                StopCoroutine(ReduceOxygenCoroutine);
-                ReduceOxygenCoroutine = null;
-            }
             if(oxygen < maxOxygen){
                 RefillOxygen(maxOxygen);
             }
         }
-
-        Debug.Log("Oxygen: " + oxygen);
-
         
     }
 
     public void TakeDamage(float damage)
     {
+        if(isDead)
+            return;
         StartCoroutine(TakeDamage());
     }
 
     public IEnumerator TakeDamage()
     {
+        if(isDead)
+            yield return null;
         health -= 1;
         if(health <= 0)
         {   
@@ -71,28 +71,16 @@ public class PlayerLife : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(1);
     }
 
-    IEnumerator ReduceOxygen()
-    {
-        while(true){
-            if(oxygen <= 0){
-                Die();
-                yield return null;
-            }
-            yield return new WaitForSeconds(1);
-            oxygen -= 1;
-        }
-    }
-    
 
     void Die()
     {   
-
+        isDead = true;
         StopAllCoroutines();
-        Destroy(playerUI);
+        playerUI.SetActive(false);
         GetComponent<PlayerMovement>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
-        isDead = true;
         GameManager.instance.GameOver();
+        this.enabled = false;
 
     }
 
@@ -125,7 +113,7 @@ public class PlayerLife : MonoBehaviour, IDamageable
         return health;
     }
 
-    public int GetCurrentOxygen()
+    public float GetCurrentOxygen()
     {
         return oxygen;
     }
@@ -134,4 +122,25 @@ public class PlayerLife : MonoBehaviour, IDamageable
     {
         return points;
     }
+
+    public void SetCurrentPoints(int amount)
+    {
+        points = amount;
+    }
+
+    public void SetCurrentHealth(int amount)
+    {
+        health = amount;
+    }
+
+    public void Revive(){
+        isDead = false;
+        health = maxHealth;
+        oxygen = maxOxygen;
+        playerUI.SetActive(true);
+        GetComponent<PlayerMovement>().enabled = true;
+        GetComponent<Rigidbody>().isKinematic = false;
+        this.enabled = true;
+    }
+
 }

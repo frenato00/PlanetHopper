@@ -28,7 +28,7 @@ public class EnemyAI : MonoBehaviour
     bool playerInSightRange, playerInAttackRange;
 
     private void Start() {
-        player = GameObject.FindGameObjectsWithTag("Player")[0].transform;
+        player = GameObject.FindWithTag("Player")?.transform;
         rb = GetComponent<Rigidbody>();
         enemyShoot = GetComponentInChildren<EnemyShoot>();
     }
@@ -39,12 +39,14 @@ public class EnemyAI : MonoBehaviour
             player = GameObject.FindWithTag("Player").transform;
             return;
         }
+        if(!enemyShoot){
+            enemyShoot = GetComponentInChildren<EnemyShoot>();
+            return;
+        }
         if(!rb){
             rb = GetComponent<Rigidbody>();
             return;
         }
-        Debug.Log(walkPointSet);
-        Debug.Log(walkPoint);
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
         if (!playerInSightRange && !playerInAttackRange) Patrolling();

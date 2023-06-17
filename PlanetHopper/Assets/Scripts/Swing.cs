@@ -150,7 +150,7 @@ public class Swing : MonoBehaviour
         rb.velocity = CalculateLaunchVelocity();
     }
 
-    void StopGrapple(){
+    public void StopGrapple(){
         if (platform)
         {
             platform.unsetGrapple();
