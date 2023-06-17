@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 2134541195297095482, guid: 88de3d7484331224ea380285c488cd33,
         type: 3}
       propertyPath: m_Name
-      value: PlayerSpawner Variant
+      value: PlayerSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 2134541195297095484, guid: 88de3d7484331224ea380285c488cd33,
         type: 3}
@@ -124,7 +124,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9db54ff46071d1a4297df2a431bf3e0d, type: 2}
+  - {fileID: 2100000, guid: 7b8f8002c4f4df946b5b8204037b28ad, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -159,5 +159,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPosition: {x: 0, y: -7.16, z: 0}
-  activeColor: {r: 0, g: 1, b: 0, a: 1}
-  inactiveColor: {r: 1, g: 0, b: 0, a: 1}
+  activeCheckpointMaterial: {fileID: 2100000, guid: 93dc8007fcc50264fabe33d8061e6138,
+    type: 2}
+--- !u!136 &1397827210
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3981903598396319925}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 10.617622
+  m_Height: 28.440418
+  m_Direction: 1
+  m_Center: {x: -0.7242135, y: 14.09072, z: -0.58893186}

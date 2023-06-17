@@ -7,7 +7,6 @@ using UnityEngine.Rendering.HighDefinition;
 
 public class CheckpointManager : MonoBehaviour, ICheckpoint
 {
-
     private Vector3 _playerPosition = new Vector3();
 
     IDictionary<GameObject, Vector3> _enemyPositions = new Dictionary<GameObject, Vector3>();
@@ -19,8 +18,7 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
     private float _oxygen;
     private int _points;
 
-    public Color activeColor = Color.green;
-    public Color inactiveColor = Color.red;
+    public Material activeCheckpointMaterial;
 
     private bool _used = true;
 
@@ -36,12 +34,6 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
         if(playerLife == null)
         {
             playerLife = GameObject.FindWithTag("Player").GetComponent<PlayerLife>();
-        }
-
-        if(GameManager.instance.currentCheckpoint == this){
-            SetActivated(true);
-        }else{
-            SetActivated(false);
         }
 
         if(_used == false && GameManager.instance.currentCheckpoint != this){
@@ -84,7 +76,9 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
         _oxygen = playerLife.GetCurrentOxygen();
         _points = playerLife.GetCurrentPoints();
 
-        GameManager.instance.currentCheckpoint = this;        
+        GameManager.instance.currentCheckpoint = this; 
+
+        GetComponent<MeshRenderer>().material = activeCheckpointMaterial;      
     }
 
     public void ResetGameState()
@@ -94,7 +88,7 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
         {
             GameObject enemyObject = enemy.Key;
             enemyObject.transform.position = enemy.Value;
-            enemyObject.SetActive(true);
+            enemyObject.GetComponent<Target>().Reset();
         }
 
         // Go through all consumables, set them active and set their positions to the saved positions
@@ -108,32 +102,14 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
 
         GameObject player = GameObject.FindWithTag("Player");
 
-        player.GetComponent<PlayerLife>().enabled = true;
-        player.GetComponent<PlayerLife>().SetCurrentHealth(3);
-        player.GetComponent<PlayerLife>().RefillOxygen(100);
-        player.GetComponent<PlayerLife>().SetCurrentPoints(_points);
-        player.GetComponent<PlayerLife>().playerUI.SetActive(true);
-        player.GetComponent<PlayerMovement>().enabled = true;
-        player.GetComponent<Rigidbody>().isKinematic = false;
-
         player.GetComponent<Swing>().StopGrapple();
+        player.GetComponent<PlayerLife>().SetCurrentPoints(_points);
+        player.GetComponent<PlayerLife>().Revive();
+
 
         player.transform.position = spawnPosition;
 
     }
-
-    void SetActivated(bool active)
-    {
-        if (active)
-        {
-            GetComponent<MeshRenderer>().material.SetColor("_Color", activeColor);
-        }
-        else
-        {   
-            GetComponent<MeshRenderer>().material.SetColor("_Color", inactiveColor);;
-        }
-    }
-
 
     
 }

@@ -47,8 +47,6 @@ public class PlayerLife : MonoBehaviour, IDamageable
                 RefillOxygen(maxOxygen);
             }
         }
-
-
         
     }
 
@@ -133,6 +131,16 @@ public class PlayerLife : MonoBehaviour, IDamageable
     public void SetCurrentHealth(int amount)
     {
         health = amount;
+    }
+
+    public void Revive(){
+        isDead = false;
+        health = maxHealth;
+        oxygen = maxOxygen;
+        playerUI.SetActive(true);
+        GetComponent<PlayerMovement>().enabled = true;
+        GetComponent<Rigidbody>().isKinematic = false;
+        this.enabled = true;
     }
 
 }

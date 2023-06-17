@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2158.332, g: 2260.4688, b: 3278.3516, a: 1}
+  m_IndirectSpecularColor: {r: 2158.3477, g: 2260.496, b: 3278.3672, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -756,6 +756,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2317022, guid: 06c269d2ee8a6764f95ab44a3732bed8, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317022, guid: 06c269d2ee8a6764f95ab44a3732bed8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7b8f8002c4f4df946b5b8204037b28ad, type: 2}
+    - target: {fileID: 2317022, guid: 06c269d2ee8a6764f95ab44a3732bed8, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7b8f8002c4f4df946b5b8204037b28ad, type: 2}
+    - target: {fileID: 1229663044, guid: 06c269d2ee8a6764f95ab44a3732bed8, type: 3}
+      propertyPath: activeCheckpointMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 93dc8007fcc50264fabe33d8061e6138, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06c269d2ee8a6764f95ab44a3732bed8, type: 3}
 --- !u!4 &647290302 stripped
@@ -1393,7 +1409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1132bf1bd3194a4583e349e3885b85a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
+  maxHealth: 50
   killAudio: {fileID: 0}
 --- !u!4 &1659061204 stripped
 Transform:
@@ -2011,6 +2027,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1397827206, guid: 5f0549ad35bb92d4f8dca6d81bc16baf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7b8f8002c4f4df946b5b8204037b28ad, type: 2}
+    - target: {fileID: 1397827209, guid: 5f0549ad35bb92d4f8dca6d81bc16baf, type: 3}
+      propertyPath: activeCheckpointMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 93dc8007fcc50264fabe33d8061e6138, type: 2}
     - target: {fileID: 3981903598396319923, guid: 5f0549ad35bb92d4f8dca6d81bc16baf,
         type: 3}
       propertyPath: m_RootOrder
