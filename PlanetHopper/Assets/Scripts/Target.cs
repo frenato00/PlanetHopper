@@ -27,7 +27,7 @@ public class Target : MonoBehaviour, IDamageable
     }
 
     public void GivePoints(){
-        player = GameObject.FindWithTag("Player");
+        GameObject player = GameObject.FindWithTag("Player");
         if(player != null){
             player.GetComponent<PlayerLife>().GainPoints(points);
         }
