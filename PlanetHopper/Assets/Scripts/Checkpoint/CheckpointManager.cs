@@ -2,6 +2,7 @@ using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 
 
 public class CheckpointManager : MonoBehaviour, ICheckpoint
@@ -38,10 +39,8 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
         }
 
         if(GameManager.instance.currentCheckpoint == this){
-            Debug.Log("Checkpoint active");
             SetActivated(true);
         }else{
-            Debug.Log("Checkpoint not active");
             SetActivated(false);
         }
 
@@ -110,7 +109,7 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
         GameObject player = GameObject.FindWithTag("Player");
 
         player.GetComponent<PlayerLife>().enabled = true;
-        player.GetComponent<PlayerLife>().SetCurrentHealth(_health);
+        player.GetComponent<PlayerLife>().SetCurrentHealth(3);
         player.GetComponent<PlayerLife>().RefillOxygen(100);
         player.GetComponent<PlayerLife>().SetCurrentPoints(_points);
         player.GetComponent<PlayerLife>().playerUI.SetActive(true);
@@ -121,18 +120,17 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
 
         player.transform.position = spawnPosition;
 
-
     }
 
     void SetActivated(bool active)
     {
         if (active)
         {
-            GetComponent<MeshRenderer>().material.color = activeColor;
+            GetComponent<MeshRenderer>().material.SetColor("_Color", activeColor);
         }
         else
-        {
-            GetComponent<MeshRenderer>().material.color = inactiveColor;
+        {   
+            GetComponent<MeshRenderer>().material.SetColor("_Color", inactiveColor);;
         }
     }
 
