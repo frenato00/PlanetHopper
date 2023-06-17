@@ -57,7 +57,6 @@ public class PlayerGravity : MonoBehaviour
     }
 
     public bool IsInSpace(){
-        Debug.Log("In space: " + inSpace);
         return inSpace;
     }
 }

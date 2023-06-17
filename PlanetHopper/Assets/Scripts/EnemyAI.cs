@@ -47,8 +47,6 @@ public class EnemyAI : MonoBehaviour
             rb = GetComponent<Rigidbody>();
             return;
         }
-        Debug.Log(walkPointSet);
-        Debug.Log(walkPoint);
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
         if (!playerInSightRange && !playerInAttackRange) Patrolling();

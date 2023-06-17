@@ -18,7 +18,10 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
     private float _oxygen;
     private int _points;
 
-    private bool _activated = true;
+    public Color activeColor = Color.green;
+    public Color inactiveColor = Color.red;
+
+    private bool _used = true;
 
     PlayerLife playerLife;
 
@@ -33,19 +36,29 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
         {
             playerLife = GameObject.FindWithTag("Player").GetComponent<PlayerLife>();
         }
+
+        if(GameManager.instance.currentCheckpoint == this){
+            Debug.Log("Checkpoint active");
+            SetActivated(true);
+        }else{
+            Debug.Log("Checkpoint not active");
+            SetActivated(false);
+        }
+
+        if(_used == false && GameManager.instance.currentCheckpoint != this){
+            this.gameObject.SetActive(false);
+        }
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && _activated)
+        if (other.CompareTag("Player") && _used)
         {
-            Debug.Log("Checkpoint reached");
             SaveCheckpoint();
-            _activated = false;
+            _used = false;
 
         }
     }
- 
 
     public void SaveCheckpoint()
     {    
@@ -72,9 +85,7 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
         _oxygen = playerLife.GetCurrentOxygen();
         _points = playerLife.GetCurrentPoints();
 
-        GameManager.instance.currentCheckpoint = this;
-        Debug.Log("Checkpoint set as current checkpoint");
-        
+        GameManager.instance.currentCheckpoint = this;        
     }
 
     public void ResetGameState()
@@ -98,9 +109,8 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
 
         GameObject player = GameObject.FindWithTag("Player");
 
-
-        
-        player.GetComponent<PlayerLife>().GainHealth(_health);
+        player.GetComponent<PlayerLife>().enabled = true;
+        player.GetComponent<PlayerLife>().SetCurrentHealth(_health);
         player.GetComponent<PlayerLife>().RefillOxygen(100);
         player.GetComponent<PlayerLife>().SetCurrentPoints(_points);
         player.GetComponent<PlayerLife>().playerUI.SetActive(true);
@@ -112,6 +122,18 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
         player.transform.position = spawnPosition;
 
 
+    }
+
+    void SetActivated(bool active)
+    {
+        if (active)
+        {
+            GetComponent<MeshRenderer>().material.color = activeColor;
+        }
+        else
+        {
+            GetComponent<MeshRenderer>().material.color = inactiveColor;
+        }
     }
 
 

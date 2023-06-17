@@ -13,7 +13,7 @@ public class PlayerLife : MonoBehaviour, IDamageable
     bool isDead = false;
 
     public GameObject playerUIPrefab;
-    
+
     [HideInInspector]
     public GameObject playerUI;
 
@@ -48,18 +48,21 @@ public class PlayerLife : MonoBehaviour, IDamageable
             }
         }
 
-        Debug.Log("Oxygen: " + oxygen);
 
         
     }
 
     public void TakeDamage(float damage)
     {
+        if(isDead)
+            return;
         StartCoroutine(TakeDamage());
     }
 
     public IEnumerator TakeDamage()
     {
+        if(isDead)
+            yield return null;
         health -= 1;
         if(health <= 0)
         {   
@@ -73,13 +76,13 @@ public class PlayerLife : MonoBehaviour, IDamageable
 
     void Die()
     {   
-
+        isDead = true;
         StopAllCoroutines();
         playerUI.SetActive(false);
         GetComponent<PlayerMovement>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
-        isDead = true;
         GameManager.instance.GameOver();
+        this.enabled = false;
 
     }
 
@@ -126,4 +129,10 @@ public class PlayerLife : MonoBehaviour, IDamageable
     {
         points = amount;
     }
+
+    public void SetCurrentHealth(int amount)
+    {
+        health = amount;
+    }
+
 }

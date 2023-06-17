@@ -38,7 +38,6 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameOver(){
-        Debug.Log("Game Over");
         acceptPlayerInput = false;
         deathUI =  Instantiate(deathScreen);
         deathUI.transform.SetParent(canvas.transform, false);
@@ -48,7 +47,6 @@ public class GameManager : MonoBehaviour
     }
 
     public void Win(){
-        Debug.Log("Win");
         acceptPlayerInput = false;
         endLevelTakeOff?.Invoke();
         
