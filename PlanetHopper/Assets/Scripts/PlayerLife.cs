@@ -10,7 +10,11 @@ public class PlayerLife : MonoBehaviour, IDamageable
     float oxygen = 0f;
     int health = 0;
     int points = 0;
+    float time = 0f;
+    int enemiesKilled = 0;
+
     bool isDead = false;
+    bool isTimeRunning = false;
 
     public GameObject playerUIPrefab;
 
@@ -25,6 +29,9 @@ public class PlayerLife : MonoBehaviour, IDamageable
         playerGravity = GetComponent<PlayerGravity>(); 
         health = maxHealth;
         oxygen = maxOxygen;
+        
+        isTimeRunning = true;
+
         playerUI = Instantiate(playerUIPrefab, transform);
         PlayerUI playerUIComp = playerUI.GetComponent<PlayerUI>();
         playerUIComp.playerLife = this;
@@ -34,6 +41,9 @@ public class PlayerLife : MonoBehaviour, IDamageable
     }
 
     private void Update(){
+
+        time= isTimeRunning ?  time + Time.deltaTime : time;
+
         if(!isDead && oxygen > 0 && playerGravity.IsInSpace()){
             oxygen -= Time.deltaTime;
 
@@ -74,6 +84,7 @@ public class PlayerLife : MonoBehaviour, IDamageable
 
     void Die()
     {   
+        StopTime();
         isDead = true;
         StopAllCoroutines();
         playerUI.SetActive(false);
@@ -133,6 +144,31 @@ public class PlayerLife : MonoBehaviour, IDamageable
         health = amount;
     }
 
+    public float GetCurrentTime(){
+        return time;
+    }
+
+    public void StartTime(){
+        isTimeRunning = true;
+    }
+
+    public void StopTime(){
+        isTimeRunning = false;
+    }
+
+    public void SetEnemiesKilled(int amount){
+        enemiesKilled = amount;
+    }
+
+    public int GetEnemiesKilled(){
+        return enemiesKilled;
+    }
+
+    public int AddEnemiesKilled(int amount){
+        enemiesKilled += amount;
+        return enemiesKilled;
+    }
+
     public void Revive(){
         isDead = false;
         health = maxHealth;
@@ -141,6 +177,8 @@ public class PlayerLife : MonoBehaviour, IDamageable
         GetComponent<PlayerMovement>().enabled = true;
         GetComponent<Rigidbody>().isKinematic = false;
         this.enabled = true;
+        StartTime();
+        
     }
 
 }

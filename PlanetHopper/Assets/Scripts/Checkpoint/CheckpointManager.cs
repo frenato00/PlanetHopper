@@ -17,6 +17,7 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
     private int _health;
     private float _oxygen;
     private int _points;
+    private int _enemiesKilled;
 
     public Material activeCheckpointMaterial;
 
@@ -75,6 +76,7 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
         _health = playerLife.GetCurrentHealth();
         _oxygen = playerLife.GetCurrentOxygen();
         _points = playerLife.GetCurrentPoints();
+        _enemiesKilled = playerLife.GetEnemiesKilled();
 
         GameManager.instance.currentCheckpoint = this; 
 
@@ -104,6 +106,7 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
 
         player.GetComponent<Swing>().StopGrapple();
         player.GetComponent<PlayerLife>().SetCurrentPoints(_points);
+        player.GetComponent<PlayerLife>().SetEnemiesKilled(_enemiesKilled);
         player.GetComponent<PlayerLife>().Revive();
 
 

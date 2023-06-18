@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2158.3477, g: 2260.496, b: 3278.3672, a: 1}
+  m_IndirectSpecularColor: {r: 2158.293, g: 2260.582, b: 3278.4688, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1410,7 +1410,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
-  killAudio: {fileID: 0}
 --- !u!4 &1659061204 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8366748768611488140, guid: b859521f78d91384a8c0914342cc19b2,
@@ -2159,6 +2158,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5286939891577985045, guid: 1be8fda9c0b66d04ab6e3e4658ccfeb5,
+        type: 3}
+      propertyPath: levelInformation
+      value: 
+      objectReference: {fileID: 11400000, guid: af40fa53059edd144ac9e3a500aae407,
+        type: 2}
     - target: {fileID: 5286939891577985047, guid: 1be8fda9c0b66d04ab6e3e4658ccfeb5,
         type: 3}
       propertyPath: m_Name

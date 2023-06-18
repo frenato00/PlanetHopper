@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class PlayerUI : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class PlayerUI : MonoBehaviour
     public Image OxygenMask;
     public TMP_Text OxygenText;
     public TMP_Text PointsText;
+    public TMP_Text TimeText;
 
     void Update(){
 
@@ -24,6 +26,16 @@ public class PlayerUI : MonoBehaviour
 
         OxygenMask.color = new Color32(0, 0, 0, (byte) alpha);
 
+        string time = FormatTime(playerLife.GetCurrentTime());
+        TimeText.text = time;
 
+
+    }
+
+    private string FormatTime(float time){
+        int minutes = Mathf.FloorToInt(time / 60F);
+        int seconds = Mathf.FloorToInt(time - minutes * 60);
+
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 }

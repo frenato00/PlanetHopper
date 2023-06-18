@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     private GameObject deathUI;
     private GameObject winUI;
 
+    public LevelInformation levelInformation;
+
     public ICheckpoint currentCheckpoint;
 
     public static Action endLevelTakeOff;
@@ -22,7 +24,7 @@ public class GameManager : MonoBehaviour
     private bool acceptPlayerInput = true;
 
     private GameObject canvas;
-    // Start is called before the first frame updat
+    // Start is called before the first frame update
     
     void Awake(){
         if(instance == null){
@@ -35,6 +37,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         canvas = GameObject.Find("Canvas");
+        Debug.Log(SceneManager.GetActiveScene().name);
     }
 
     public void GameOver(){
@@ -57,7 +60,17 @@ public class GameManager : MonoBehaviour
         winUI.transform.SetParent(canvas.transform, false);
         winUI.SetActive(true);
 
+        SaveLevelInformation();
+
         StartCoroutine(Restart());
+    }
+
+    private void SaveLevelInformation(){
+        PlayerLife playerLife = GameObject.FindWithTag("Player").GetComponent<PlayerLife>();
+
+        levelInformation.enemiesKilled = playerLife.GetEnemiesKilled();
+        levelInformation.medalsCollected = playerLife.GetCurrentPoints();
+        levelInformation.timeReached = playerLife.GetCurrentTime();
     }
 
     private IEnumerator Restart(){
