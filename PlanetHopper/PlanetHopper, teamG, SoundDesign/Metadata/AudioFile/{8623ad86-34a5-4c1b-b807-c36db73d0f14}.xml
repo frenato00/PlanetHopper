@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{8623ad86-34a5-4c1b-b807-c36db73d0f14}">
+		<property name="assetPath">
+			<value>Weapons/Bounce_14 Jun 2023 15-21-25.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.461315192743764</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{43b13506-2fbe-4144-ba52-89053c3659a1}</destination>
+		</relationship>
+	</object>
+</objects>

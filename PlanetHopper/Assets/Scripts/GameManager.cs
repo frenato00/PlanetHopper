@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         canvas = GameObject.Find("Canvas");
-        Debug.Log(SceneManager.GetActiveScene().name);
     }
 
     public void GameOver(){

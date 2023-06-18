@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{88e8713e-f8d7-4845-9672-47aad079aece}">
+		<property name="assetPath">
+			<value>SFX/monster-death-grunt-131480.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.44408163265306122</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{43b13506-2fbe-4144-ba52-89053c3659a1}</destination>
+		</relationship>
+	</object>
+</objects>

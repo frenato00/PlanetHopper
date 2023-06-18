@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{c7a53ca0-dd80-44e0-ab29-24eda29609a3}">
+		<property name="assetPath">
+			<value>SFX/FEETHmn_Jumping on concrete 2 (ID 1836)_BSB.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.893625</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{43b13506-2fbe-4144-ba52-89053c3659a1}</destination>
+		</relationship>
+	</object>
+</objects>
