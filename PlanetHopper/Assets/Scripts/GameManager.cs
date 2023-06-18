@@ -68,9 +68,10 @@ public class GameManager : MonoBehaviour
     private void SaveLevelInformation(){
         PlayerLife playerLife = GameObject.FindWithTag("Player").GetComponent<PlayerLife>();
 
-        levelInformation.enemiesKilled = playerLife.GetEnemiesKilled();
-        levelInformation.medalsCollected = playerLife.GetCurrentPoints();
-        levelInformation.timeReached = playerLife.GetCurrentTime();
+        levelInformation.enemiesKilled = levelInformation.enemiesKilled > playerLife.GetEnemiesKilled() ? levelInformation.enemiesKilled : playerLife.GetEnemiesKilled();
+        levelInformation.medalsCollected = levelInformation.medalsCollected > playerLife.GetCurrentPoints() ? levelInformation.medalsCollected : playerLife.GetCurrentPoints();
+        levelInformation.timeReached = levelInformation.timeReached < playerLife.GetCurrentTime() ? levelInformation.timeReached : playerLife.GetCurrentTime();
+
     }
 
     private IEnumerator Restart(){
