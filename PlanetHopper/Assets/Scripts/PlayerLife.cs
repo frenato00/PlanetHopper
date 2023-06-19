@@ -21,6 +21,13 @@ public class PlayerLife : MonoBehaviour, IDamageable
     [HideInInspector]
     public GameObject playerUI;
 
+    [Header("Sound Effects")]
+    public FMODUnity.EventReference deathExhalesSFX;
+    public FMODUnity.EventReference deathSuffocationSFX;
+    public FMODUnity.EventReference damagedSFX;
+
+
+
     GameObject canvas;
 
     PlayerGravity playerGravity; 
@@ -48,6 +55,7 @@ public class PlayerLife : MonoBehaviour, IDamageable
             oxygen -= Time.deltaTime;
 
             if(oxygen <= 0){
+                FMODUnity.RuntimeManager.PlayOneShot(deathSuffocationSFX, transform.position);
                 Die();
             }
         }
@@ -65,6 +73,7 @@ public class PlayerLife : MonoBehaviour, IDamageable
         if(isDead)
             return;
         StartCoroutine(TakeDamage());
+        FMODUnity.RuntimeManager.PlayOneShot(damagedSFX, transform.position);
     }
 
     public IEnumerator TakeDamage()
@@ -74,6 +83,7 @@ public class PlayerLife : MonoBehaviour, IDamageable
         health -= 1;
         if(health <= 0)
         {   
+            FMODUnity.RuntimeManager.PlayOneShot(deathExhalesSFX, transform.position);
             Die();
             yield return null;
         }

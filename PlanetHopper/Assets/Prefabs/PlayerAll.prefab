@@ -5407,6 +5407,27 @@ MonoBehaviour:
   playerUIPrefab: {fileID: 2010197033666180071, guid: 1f1c9326efd5a7b45b91e0f48239448e,
     type: 3}
   playerUI: {fileID: 0}
+  deathExhalesSFX:
+    Guid:
+      Data1: -1439807191
+      Data2: 1306472453
+      Data3: 1976636829
+      Data4: -339710401
+    Path: event:/Character/sfx_character_death_exhale
+  deathSuffocationSFX:
+    Guid:
+      Data1: -59275800
+      Data2: 1131391164
+      Data3: -486772336
+      Data4: 793392653
+    Path: event:/Character/sfx_character_death by_suffocation
+  damagedSFX:
+    Guid:
+      Data1: -1205037687
+      Data2: 1292726540
+      Data3: -818076750
+      Data4: 2025071895
+    Path: event:/Character/sfx_character_damaged
 --- !u!114 &1625425536198020743
 MonoBehaviour:
   m_ObjectHideFlags: 0
