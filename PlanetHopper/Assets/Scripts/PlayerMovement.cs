@@ -36,12 +36,12 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sound Effects")]
     public FMODUnity.EventReference walkSFX;
     public FMODUnity.EventReference runSFX;
-
-    FMOD.Studio.PLAYBACK_STATE walkSFXState;
-    FMOD.Studio.PLAYBACK_STATE runSFXState;
     
     FMOD.Studio.EventInstance playerWalking;
     FMOD.Studio.EventInstance playerRunning;
+
+    bool isWalkSFXPlaying = false;
+    bool isRunSFXPlaying = false;
 
     [HideInInspector]
     public bool airDashAvailable=true;
@@ -69,10 +69,10 @@ public class PlayerMovement : MonoBehaviour
             if(GameManager.instance.IsAcceptingPlayerInput() && Input.GetButton("Run")) {
                 moveSpeed = sprintSpeed;
                 if(grounded){
-                    if(!(runSFXState == FMOD.Studio.PLAYBACK_STATE.PLAYING || runSFXState == FMOD.Studio.PLAYBACK_STATE.STARTING)){
+                    if(!isRunSFXPlaying){
                         playerRunning.start();
                     }
-                    if(walkSFXState == FMOD.Studio.PLAYBACK_STATE.PLAYING || walkSFXState == FMOD.Studio.PLAYBACK_STATE.STARTING){
+                    if(isWalkSFXPlaying){
                         playerWalking.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                     }
                     
@@ -81,10 +81,10 @@ public class PlayerMovement : MonoBehaviour
             else{
                 moveSpeed = walkSpeed;
                 if(grounded){
-                    if(!(walkSFXState == FMOD.Studio.PLAYBACK_STATE.PLAYING || walkSFXState == FMOD.Studio.PLAYBACK_STATE.STARTING)){
+                    if(!isWalkSFXPlaying){
                         playerWalking.start();
                     }
-                    if(runSFXState == FMOD.Studio.PLAYBACK_STATE.PLAYING || runSFXState == FMOD.Studio.PLAYBACK_STATE.STARTING){
+                    if(isRunSFXPlaying){
                         playerRunning.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                     }
                 }
@@ -122,6 +122,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
+        //Blocks the playing if they are stopped or airborne
         if(horizontalInput == 0 && verticalInput== 0 || !grounded ){
             playerWalking.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             playerRunning.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
@@ -151,9 +152,27 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void UpdateSFXStates(){
+        
+        FMOD.Studio.PLAYBACK_STATE walkSFXState;
+        FMOD.Studio.PLAYBACK_STATE runSFXState;
+
         playerWalking.getPlaybackState(out walkSFXState);
         playerRunning.getPlaybackState(out runSFXState);
+
+        isRunSFXPlaying = CheckIfIsPlaying(runSFXState);
+        isWalkSFXPlaying = CheckIfIsPlaying(walkSFXState);
+
     }
+
+    private bool CheckIfIsPlaying(FMOD.Studio.PLAYBACK_STATE state){
+        if(state == FMOD.Studio.PLAYBACK_STATE.PLAYING || state == FMOD.Studio.PLAYBACK_STATE.STARTING){
+            return true;
+        }
+
+        return false;
+    }
+
+
 
     private void MovePlayer(){
         //planar motion
