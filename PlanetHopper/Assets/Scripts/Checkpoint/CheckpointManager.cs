@@ -36,7 +36,6 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
             player = GameObject.FindWithTag("Player");
             playerLife = player?.GetComponent<PlayerLife>();
             playerParent = player?.transform.parent.gameObject;
-
             
         }
 

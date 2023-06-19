@@ -24,6 +24,12 @@ public class GameManager : MonoBehaviour
     private bool acceptPlayerInput = true;
 
     private GameObject canvas;
+
+
+    private int _enemiesKilled;
+    private int _medalsCollected;
+    private float _timeReached;
+
     // Start is called before the first frame update
     
     void Awake(){
@@ -67,9 +73,13 @@ public class GameManager : MonoBehaviour
     private void SaveLevelInformation(){
         PlayerLife playerLife = GameObject.FindWithTag("Player").GetComponent<PlayerLife>();
 
-        levelInformation.enemiesKilled = levelInformation.enemiesKilled > playerLife.GetEnemiesKilled() ? levelInformation.enemiesKilled : playerLife.GetEnemiesKilled();
-        levelInformation.medalsCollected = levelInformation.medalsCollected > playerLife.GetCurrentPoints() ? levelInformation.medalsCollected : playerLife.GetCurrentPoints();
-        levelInformation.timeReached = levelInformation.timeReached < playerLife.GetCurrentTime() ? levelInformation.timeReached : playerLife.GetCurrentTime();
+        _enemiesKilled = playerLife.GetEnemiesKilled();
+        _medalsCollected = playerLife.GetCurrentPoints();
+        _timeReached = playerLife.GetCurrentTime();
+
+        levelInformation.enemiesKilled = levelInformation.enemiesKilled > _enemiesKilled ? levelInformation.enemiesKilled : _enemiesKilled;
+        levelInformation.medalsCollected = levelInformation.medalsCollected > _medalsCollected ? levelInformation.medalsCollected : _medalsCollected;
+        levelInformation.timeReached = levelInformation.timeReached < _timeReached ? levelInformation.timeReached : _timeReached;
 
     }
 
