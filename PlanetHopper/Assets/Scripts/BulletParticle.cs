@@ -10,6 +10,9 @@ public class BulletParticle : MonoBehaviour
 
     public string shooterTag;
 
+    [HideInInspector]
+    public float damage = 25f;
+
     List<ParticleCollisionEvent> collisionEvents = new List<ParticleCollisionEvent>();
 
     // Start is called before the first frame update
@@ -26,9 +29,10 @@ public class BulletParticle : MonoBehaviour
             {
                 Switch hitSwitch = collisionEvents[i].colliderComponent.GetComponent<Switch>();
                 hitSwitch.changeState();
+                
             }
             IDamageable damageable = collisionEvents[i].colliderComponent.GetComponent<IDamageable>();
-            damageable?.TakeDamage(50f);
+            damageable?.TakeDamage(damage);
             Instantiate(spark, collisionEvents[i].intersection, Quaternion.LookRotation(collisionEvents[i].normal));
         }
     }

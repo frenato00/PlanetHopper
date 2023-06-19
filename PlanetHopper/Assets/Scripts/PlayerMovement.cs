@@ -32,6 +32,21 @@ public class PlayerMovement : MonoBehaviour
     float dashTime = 0f;
     int dashCounter = 0;
     bool isDashing = false;
+    
+    [Header("Sound Effects")]
+    public FMODUnity.EventReference walkSFX;
+    public FMODUnity.EventReference runSFX;
+    public FMODUnity.EventReference jumpSFX;
+    public FMODUnity.EventReference dashSFX;
+    public FMODUnity.EventReference landSFX;
+    
+    FMOD.Studio.EventInstance playerWalking;
+    FMOD.Studio.EventInstance playerRunning;
+
+    bool isWalkSFXPlaying = false;
+    bool isRunSFXPlaying = false;
+
+    bool wasGrounded = true;
 
     [HideInInspector]
     public bool airDashAvailable=true;
@@ -44,17 +59,42 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerWalking = FMODUnity.RuntimeManager.CreateInstance(walkSFX);
+        playerRunning = FMODUnity.RuntimeManager.CreateInstance(runSFX);
         // rb.freezeRotation = true;
     }
 
     private void MyInput(){
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+
         jumpInput = Input.GetButton("Jump");
         if(grounded) airDashAvailable=true;
         if(!isCrouching){
-            if(GameManager.instance.IsAcceptingPlayerInput() && Input.GetButton("Run")) moveSpeed = sprintSpeed;
-            else moveSpeed = walkSpeed;
+            if(GameManager.instance.IsAcceptingPlayerInput() && Input.GetButton("Run")) {
+                moveSpeed = sprintSpeed;
+                if(grounded){
+                    if(!isRunSFXPlaying){
+                        playerRunning.start();
+                    }
+                    if(isWalkSFXPlaying){
+                        playerWalking.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                    }
+                    
+                }
+            } 
+            else{
+                moveSpeed = walkSpeed;
+                if(grounded){
+                    if(!isWalkSFXPlaying){
+                        playerWalking.start();
+                    }
+                    if(isRunSFXPlaying){
+                        playerRunning.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                    }
+                }
+            }
+
         }
         if(GameManager.instance.IsAcceptingPlayerInput() && Input.GetButtonDown("Crouch") && !isCrouching){
             isCrouching = true;
@@ -85,6 +125,13 @@ public class PlayerMovement : MonoBehaviour
             isDashing=true;
             airDashAvailable=false;
         }
+
+
+        //Blocks the playing if they are stopped or airborne
+        if(horizontalInput == 0 && verticalInput== 0 || !grounded ){
+            playerWalking.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            playerRunning.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        }
     }
 
 
@@ -105,7 +152,37 @@ public class PlayerMovement : MonoBehaviour
         // else{
         //     AirInput();
         // }
+
+        UpdateSFXStates();
+
+        if(grounded && !wasGrounded){
+            FMODUnity.RuntimeManager.PlayOneShot(landSFX, transform.position);
+        }
+        wasGrounded = grounded;  
     }
+
+    private void UpdateSFXStates(){
+        
+        FMOD.Studio.PLAYBACK_STATE walkSFXState;
+        FMOD.Studio.PLAYBACK_STATE runSFXState;
+
+        playerWalking.getPlaybackState(out walkSFXState);
+        playerRunning.getPlaybackState(out runSFXState);
+
+        isRunSFXPlaying = CheckIfIsPlaying(runSFXState);
+        isWalkSFXPlaying = CheckIfIsPlaying(walkSFXState);
+
+    }
+
+    private bool CheckIfIsPlaying(FMOD.Studio.PLAYBACK_STATE state){
+        if(state == FMOD.Studio.PLAYBACK_STATE.PLAYING || state == FMOD.Studio.PLAYBACK_STATE.STARTING){
+            return true;
+        }
+
+        return false;
+    }
+
+
 
     private void MovePlayer(){
         //planar motion
@@ -124,6 +201,8 @@ public class PlayerMovement : MonoBehaviour
         if (grounded && jumpInput && (Time.time-lastJumpTime >0.1f)){
             rb.AddForce(transform.up.normalized*jumpForce,ForceMode.Impulse);
             lastJumpTime=Time.time;
+
+            FMODUnity.RuntimeManager.PlayOneShot(jumpSFX, transform.position);
         }
         // Debug.Log("Forward:"+forwardVel.magnitude.ToString("n2") + "; Total: " + rb.velocity.magnitude.ToString("n2"));
     
@@ -131,6 +210,8 @@ public class PlayerMovement : MonoBehaviour
             isDashing = false;
             if(!grounded) rb.AddForce(transform.up.normalized*jumpForce,ForceMode.Impulse);
             else rb.AddForce(moveDirection.normalized*dashImpulse,ForceMode.Impulse);
+
+            FMODUnity.RuntimeManager.PlayOneShot(dashSFX, transform.position);
         }
     }
 

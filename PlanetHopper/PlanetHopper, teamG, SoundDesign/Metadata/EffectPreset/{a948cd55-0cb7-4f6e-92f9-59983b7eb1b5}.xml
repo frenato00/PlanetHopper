@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EffectPreset" id="{a948cd55-0cb7-4f6e-92f9-59983b7eb1b5}">
+		<property name="name">
+			<value>Effect Chain 2</value>
+		</property>
+		<relationship name="folder">
+			<destination>{5c40c337-249c-4ddf-8f50-eca4087eb921}</destination>
+		</relationship>
+		<relationship name="effect">
+			<destination>{08327919-6e17-4121-8773-83f86654484a}</destination>
+		</relationship>
+	</object>
+	<object class="EffectChain" id="{08327919-6e17-4121-8773-83f86654484a}">
+		<relationship name="effects">
+			<destination>{42866773-b225-4665-8bf2-09020c4ab4b3}</destination>
+			<destination>{6589b218-9009-4ef8-8fcf-2522a02d13aa}</destination>
+			<destination>{8b8f862b-84e1-4f3b-83a2-a77129550535}</destination>
+			<destination>{4b984187-1c50-466b-ba9d-e812777aab3c}</destination>
+			<destination>{79cb61ca-8e65-453e-a600-0d646cc9eb67}</destination>
+		</relationship>
+	</object>
+	<object class="DistortionEffect" id="{42866773-b225-4665-8bf2-09020c4ab4b3}" />
+	<object class="SFXReverbEffect" id="{6589b218-9009-4ef8-8fcf-2522a02d13aa}">
+		<property name="decayTime">
+			<value>4900</value>
+		</property>
+		<property name="HFDecayRatio">
+			<value>80</value>
+		</property>
+		<property name="lowShelfFrequency">
+			<value>110</value>
+		</property>
+		<property name="earlyLateMix">
+			<value>56</value>
+		</property>
+	</object>
+	<object class="FlangerEffect" id="{8b8f862b-84e1-4f3b-83a2-a77129550535}">
+		<property name="rate">
+			<value>0.049999997</value>
+		</property>
+		<property name="delay">
+			<value>0.0940000042</value>
+		</property>
+		<property name="mix">
+			<value>36</value>
+		</property>
+	</object>
+	<object class="DelayEffect" id="{4b984187-1c50-466b-ba9d-e812777aab3c}">
+		<property name="delay">
+			<value>160</value>
+		</property>
+		<property name="feedback">
+			<value>60</value>
+		</property>
+		<property name="level">
+			<value>10</value>
+		</property>
+		<property name="dryLevel">
+			<value>-58</value>
+		</property>
+	</object>
+	<object class="ChorusEffect" id="{79cb61ca-8e65-453e-a600-0d646cc9eb67}">
+		<property name="rate">
+			<value>0.100000001</value>
+		</property>
+		<property name="depth">
+			<value>65</value>
+		</property>
+		<property name="mix">
+			<value>65.5</value>
+		</property>
+	</object>
+</objects>

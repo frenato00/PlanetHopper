@@ -17,6 +17,10 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
     private int _health;
     private float _oxygen;
     private int _points;
+    private int _enemiesKilled;
+
+    GameObject player;
+    GameObject playerParent;
 
     public Material activeCheckpointMaterial;
 
@@ -24,16 +28,16 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
 
     PlayerLife playerLife;
 
-    public void Start()
-    {
-        playerLife = GameObject.FindWithTag("Player").GetComponent<PlayerLife>();
-    }
 
     public void Update()
     {
-        if(playerLife == null)
+        if(playerLife == null || playerParent == null || player == null)
         {
-            playerLife = GameObject.FindWithTag("Player").GetComponent<PlayerLife>();
+            player = GameObject.FindWithTag("Player");
+            playerLife = player?.GetComponent<PlayerLife>();
+            playerParent = player?.transform.parent.gameObject;
+
+            
         }
 
         if(_used == false && GameManager.instance.currentCheckpoint != this){
@@ -70,11 +74,17 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
             _consumablePositions.Add(consumables[i], consumables[i].transform.position);
         }
 
-        playerLife = GameObject.FindWithTag("Player").GetComponent<PlayerLife>();
+        if(playerLife == null || playerParent == null || player == null)
+        {
+            playerLife = GameObject.FindWithTag("Player").GetComponent<PlayerLife>();
+            player = GameObject.FindWithTag("Player");
+            playerParent =  GameObject.FindWithTag("Player").transform?.parent.gameObject;
+        }
 
         _health = playerLife.GetCurrentHealth();
         _oxygen = playerLife.GetCurrentOxygen();
         _points = playerLife.GetCurrentPoints();
+        _enemiesKilled = playerLife.GetEnemiesKilled();
 
         GameManager.instance.currentCheckpoint = this; 
 
@@ -99,11 +109,10 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
             consumableObject.SetActive(true);
         }
 
-
-        GameObject player = GameObject.FindWithTag("Player");
-
+        playerParent.SetActive(true);
         player.GetComponent<Swing>().StopGrapple();
         player.GetComponent<PlayerLife>().SetCurrentPoints(_points);
+        player.GetComponent<PlayerLife>().SetEnemiesKilled(_enemiesKilled);
         player.GetComponent<PlayerLife>().Revive();
 
 

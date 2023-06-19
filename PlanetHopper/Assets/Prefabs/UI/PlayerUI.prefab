@@ -31,7 +31,7 @@ RectTransform:
   m_Children:
   - {fileID: 2002308023518357666}
   m_Father: {fileID: 2041813812619315052}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -489,6 +489,7 @@ RectTransform:
   - {fileID: 9113193492374052270}
   - {fileID: 5027110013371117640}
   - {fileID: 8759138092029647928}
+  - {fileID: 5260585602672974840}
   - {fileID: 5677431266396567359}
   - {fileID: 7308206811253657341}
   m_Father: {fileID: 0}
@@ -519,6 +520,7 @@ MonoBehaviour:
   dialogueBoxAnimator: {fileID: 7828227126430329320}
   dialogueName: {fileID: 1457543646906611056}
   dialogueText: {fileID: 3788020420149496638}
+  TimeText: {fileID: 3642291465164398072}
 --- !u!1 &2335096961820296461
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,7 +791,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &3770521573905605185
+--- !u!1 &5132365258421567861
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -803,12 +805,17 @@ GameObject:
   - component: {fileID: 6299612321607496132}
   m_Layer: 5
   m_Name: Button
+  - component: {fileID: 5260585602672974840}
+  - component: {fileID: 6121274264321215680}
+  - component: {fileID: 3642291465164398072}
+  m_Layer: 5
+  m_Name: Time Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &6276183699843167548
+--- !u!224 &5260585602672974840
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

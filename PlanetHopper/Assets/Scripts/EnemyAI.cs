@@ -106,16 +106,6 @@ public class EnemyAI : MonoBehaviour
         alreadyAttacked = false;
     }
 
-    public void TakeDamage(int damage) {
-        health -= damage;
-        if (health <= 0) {
-            Invoke(nameof(DestroyEnemy), .5f);
-        }
-    }
-
-    public void DestroyEnemy() {
-        Destroy(gameObject);
-    }
 
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;

@@ -11,11 +11,15 @@ public class Gun : MonoBehaviour
     [SerializeField] Transform cam;
     [SerializeField] BulletParticle bulletParticle;
 
+    [Header("Sound Effects")]
+    public FMODUnity.EventReference shootSFX;
+
     float timeSinceLastShot;
 
 
     private void Start(){
         PlayerShoot.shootInput += Shoot;
+        bulletParticle.damage = gunData.damage;
     }
 
 
@@ -23,6 +27,7 @@ public class Gun : MonoBehaviour
 
     private void Shoot(){
         if(CanShoot()){
+            FMODUnity.RuntimeManager.PlayOneShot(shootSFX, transform.position);
             timeSinceLastShot = 0f;
             OnGunShot();
         }

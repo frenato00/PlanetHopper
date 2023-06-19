@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2158.3477, g: 2260.496, b: 3278.3672, a: 1}
+  m_IndirectSpecularColor: {r: 260.37036, g: 317.02808, b: 287.979, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -564,7 +564,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1d5a8595286f94f4bb54171d49f473c3, type: 3}
+  - {fileID: 2100000, guid: 7f479d69e6fa39d4792e0b668e237792, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -797,6 +797,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2958098167147576352, guid: ffd08c733ca8b3b4495c46e267f8d622,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a37521f0fabf32f41b329248cd1b84e5, type: 2}
     - target: {fileID: 2958098167147576354, guid: ffd08c733ca8b3b4495c46e267f8d622,
         type: 3}
       propertyPath: m_RootOrder
@@ -1410,7 +1415,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
-  killAudio: {fileID: 0}
+  hitSFX:
+    Guid:
+      Data1: -1722642660
+      Data2: 1205951678
+      Data3: 664529557
+      Data4: 1871497822
+    Path: event:/Weapons/sfx_gun_hitting_object
 --- !u!4 &1659061204 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8366748768611488140, guid: b859521f78d91384a8c0914342cc19b2,
@@ -1952,6 +1963,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2688323006941591921, guid: 3ef42d0a9d54bce438f7c3a73d79c950,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6048560398887215494, guid: 3ef42d0a9d54bce438f7c3a73d79c950,
         type: 3}
       propertyPath: m_Name
@@ -2159,6 +2175,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5286939891577985045, guid: 1be8fda9c0b66d04ab6e3e4658ccfeb5,
+        type: 3}
+      propertyPath: levelInformation
+      value: 
+      objectReference: {fileID: 11400000, guid: af40fa53059edd144ac9e3a500aae407,
+        type: 2}
     - target: {fileID: 5286939891577985047, guid: 1be8fda9c0b66d04ab6e3e4658ccfeb5,
         type: 3}
       propertyPath: m_Name

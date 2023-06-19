@@ -6,7 +6,11 @@ public class EnemyShoot : MonoBehaviour
 {
     public BulletParticle bulletParticle;
 
+    public FMODUnity.EventReference shootSFX;
+
     public void Shoot(){
+
         bulletParticle.Play();
+        FMODUnity.RuntimeManager.PlayOneShot(shootSFX, transform.position);
     }
 }

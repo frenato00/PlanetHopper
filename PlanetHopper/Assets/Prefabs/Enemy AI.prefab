@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6551723564031066796}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &1511217815
 ParticleSystem:
@@ -4886,6 +4886,7 @@ MonoBehaviour:
   particleSystem: {fileID: 1511217815}
   spark: {fileID: 3425539785331928693, guid: 9fcaacc9dcf394c4b94e95569563f2db, type: 3}
   shooterTag: Enemy
+  damage: 25
 --- !u!1 &6551723563032511762
 GameObject:
   m_ObjectHideFlags: 0
@@ -4902,6 +4903,7 @@ GameObject:
   - component: {fileID: 6551723563032511770}
   - component: {fileID: 6551723563032511773}
   - component: {fileID: 4969896077438223864}
+  - component: {fileID: 1361732043574962038}
   m_Layer: 0
   m_Name: Enemy AI
   m_TagString: Enemy
@@ -5055,8 +5057,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
-  points: 10
-  killAudio: {fileID: 0}
+  hitSFX:
+    Guid:
+      Data1: 2074744112
+      Data2: 1126640310
+      Data3: 13906362
+      Data4: 1373242429
+    Path: event:/Weapons/sfx_gun_hitting_enemy
+--- !u!114 &1361732043574962038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6551723563032511762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1841976810
+      Data2: 1249798219
+      Data3: -1721154405
+      Data4: -237406347
+    Path: event:/Enemy/sfx_enemy_death_exhale
+  Event: 
+  PlayEvent: 12
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &6551723564031066799
 GameObject:
   m_ObjectHideFlags: 0

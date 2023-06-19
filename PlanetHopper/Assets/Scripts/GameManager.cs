@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     private GameObject deathUI;
     private GameObject winUI;
 
+    public LevelInformation levelInformation;
+
     public ICheckpoint currentCheckpoint;
 
     public static Action endLevelTakeOff;
@@ -22,7 +24,7 @@ public class GameManager : MonoBehaviour
     private bool acceptPlayerInput = true;
 
     private GameObject canvas;
-    // Start is called before the first frame updat
+    // Start is called before the first frame update
     
     void Awake(){
         if(instance == null){
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour
 
     public void Win(){
         acceptPlayerInput = false;
+        SaveLevelInformation();
         endLevelTakeOff?.Invoke();
         
     }
@@ -57,10 +60,21 @@ public class GameManager : MonoBehaviour
         winUI.transform.SetParent(canvas.transform, false);
         winUI.SetActive(true);
 
-        StartCoroutine(Restart());
+        //TODO Add next level stuff
+
+    }
+
+    private void SaveLevelInformation(){
+        PlayerLife playerLife = GameObject.FindWithTag("Player").GetComponent<PlayerLife>();
+
+        levelInformation.enemiesKilled = levelInformation.enemiesKilled > playerLife.GetEnemiesKilled() ? levelInformation.enemiesKilled : playerLife.GetEnemiesKilled();
+        levelInformation.medalsCollected = levelInformation.medalsCollected > playerLife.GetCurrentPoints() ? levelInformation.medalsCollected : playerLife.GetCurrentPoints();
+        levelInformation.timeReached = levelInformation.timeReached < playerLife.GetCurrentTime() ? levelInformation.timeReached : playerLife.GetCurrentTime();
+
     }
 
     private IEnumerator Restart(){
+        Debug.Log("Restarting");
         yield return new WaitForSeconds(3f);
         if(deathUI != null){
             Destroy(deathUI);
