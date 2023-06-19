@@ -50,6 +50,13 @@ MonoBehaviour:
   gunData: {fileID: 11400000, guid: 6c68b11e72d4a8946814e1c421951946, type: 2}
   cam: {fileID: 1625425536848507071}
   bulletParticle: {fileID: 1625425536185010035}
+  shootSFX:
+    Guid:
+      Data1: 1893320941
+      Data2: 1337316250
+      Data3: 414574766
+      Data4: -1606969061
+    Path: event:/Weapons/sfx_gun_chacarter_blast
 --- !u!1 &1625425535478625049
 GameObject:
   m_ObjectHideFlags: 0

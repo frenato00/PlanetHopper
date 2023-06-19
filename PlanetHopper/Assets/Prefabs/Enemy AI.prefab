@@ -4886,6 +4886,7 @@ MonoBehaviour:
   particleSystem: {fileID: 1511217815}
   spark: {fileID: 3425539785331928693, guid: 9fcaacc9dcf394c4b94e95569563f2db, type: 3}
   shooterTag: Enemy
+  damage: 25
 --- !u!1 &6551723563032511762
 GameObject:
   m_ObjectHideFlags: 0
@@ -5056,6 +5057,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
+  hitSFX:
+    Guid:
+      Data1: 2074744112
+      Data2: 1126640310
+      Data3: 13906362
+      Data4: 1373242429
+    Path: event:/Weapons/sfx_gun_hitting_enemy
 --- !u!114 &1361732043574962038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5133,3 +5141,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletParticle: {fileID: 1511217813}
+  shootSFX:
+    Guid:
+      Data1: 1220713303
+      Data2: 1152038034
+      Data3: 1780951985
+      Data4: 242997052
+    Path: event:/Weapons/sfx_gun_enemy_blast
