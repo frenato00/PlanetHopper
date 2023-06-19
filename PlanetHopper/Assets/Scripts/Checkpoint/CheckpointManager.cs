@@ -28,16 +28,15 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
 
     PlayerLife playerLife;
 
-    public void Start()
-    {
-        playerLife = GameObject.FindWithTag("Player").GetComponent<PlayerLife>();
-    }
 
     public void Update()
     {
-        if(playerLife == null)
+        if(playerLife == null || playerParent == null || player == null)
         {
-            playerLife = GameObject.FindWithTag("Player")?.GetComponent<PlayerLife>();
+            player = GameObject.FindWithTag("Player");
+            playerLife = player?.GetComponent<PlayerLife>();
+            playerParent = player?.transform.parent.gameObject;
+
             
         }
 
@@ -75,9 +74,12 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
             _consumablePositions.Add(consumables[i], consumables[i].transform.position);
         }
 
-        playerLife = GameObject.FindWithTag("Player").GetComponent<PlayerLife>();
-        player = GameObject.FindWithTag("Player");
-        playerParent =  GameObject.FindWithTag("Player").transform.parent.gameObject;
+        if(playerLife == null || playerParent == null || player == null)
+        {
+            playerLife = GameObject.FindWithTag("Player").GetComponent<PlayerLife>();
+            player = GameObject.FindWithTag("Player");
+            playerParent =  GameObject.FindWithTag("Player").transform?.parent.gameObject;
+        }
 
         _health = playerLife.GetCurrentHealth();
         _oxygen = playerLife.GetCurrentOxygen();
