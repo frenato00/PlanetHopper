@@ -5362,6 +5362,34 @@ MonoBehaviour:
   ropeSpeed: 2
   sphereCastRadius: 5
   grappleOvershoot: 2
+  grappleSFX:
+    Guid:
+      Data1: 211444186
+      Data2: 1162970736
+      Data3: 843194296
+      Data4: 1523154541
+    Path: event:/Grappling Hook/sfx_grappling hook_released
+  grapplePullSFX:
+    Guid:
+      Data1: -1961174626
+      Data2: 1297426300
+      Data3: 1397780632
+      Data4: 1582600119
+    Path: event:/Character/sfx_character_jump
+  grappleReleaseSFX:
+    Guid:
+      Data1: 211444186
+      Data2: 1162970736
+      Data3: 843194296
+      Data4: 1523154541
+    Path: event:/Grappling Hook/sfx_grappling hook_released
+  grappleHitSFX:
+    Guid:
+      Data1: 1202639384
+      Data2: 1338234219
+      Data3: -1100011601
+      Data4: -2126148865
+    Path: event:/Grappling Hook/sfx_grappling hook_contact
 --- !u!114 &1625425536198020736
 MonoBehaviour:
   m_ObjectHideFlags: 0

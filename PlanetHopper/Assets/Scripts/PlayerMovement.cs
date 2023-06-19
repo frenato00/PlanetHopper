@@ -157,7 +157,8 @@ public class PlayerMovement : MonoBehaviour
 
         if(grounded && !wasGrounded){
             FMODUnity.RuntimeManager.PlayOneShot(landSFX, transform.position);
-        }  
+        }
+        wasGrounded = grounded;  
     }
 
     private void UpdateSFXStates(){

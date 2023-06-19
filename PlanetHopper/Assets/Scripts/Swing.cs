@@ -18,6 +18,12 @@ public class Swing : MonoBehaviour
     GameObject hitObject;
     Rigidbody rb;
     PlayerGravity gravity;
+
+    [Header("Sound Effects")]
+    public FMODUnity.EventReference grappleSFX;
+    public FMODUnity.EventReference grapplePullSFX;
+    public FMODUnity.EventReference grappleReleaseSFX;
+    public FMODUnity.EventReference grappleHitSFX;
     
     private Platform platform = null;
 
@@ -28,6 +34,7 @@ public class Swing : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody>();
         gravity = GetComponent<PlayerGravity>();
+
     }
 
     // Update is called once per frame
@@ -108,8 +115,11 @@ public class Swing : MonoBehaviour
         }
     }
     void StartSwing(){
+        FMODUnity.RuntimeManager.PlayOneShot(grappleSFX, transform.position);
+
         if(swingPoint != Vector3.zero){    
 
+            //Verifies if the final object was the finish objective
             if(hitObject.CompareTag("Finish")){
                 GameManager.instance.Win();
             }
@@ -129,12 +139,17 @@ public class Swing : MonoBehaviour
             line.positionCount = 2;
             currentGrapplePosition = gunTip.position;
             playerMovement.airDashAvailable=true;
+
+            FMODUnity.RuntimeManager.PlayOneShot(grappleHitSFX, transform.position);
+
         }else{
             currentGrapplePosition = gunTip.position;
             line.positionCount = 2;
             swingPoint=cam.position+cam.forward*maxLineDist;
             Invoke(nameof(StopSwing),grappleDelayTime);
         }
+
+
     }
 
     void StopSwing(){
@@ -148,6 +163,8 @@ public class Swing : MonoBehaviour
         Destroy(joint);
         grappleTime = Time.time;
         rb.velocity = CalculateLaunchVelocity();
+
+        FMODUnity.RuntimeManager.PlayOneShot(grapplePullSFX, transform.position);
     }
 
     public void StopGrapple(){
@@ -158,6 +175,10 @@ public class Swing : MonoBehaviour
         }
         isGrappling = false;
         StopSwing();
+
+        FMODUnity.RuntimeManager.PlayOneShot(grappleReleaseSFX, transform.position);
+
+
         // joint = player.gameObject.AddComponent<SpringJoint>();
         // joint.autoConfigureConnectedAnchor = false;
         // joint.connectedAnchor = swingPoint;
