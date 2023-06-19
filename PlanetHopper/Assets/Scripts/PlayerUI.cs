@@ -13,6 +13,9 @@ public class PlayerUI : MonoBehaviour
     public Image OxygenMask;
     public TMP_Text OxygenText;
     public TMP_Text PointsText;
+    public Animator dialogueBoxAnimator;
+    public TMP_Text dialogueName;
+    public TMP_Text dialogueText;
 
     void Update(){
 
@@ -26,4 +29,5 @@ public class PlayerUI : MonoBehaviour
 
 
     }
+
 }
