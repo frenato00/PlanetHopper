@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
 
     public void Win(){
         acceptPlayerInput = false;
+        SaveLevelInformation();
         endLevelTakeOff?.Invoke();
         
     }
@@ -59,9 +60,8 @@ public class GameManager : MonoBehaviour
         winUI.transform.SetParent(canvas.transform, false);
         winUI.SetActive(true);
 
-        SaveLevelInformation();
+        //TODO Add next level stuff
 
-        StartCoroutine(Restart());
     }
 
     private void SaveLevelInformation(){
@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
     }
 
     private IEnumerator Restart(){
+        Debug.Log("Restarting");
         yield return new WaitForSeconds(3f);
         if(deathUI != null){
             Destroy(deathUI);

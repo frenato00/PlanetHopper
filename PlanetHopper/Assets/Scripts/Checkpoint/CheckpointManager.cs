@@ -19,6 +19,9 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
     private int _points;
     private int _enemiesKilled;
 
+    GameObject player;
+    GameObject playerParent;
+
     public Material activeCheckpointMaterial;
 
     private bool _used = true;
@@ -34,7 +37,8 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
     {
         if(playerLife == null)
         {
-            playerLife = GameObject.FindWithTag("Player").GetComponent<PlayerLife>();
+            playerLife = GameObject.FindWithTag("Player")?.GetComponent<PlayerLife>();
+            
         }
 
         if(_used == false && GameManager.instance.currentCheckpoint != this){
@@ -72,6 +76,8 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
         }
 
         playerLife = GameObject.FindWithTag("Player").GetComponent<PlayerLife>();
+        player = GameObject.FindWithTag("Player");
+        playerParent =  GameObject.FindGameObjectWithTag("Player").transform.parent.gameObject;
 
         _health = playerLife.GetCurrentHealth();
         _oxygen = playerLife.GetCurrentOxygen();
@@ -101,9 +107,7 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
             consumableObject.SetActive(true);
         }
 
-
-        GameObject player = GameObject.FindWithTag("Player");
-
+        playerParent.SetActive(true);
         player.GetComponent<Swing>().StopGrapple();
         player.GetComponent<PlayerLife>().SetCurrentPoints(_points);
         player.GetComponent<PlayerLife>().SetEnemiesKilled(_enemiesKilled);

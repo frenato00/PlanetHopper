@@ -191,4 +191,8 @@ public class PlayerLife : MonoBehaviour, IDamageable
         
     }
 
+    void onDisable(){
+        Destroy(playerUI);
+    }
+
 }
