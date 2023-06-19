@@ -1466,6 +1466,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
+  hitSFX:
+    Guid:
+      Data1: -1722642660
+      Data2: 1205951678
+      Data3: 664529557
+      Data4: 1871497822
+    Path: event:/Weapons/sfx_gun_hitting_object
 --- !u!4 &1659061204 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8366748768611488140, guid: b859521f78d91384a8c0914342cc19b2,
