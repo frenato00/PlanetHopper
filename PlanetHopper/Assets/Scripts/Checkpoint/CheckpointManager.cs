@@ -77,7 +77,7 @@ public class CheckpointManager : MonoBehaviour, ICheckpoint
 
         playerLife = GameObject.FindWithTag("Player").GetComponent<PlayerLife>();
         player = GameObject.FindWithTag("Player");
-        playerParent =  GameObject.FindGameObjectWithTag("Player").transform.parent.gameObject;
+        playerParent =  GameObject.FindWithTag("Player").transform.parent.gameObject;
 
         _health = playerLife.GetCurrentHealth();
         _oxygen = playerLife.GetCurrentOxygen();
