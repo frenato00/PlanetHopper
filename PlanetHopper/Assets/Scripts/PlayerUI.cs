@@ -12,22 +12,23 @@ public class PlayerUI : MonoBehaviour
 
     public TMP_Text HealthText;
     public Image OxygenMask;
-    public TMP_Text OxygenText;
+    // public TMP_Text OxygenText;
     public TMP_Text PointsText;
     public Animator dialogueBoxAnimator;
     public TMP_Text dialogueName;
     public TMP_Text dialogueText;
     public TMP_Text TimeText;
 
-    void Update(){
+    void Update()
+    {
 
         HealthText.text = "Health: " + playerLife.GetCurrentHealth();
-        OxygenText.text = "Oxygen: " + playerLife.GetCurrentOxygen();
-        PointsText.text = "Points: " + playerLife.GetCurrentPoints();
+        // OxygenText.text = "Oxygen: " + playerLife.GetCurrentOxygen();
+        PointsText.text = "" + playerLife.GetCurrentPoints();
 
-        int alpha = (int) (255 * ((((float) playerLife.maxOxygen) - playerLife.GetCurrentOxygen()) / (float) playerLife.maxOxygen));
+        int alpha = (int)(255 * ((((float)playerLife.maxOxygen) - playerLife.GetCurrentOxygen()) / (float)playerLife.maxOxygen));
 
-        OxygenMask.color = new Color32(0, 0, 0, (byte) alpha);
+        OxygenMask.color = new Color32(0, 0, 0, (byte)alpha);
 
         string time = FormatTime(playerLife.GetCurrentTime());
         TimeText.text = time;
@@ -35,7 +36,8 @@ public class PlayerUI : MonoBehaviour
 
     }
 
-    private string FormatTime(float time){
+    private string FormatTime(float time)
+    {
         int minutes = Mathf.FloorToInt(time / 60F);
         int seconds = Mathf.FloorToInt(time - minutes * 60);
 
