@@ -36,12 +36,17 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sound Effects")]
     public FMODUnity.EventReference walkSFX;
     public FMODUnity.EventReference runSFX;
+    public FMODUnity.EventReference jumpSFX;
+    public FMODUnity.EventReference dashSFX;
+    public FMODUnity.EventReference landSFX;
     
     FMOD.Studio.EventInstance playerWalking;
     FMOD.Studio.EventInstance playerRunning;
 
     bool isWalkSFXPlaying = false;
     bool isRunSFXPlaying = false;
+
+    bool wasGrounded = true;
 
     [HideInInspector]
     public bool airDashAvailable=true;
@@ -149,6 +154,10 @@ public class PlayerMovement : MonoBehaviour
         // }
 
         UpdateSFXStates();
+
+        if(grounded && !wasGrounded){
+            FMODUnity.RuntimeManager.PlayOneShot(landSFX, transform.position);
+        }  
     }
 
     private void UpdateSFXStates(){
@@ -191,6 +200,8 @@ public class PlayerMovement : MonoBehaviour
         if (grounded && jumpInput && (Time.time-lastJumpTime >0.1f)){
             rb.AddForce(transform.up.normalized*jumpForce,ForceMode.Impulse);
             lastJumpTime=Time.time;
+
+            FMODUnity.RuntimeManager.PlayOneShot(jumpSFX, transform.position);
         }
         // Debug.Log("Forward:"+forwardVel.magnitude.ToString("n2") + "; Total: " + rb.velocity.magnitude.ToString("n2"));
     
@@ -198,6 +209,8 @@ public class PlayerMovement : MonoBehaviour
             isDashing = false;
             if(!grounded) rb.AddForce(transform.up.normalized*jumpForce,ForceMode.Impulse);
             else rb.AddForce(moveDirection.normalized*dashImpulse,ForceMode.Impulse);
+
+            FMODUnity.RuntimeManager.PlayOneShot(dashSFX, transform.position);
         }
     }
 
