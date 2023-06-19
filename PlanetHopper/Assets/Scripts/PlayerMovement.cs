@@ -32,6 +32,16 @@ public class PlayerMovement : MonoBehaviour
     float dashTime = 0f;
     int dashCounter = 0;
     bool isDashing = false;
+    
+    [Header("Sound Effects")]
+    public FMODUnity.EventReference walkSFX;
+    public FMODUnity.EventReference runSFX;
+
+    FMOD.Studio.PLAYBACK_STATE walkSFXState;
+    FMOD.Studio.PLAYBACK_STATE runSFXState;
+    
+    FMOD.Studio.EventInstance playerWalking;
+    FMOD.Studio.EventInstance playerRunning;
 
     [HideInInspector]
     public bool airDashAvailable=true;
@@ -44,17 +54,42 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerWalking = FMODUnity.RuntimeManager.CreateInstance(walkSFX);
+        playerRunning = FMODUnity.RuntimeManager.CreateInstance(runSFX);
         // rb.freezeRotation = true;
     }
 
     private void MyInput(){
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+
         jumpInput = Input.GetButton("Jump");
         if(grounded) airDashAvailable=true;
         if(!isCrouching){
-            if(GameManager.instance.IsAcceptingPlayerInput() && Input.GetButton("Run")) moveSpeed = sprintSpeed;
-            else moveSpeed = walkSpeed;
+            if(GameManager.instance.IsAcceptingPlayerInput() && Input.GetButton("Run")) {
+                moveSpeed = sprintSpeed;
+                if(grounded){
+                    if(!(runSFXState == FMOD.Studio.PLAYBACK_STATE.PLAYING || runSFXState == FMOD.Studio.PLAYBACK_STATE.STARTING)){
+                        playerRunning.start();
+                    }
+                    if(walkSFXState == FMOD.Studio.PLAYBACK_STATE.PLAYING || walkSFXState == FMOD.Studio.PLAYBACK_STATE.STARTING){
+                        playerWalking.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                    }
+                    
+                }
+            } 
+            else{
+                moveSpeed = walkSpeed;
+                if(grounded){
+                    if(!(walkSFXState == FMOD.Studio.PLAYBACK_STATE.PLAYING || walkSFXState == FMOD.Studio.PLAYBACK_STATE.STARTING)){
+                        playerWalking.start();
+                    }
+                    if(runSFXState == FMOD.Studio.PLAYBACK_STATE.PLAYING || runSFXState == FMOD.Studio.PLAYBACK_STATE.STARTING){
+                        playerRunning.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                    }
+                }
+            }
+
         }
         if(GameManager.instance.IsAcceptingPlayerInput() && Input.GetButtonDown("Crouch") && !isCrouching){
             isCrouching = true;
@@ -85,6 +120,12 @@ public class PlayerMovement : MonoBehaviour
             isDashing=true;
             airDashAvailable=false;
         }
+
+
+        if(horizontalInput == 0 && verticalInput== 0 || !grounded ){
+            playerWalking.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            playerRunning.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        }
     }
 
 
@@ -105,6 +146,13 @@ public class PlayerMovement : MonoBehaviour
         // else{
         //     AirInput();
         // }
+
+        UpdateSFXStates();
+    }
+
+    private void UpdateSFXStates(){
+        playerWalking.getPlaybackState(out walkSFXState);
+        playerRunning.getPlaybackState(out runSFXState);
     }
 
     private void MovePlayer(){

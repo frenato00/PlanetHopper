@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7904595048809205951}
   - component: {fileID: 7904595048809205948}
   - component: {fileID: 3352079279380862303}
+  - component: {fileID: 343012473585732948}
   m_Layer: 0
   m_Name: Heart
   m_TagString: Consumable
@@ -127,3 +128,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 8563af96674fc9f4783bd99527b5558d, type: 2}
+--- !u!114 &343012473585732948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7904595048809205945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -51191143
+      Data2: 1267209878
+      Data3: 307622571
+      Data4: -2068108959
+    Path: event:/Character/sfx_character_ pickup_health
+  Event: 
+  PlayEvent: 12
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
