@@ -99,14 +99,12 @@ public class PlayerMovement : MonoBehaviour
         if(GameManager.instance.IsAcceptingPlayerInput() && Input.GetButtonDown("Crouch") && !isCrouching){
             isCrouching = true;
             moveSpeed=crouchSpeed;
-            //TODO crouch
             transform.localScale = new Vector3(transform.localScale.x, crouchScale, transform.localScale.z);
             rb.AddForce(-transform.up*5f,ForceMode.Impulse);
         }
         if(GameManager.instance.IsAcceptingPlayerInput() && Input.GetButtonUp("Crouch") && isCrouching){
             isCrouching = false;
             moveSpeed = walkSpeed;
-            //TODO undo crouch
             transform.localScale = new Vector3(transform.localScale.x, 1, transform.localScale.z);
 
         }
