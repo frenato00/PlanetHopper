@@ -11,8 +11,7 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject pauseMenuUI;
 
-    public PlayerUI playerUI;
-    public Animator animator;
+    public DialogueManager dialogueManager;
     void Start()
     {
         parent = transform.parent.gameObject;
@@ -22,10 +21,9 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerUI == null)
+        if (dialogueManager == null)
         {
-            playerUI = FindObjectOfType<PlayerUI>();
-            animator = playerUI.dialogueBoxAnimator;
+            dialogueManager = FindObjectOfType<DialogueManager>();
         }
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
@@ -60,7 +58,7 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1f;
         gameIsPaused = false;
-        animator.SetBool("IsOpen", true);
+        dialogueManager.ResumeDialogue();
     }
     
     void Pause()
