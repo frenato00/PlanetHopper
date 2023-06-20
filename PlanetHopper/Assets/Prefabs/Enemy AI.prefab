@@ -4898,12 +4898,12 @@ GameObject:
   - component: {fileID: 6551723563032511774}
   - component: {fileID: 6551723563032511761}
   - component: {fileID: 6551723563032511760}
-  - component: {fileID: 6551723563032511772}
   - component: {fileID: 6551723563032511771}
   - component: {fileID: 6551723563032511770}
   - component: {fileID: 6551723563032511773}
   - component: {fileID: 4969896077438223864}
   - component: {fileID: 1361732043574962038}
+  - component: {fileID: 7803585444069646218}
   m_Layer: 0
   m_Name: Enemy AI
   m_TagString: Enemy
@@ -4920,8 +4920,8 @@ Transform:
   m_GameObject: {fileID: 6551723563032511762}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.91, y: -14.86, z: -1.189}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6551723564031066796}
   m_Father: {fileID: 0}
@@ -4977,20 +4977,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6551723563032511772
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6551723563032511762}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6551723563032511771
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5096,6 +5082,19 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!65 &7803585444069646218
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6551723563032511762}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 0.7989149, z: 2}
+  m_Center: {x: 0, y: 0.14945745, z: 0}
 --- !u!1 &6551723564031066799
 GameObject:
   m_ObjectHideFlags: 0
@@ -5165,17 +5164,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 51216dfb105973a478bfc1a4fc382d1e,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 51216dfb105973a478bfc1a4fc382d1e,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 51216dfb105973a478bfc1a4fc382d1e,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 51216dfb105973a478bfc1a4fc382d1e,
         type: 3}
