@@ -24,12 +24,12 @@ public class PlayerUI : MonoBehaviour
 
         HealthText.text = "Health: " + playerLife.GetCurrentHealth();
         // OxygenText.text = "Oxygen: " + playerLife.GetCurrentOxygen();
-        PointsText.text = "" + playerLife.GetCurrentPoints();
 
         int alpha = (int)(255 * ((((float)playerLife.maxOxygen) - playerLife.GetCurrentOxygen()) / (float)playerLife.maxOxygen));
 
         OxygenMask.color = new Color32(0, 0, 0, (byte)alpha);
 
+        PointsText.text = "" + playerLife.GetCurrentPoints();
         string time = FormatTime(playerLife.GetCurrentTime());
         TimeText.text = time;
 
