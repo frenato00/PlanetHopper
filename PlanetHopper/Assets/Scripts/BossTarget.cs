@@ -42,7 +42,6 @@ public class BossTarget : MonoBehaviour, IDamageable
 
         if(health <= 0){
             
-            //disable the object
             gameObject.SetActive(false);
             if(gameObject.CompareTag("Enemy") || gameObject.CompareTag("Finish")){
                 GameObject.FindWithTag("Player").GetComponent<PlayerLife>().AddEnemiesKilled(1);      
@@ -51,12 +50,27 @@ public class BossTarget : MonoBehaviour, IDamageable
             }
         }
 
-        if(health <= maxHealth/2 && timesExploded == 0){
+        if(health <= 5*maxHealth/6 && timesExploded == 0){
             bossAI.PrepareExplodePlanet();
             timesExploded++;
         }
 
-        if(health <= maxHealth/4 && timesExploded == 1){
+        if(health <= 4*maxHealth/6 && timesExploded == 1){
+            bossAI.PrepareExplodePlanet();
+            timesExploded++;
+        }
+
+        if(health <= 3*maxHealth/6 && timesExploded == 2){
+            bossAI.PrepareExplodePlanet();
+            timesExploded++;
+        }
+
+        if(health <= 2*maxHealth/6 && timesExploded == 3){
+            bossAI.PrepareExplodePlanet();
+            timesExploded++;
+        }
+
+        if(health <= maxHealth/6 && timesExploded == 4){
             bossAI.PrepareExplodePlanet();
             timesExploded++;
         }

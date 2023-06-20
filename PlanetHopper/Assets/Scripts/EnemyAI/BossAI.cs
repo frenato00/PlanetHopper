@@ -186,22 +186,37 @@ public class BossAI : MonoBehaviour
         shieldObject.SetActive(true);
         canAttack = false;
 
+        int closestPlanetID = FindClosestPlanet();
+
         deathRay.SetPosition(0, transform.position);
-        deathRay.SetPosition(1, destroyablePlanets[0].transform.position);
+        deathRay.SetPosition(1, destroyablePlanets[closestPlanetID].transform.position);
         deathRay.enabled = true;
 
-        StartCoroutine(ExplodePlanet());
+        StartCoroutine(ExplodePlanet(closestPlanetID));
 
 
     }
 
-    public IEnumerator ExplodePlanet(){
+    private int FindClosestPlanet(){
+        int closestPlanet = 0;
+        float closestDistance = 1000000f;
+        for(int i = 0; i < destroyablePlanets.Length; i++){
+            float distance = Vector3.Distance(player.position, destroyablePlanets[i].transform.position);
+            if(distance < closestDistance){
+                closestDistance = distance;
+                closestPlanet = i;
+            }
+        }
+        return closestPlanet;
+    }
+
+    public IEnumerator ExplodePlanet(int closestPlanetID){
         // TODO - Add Light Animation to planet
         //TODO - Add sound effect to ray
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(8f);
         
         // get first planet
-        GameObject planet = destroyablePlanets[0];
+        GameObject planet = destroyablePlanets[closestPlanetID];
 
         // Destroy the planet
         planet.GetComponent<IDamageable>().TakeDamage(100000f);
