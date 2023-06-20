@@ -51,6 +51,9 @@ MonoBehaviour:
     type: 3}
   winScreen: {fileID: 7805207395226716771, guid: e201c1a9cbb435240ba1094f472266d7,
     type: 3}
+  pauseMenu: {fileID: 6146054519861882052, guid: 4c9a98d0cf91dfd4fa4f0e810cee5f96,
+    type: 3}
+  isBossLevel: 0
   levelInformation: {fileID: 11400000, guid: 34e97c05b97bbb142bb037104e444e52, type: 2}
 --- !u!114 &800171911
 MonoBehaviour:

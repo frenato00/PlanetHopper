@@ -11,11 +11,13 @@ public class GameManager : MonoBehaviour
 
     public GameObject deathScreen;
     public GameObject winScreen;
+    public GameObject pauseMenu;
 
     public bool isBossLevel = false;
 
     private GameObject deathUI;
     private GameObject winUI;
+    private GameObject pauseMenuUI;
 
     public LevelInformation levelInformation;
 
@@ -47,6 +49,8 @@ public class GameManager : MonoBehaviour
     {
         canvas = GameObject.Find("Canvas");
         bossTarget = GetComponent<BossTarget>();
+        pauseMenuUI =  Instantiate(pauseMenu);
+        pauseMenuUI.transform.SetParent(canvas.transform, false);
     }
 
     public void GameOver(){
