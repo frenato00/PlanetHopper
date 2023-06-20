@@ -11,6 +11,7 @@ public class PlayerUI : MonoBehaviour
     public PlayerLife playerLife;
 
     public TMP_Text HealthText;
+    public RectTransform HealthBar;
     public Image OxygenMask;
     // public TMP_Text OxygenText;
     public TMP_Text PointsText;
@@ -23,6 +24,7 @@ public class PlayerUI : MonoBehaviour
     {
 
         HealthText.text = "Health: " + playerLife.GetCurrentHealth();
+        HealthBar.sizeDelta = new Vector2(85*playerLife.GetCurrentHealth(),85);
         // OxygenText.text = "Oxygen: " + playerLife.GetCurrentOxygen();
 
         int alpha = (int)(255 * ((((float)playerLife.maxOxygen) - playerLife.GetCurrentOxygen()) / (float)playerLife.maxOxygen));
