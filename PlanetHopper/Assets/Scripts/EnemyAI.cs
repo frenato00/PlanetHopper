@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour
     Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
     public float health;
+    public int rotationCorrection;
 
     EnemyShoot enemyShoot;
 
@@ -88,6 +89,8 @@ public class EnemyAI : MonoBehaviour
     private void AttackPlayer() {
         walkPointSet = false;
         orientation.LookAt(player);
+        // Add 90 degrees to the rotation so the enemy is facing the player
+        orientation.Rotate(0, -90, 0);
 
         if (!alreadyAttacked) {
             enemyShoot.Shoot();
@@ -105,6 +108,7 @@ public class EnemyAI : MonoBehaviour
     private void ResetAttack() {
         alreadyAttacked = false;
     }
+
 
 
     private void OnDrawGizmosSelected() {
