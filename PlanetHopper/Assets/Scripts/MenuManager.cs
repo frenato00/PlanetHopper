@@ -11,6 +11,8 @@ public class MenuManager : MonoBehaviour
 
     private bool acceptPlayerInput = true;
 
+    public LevelInformation[] levels;
+
 
     // Start is called before the first frame update
 
@@ -41,12 +43,14 @@ public class MenuManager : MonoBehaviour
     }
 
     public void StartGame() {
-        Debug.Log("Starting Game");
         SceneManager.LoadScene(1);
     }
 
     public void QuitGame() {
-        Debug.Log("Quitting Game");
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+        Application.Quit();
     }
 
     // Update is called once per frame
