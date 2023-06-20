@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54fa31c071357b3409bca6a8ae2cd1a6, type: 3}
   m_Name: Level 2
   m_EditorClassIdentifier: 
-  levelName: Level 1
-  levelNumber: 1
-  enemiesToKill: 0
-  medalsToCollect: 0
-  timeToBeBellow: 0
+  levelName: Level 2
+  levelNumber: 2
+  enemiesToKill: 7
+  medalsToCollect: 2
+  timeToBeBellow: 120
   enemiesKilled: 0
   medalsCollected: 0
   timeReached: 0
