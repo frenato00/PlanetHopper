@@ -31,6 +31,7 @@ public class BossAI : MonoBehaviour
     public GameObject[] shieldGenerators;
     public GameObject[] destroyablePlanets;
     public GameObject shieldObject;
+    private LineRenderer deathRay;
 
     private bool canAttack = true;
 
@@ -41,12 +42,17 @@ public class BossAI : MonoBehaviour
         Dead
     }
 
+    private float time = 0;
+
+    private float rotationSpeed = 1f;
+
     BossState bossState = BossState.Shielded;
 
     private void Start() {
         player = GameObject.FindWithTag("Player")?.transform;
         rb = GetComponent<Rigidbody>();
         enemyShoot = GetComponentInChildren<EnemyShoot>();
+        deathRay = GetComponent<LineRenderer>();
     }
 
     private void Update() {
@@ -72,7 +78,6 @@ public class BossAI : MonoBehaviour
         //Boss Stuff
         if(bossState == BossState.Shielded){
             verifyShieldGenerators();
-
         }
 
     }
@@ -110,12 +115,17 @@ public class BossAI : MonoBehaviour
 
     private void AttackPlayer() {
         walkPointSet = false;
-        if(canAttack){
-            orientation.LookAt(player);
-        }
+        Transform objective = canAttack ? player : destroyablePlanets[0].transform;
+        Quaternion rot = Quaternion.LookRotation(objective.position - orientation.position);
+        rot *= Quaternion.Euler(Vector3.up * -90f);
+
+        float deltaAngle = Quaternion.Angle(orientation.rotation, rot);
+
+        orientation.rotation = Quaternion.Slerp(orientation.rotation, rot, time);
+        time += Time.deltaTime * rotationSpeed ;
+
 
         // Add 90 degrees to the rotation so the enemy is facing the player
-        orientation.Rotate(0, -90, 0);
 
         if (!alreadyAttacked && canAttack ) {
             enemyShoot.Shoot();
@@ -175,6 +185,11 @@ public class BossAI : MonoBehaviour
         bossState = BossState.Exploding;
         shieldObject.SetActive(true);
         canAttack = false;
+
+        deathRay.SetPosition(0, transform.position);
+        deathRay.SetPosition(1, destroyablePlanets[0].transform.position);
+        deathRay.enabled = true;
+
         StartCoroutine(ExplodePlanet());
 
 
@@ -189,9 +204,10 @@ public class BossAI : MonoBehaviour
         GameObject planet = destroyablePlanets[0];
 
         // Destroy the planet
-        planet.GetComponent<BossTarget>().TakeDamage(100000f);
+        planet.GetComponent<IDamageable>().TakeDamage(100000f);
         destroyablePlanets = destroyablePlanets.Where(val => val != planet).ToArray();
 
+        deathRay.enabled = false;
         bossState = BossState.Unshielded;
         shieldObject.SetActive(false);
         canAttack = true;

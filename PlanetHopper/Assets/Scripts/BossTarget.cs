@@ -16,6 +16,8 @@ public class BossTarget : MonoBehaviour, IDamageable
     private GameObject bossUI;
     
     private float health;
+
+    private int timesExploded = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,11 +44,23 @@ public class BossTarget : MonoBehaviour, IDamageable
             
             //disable the object
             gameObject.SetActive(false);
-            if(gameObject.CompareTag("Enemy")){
-                GameObject.FindWithTag("Player").GetComponent<PlayerLife>().AddEnemiesKilled(1);          
+            if(gameObject.CompareTag("Enemy") || gameObject.CompareTag("Finish")){
+                GameObject.FindWithTag("Player").GetComponent<PlayerLife>().AddEnemiesKilled(1);      
+                GameManager.instance.Win();    
 
             }
         }
+
+        if(health <= maxHealth/2 && timesExploded == 0){
+            bossAI.PrepareExplodePlanet();
+            timesExploded++;
+        }
+
+        if(health <= maxHealth/4 && timesExploded == 1){
+            bossAI.PrepareExplodePlanet();
+            timesExploded++;
+        }
+
     }
 
     public void Reset(){

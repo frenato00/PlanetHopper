@@ -61,13 +61,17 @@ public class GameManager : MonoBehaviour
     public void Win(){
         acceptPlayerInput = false;
         SaveLevelInformation();
-        endLevelTakeOff?.Invoke();
+        if(isBossLevel){
+            WinGameAfterSwitchCamera();
+        }else{
+            endLevelTakeOff?.Invoke();
+        }
         
     }
 
     public void WinGameAfterSwitchCamera(){
         
-        winUI =  Instantiate(winScreen);
+        winUI = Instantiate(winScreen);
         winUI.transform.SetParent(canvas.transform, false);
         winUI.SetActive(true);
 
