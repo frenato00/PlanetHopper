@@ -68,6 +68,13 @@ public class BossAI : MonoBehaviour
         if (!playerInSightRange && !playerInAttackRange) Patrolling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInAttackRange && playerInSightRange) AttackPlayer();
+
+        //Boss Stuff
+        if(bossState == BossState.Shielded){
+            verifyShieldGenerators();
+
+        }
+
     }
 
     private void Patrolling() {
