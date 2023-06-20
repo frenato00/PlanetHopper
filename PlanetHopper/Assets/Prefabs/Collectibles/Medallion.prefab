@@ -149,7 +149,7 @@ MonoBehaviour:
       Data4: -1964171764
     Path: event:/Character/sfx_character_ pickup_coin
   Event: 
-  PlayEvent: 12
+  PlayEvent: 3
   StopEvent: 0
   AllowFadeout: 1
   TriggerOnce: 0

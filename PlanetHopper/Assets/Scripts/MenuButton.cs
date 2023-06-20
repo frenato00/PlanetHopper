@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class MenuButton : MonoBehaviour, IDamageable
 {
     public UnityEvent onClick;
+    public FMODUnity.EventReference clickSFX;
 
     void Awake() {
         if (onClick == null)
@@ -26,6 +27,7 @@ public class MenuButton : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
+        FMODUnity.RuntimeManager.PlayOneShot(clickSFX, transform.position);
         onClick.Invoke();
     }
 }

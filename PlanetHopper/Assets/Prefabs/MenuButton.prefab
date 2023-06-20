@@ -362,3 +362,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  clickSFX:
+    Guid:
+      Data1: -1130866187
+      Data2: 1176846251
+      Data3: 14363009
+      Data4: -1408340732
+    Path: event:/UI/Interface_UI_select

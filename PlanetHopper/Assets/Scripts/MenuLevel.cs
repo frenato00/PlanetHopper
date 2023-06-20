@@ -19,10 +19,10 @@ public class MenuLevel : MonoBehaviour
         }
     }
 
-    public void StartLevel() {
-        SceneManager.LoadScene(level.levelName);
+    public void SetInfo() {
+        MenuLevelInfo.instance.SetLevel(level);
     }
-
+    
     // Start is called before the first frame update
     void Start()
     {

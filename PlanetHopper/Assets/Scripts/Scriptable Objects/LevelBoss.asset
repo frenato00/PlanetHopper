@@ -19,4 +19,4 @@ MonoBehaviour:
   timeToBeBellow: 160
   enemiesKilled: 0
   medalsCollected: 0
-  timeReached: 0
+  timeReached: 1

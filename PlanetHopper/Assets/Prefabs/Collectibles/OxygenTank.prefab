@@ -149,7 +149,7 @@ MonoBehaviour:
       Data4: -1658400091
     Path: event:/Character/sfx_character_ pickup_oxygen
   Event: 
-  PlayEvent: 12
+  PlayEvent: 3
   StopEvent: 0
   AllowFadeout: 1
   TriggerOnce: 0

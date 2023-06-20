@@ -149,7 +149,7 @@ MonoBehaviour:
       Data4: -2068108959
     Path: event:/Character/sfx_character_ pickup_health
   Event: 
-  PlayEvent: 12
+  PlayEvent: 3
   StopEvent: 0
   AllowFadeout: 1
   TriggerOnce: 0
