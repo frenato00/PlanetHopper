@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: LevelBoss
   m_EditorClassIdentifier: 
   levelName: LevelBoss
-  levelNumber: 4
+  levelNumber: 3
   enemiesToKill: 15
   medalsToCollect: 6
   timeToBeBellow: 160
   enemiesKilled: 0
   medalsCollected: 0
-  timeReached: 1
+  timeReached: 0
