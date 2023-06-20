@@ -46,4 +46,5 @@ public class Gun : MonoBehaviour
         bulletParticle.Play();
         // Play animation
     }
+
 }
