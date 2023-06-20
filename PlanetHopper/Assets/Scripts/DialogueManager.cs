@@ -20,6 +20,7 @@ public class DialogueManager : MonoBehaviour
         sentences = new Queue<string>();
     }
 
+
     public void StartDialogue(Dialogue dialogue)
     {
         animator.SetBool("IsOpen", true);
@@ -33,6 +34,9 @@ public class DialogueManager : MonoBehaviour
         DisplayNextSentence();
     }
 
+    public void ResumeDialogue(){
+        if(enabled) animator.SetBool("IsOpen", true);
+    }
     private void Update()
     {
         if (playerUI == null)

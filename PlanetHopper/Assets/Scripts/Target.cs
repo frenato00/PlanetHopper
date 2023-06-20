@@ -23,6 +23,7 @@ public class Target : MonoBehaviour, IDamageable
         if(health <= 0){
             
             //disable the object
+            //TODO: Add particle effect
             gameObject.SetActive(false);
             if(gameObject.CompareTag("Enemy")){
                 GameObject.FindWithTag("Player").GetComponent<PlayerLife>().AddEnemiesKilled(1);          

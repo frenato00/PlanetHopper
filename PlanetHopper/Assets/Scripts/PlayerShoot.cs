@@ -7,12 +7,16 @@ public class PlayerShoot : MonoBehaviour
 {
     public static Action shootInput;
 
-    
-
     private void Update(){
         if(GameManager.instance.IsAcceptingPlayerInput() && Input.GetMouseButton(0)){
-            shootInput?.Invoke();
-
+            if(shootInput != null){
+                shootInput?.Invoke();
+            }
+            
         }
+    }
+
+    private void OnDestroy() {
+        shootInput = null;
     }
 }
