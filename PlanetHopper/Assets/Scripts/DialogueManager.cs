@@ -34,6 +34,9 @@ public class DialogueManager : MonoBehaviour
         DisplayNextSentence();
     }
 
+    public void ResumeDialogue(){
+        if(enabled) animator.SetBool("IsOpen", true);
+    }
     private void Update()
     {
         if (playerUI == null)
