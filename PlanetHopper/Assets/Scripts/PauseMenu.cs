@@ -32,15 +32,25 @@ public class PauseMenu : MonoBehaviour
             }
         }
     }
+
+    private void ToggleSiblings(bool active)
+    {
+        int selfIndex = pauseMenuUI.transform.GetSiblingIndex();
+        for (int i = 0; i < parent.transform.childCount; i++)
+        {
+            if (i != selfIndex)
+            {
+                parent.transform.GetChild(i).gameObject.SetActive(active);
+            }
+        }
+    }
     
     public void Resume()
     {
         GameManager.instance.AcceptPlayerInput(true);
-        if (parent.transform.childCount >= 1)
-        {
-            parent.transform.GetChild(1).gameObject.SetActive(true);
-        }
+        ToggleSiblings(true);
         pauseMenuUI.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1f;
         gameIsPaused = false;
     }
@@ -48,11 +58,9 @@ public class PauseMenu : MonoBehaviour
     void Pause()
     {
         GameManager.instance.AcceptPlayerInput(false);
-        if (parent.transform.childCount >= 1)
-        {
-            parent.transform.GetChild(1).gameObject.SetActive(false);
-        }
+        ToggleSiblings(false);
         pauseMenuUI.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0f;
         gameIsPaused = true;
     }
