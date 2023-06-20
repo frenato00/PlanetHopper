@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public GameObject deathScreen;
     public GameObject winScreen;
 
+    public bool isBossLevel = false;
+
     private GameObject deathUI;
     private GameObject winUI;
 
@@ -24,6 +26,7 @@ public class GameManager : MonoBehaviour
     private bool acceptPlayerInput = true;
 
     private GameObject canvas;
+    private BossTarget bossTarget;
 
 
     private int _enemiesKilled;
@@ -43,6 +46,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         canvas = GameObject.Find("Canvas");
+        bossTarget = GetComponent<BossTarget>();
     }
 
     public void GameOver(){
@@ -57,12 +61,17 @@ public class GameManager : MonoBehaviour
     public void Win(){
         acceptPlayerInput = false;
         SaveLevelInformation();
-        endLevelTakeOff?.Invoke();
+        if(isBossLevel){
+            WinGameAfterSwitchCamera();
+        }else{
+            endLevelTakeOff?.Invoke();
+        }
         
     }
 
     public void WinGameAfterSwitchCamera(){
-        winUI =  Instantiate(winScreen);
+        
+        winUI = Instantiate(winScreen);
         winUI.transform.SetParent(canvas.transform, false);
         winUI.SetActive(true);
 
@@ -84,6 +93,13 @@ public class GameManager : MonoBehaviour
     }
 
     private IEnumerator Restart(){
+
+        if(isBossLevel){
+            yield return new WaitForSeconds(5f);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            yield break;
+        }
+
         Debug.Log("Restarting");
         yield return new WaitForSeconds(3f);
         if(deathUI != null){
