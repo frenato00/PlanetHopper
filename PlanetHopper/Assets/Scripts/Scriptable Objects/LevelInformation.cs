@@ -18,6 +18,4 @@ public class LevelInformation : ScriptableObject
     public int enemiesKilled=0;
     public int medalsCollected=0;
     public float timeReached=0;
-
-    public bool isEnabled = false;
 }

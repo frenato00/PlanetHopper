@@ -7,37 +7,24 @@ public class MenuLevel : MonoBehaviour
 {
     public LevelInformation level;
 
-    public LevelInformation previousLevel;
-
-    void Awake()
+    public void SetInfo()
     {
-        if (level.levelNumber != 1 && level.timeReached == 99999) {
-            transform.GetChild(0).gameObject.SetActive(false);
-            transform.GetChild(1).gameObject.SetActive(true);
-        }
-        else {
-            transform.GetChild(1).gameObject.SetActive(false);
-            transform.GetChild(0).gameObject.SetActive(true);
-        }
-
-        if(previousLevel != null){
-            if (previousLevel.timeReached == 99999) {
-                transform.GetChild(0).gameObject.SetActive(false);
-                transform.GetChild(1).gameObject.SetActive(true);
-            }
-            else {
-                transform.GetChild(1).gameObject.SetActive(false);
-                transform.GetChild(0).gameObject.SetActive(true);
-            }
-        }
-
-
-    }
-
-    public void SetInfo() {
         MenuLevelInfo.instance.SetLevel(level);
     }
-    
+
+    public void EnableLevel()
+    {
+        transform.GetChild(1).gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(true);
+    }
+
+    public void DisableLevel()
+    {
+        transform.GetChild(0).gameObject.SetActive(false);
+        transform.GetChild(1).gameObject.SetActive(true);
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {

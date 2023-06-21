@@ -11,7 +11,7 @@ public class MenuManager : MonoBehaviour
 
     private bool acceptPlayerInput = true;
 
-    public LevelInformation[] levels;
+    public MenuLevel[] levels;
 
 
     // Start is called before the first frame update
@@ -25,6 +25,19 @@ public class MenuManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+        for (int i = 0; i < levels.Length; i++)
+        {
+            if (i == 0) levels[i].EnableLevel();
+            else
+            {
+                if (levels[i-1].level.timeReached < 99999) {
+                    levels[i].EnableLevel();
+                }
+                else {
+                    levels[i].DisableLevel();
+                }
+            }
         }
     }
 
@@ -42,14 +55,16 @@ public class MenuManager : MonoBehaviour
         return acceptPlayerInput;
     }
 
-    public void StartGame() {
+    public void StartGame()
+    {
         SceneManager.LoadScene(1);
     }
 
-    public void QuitGame() {
-        #if UNITY_EDITOR
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+#endif
         Application.Quit();
     }
 
