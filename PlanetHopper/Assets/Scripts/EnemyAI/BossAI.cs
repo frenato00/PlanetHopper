@@ -32,6 +32,7 @@ public class BossAI : MonoBehaviour
     public GameObject[] destroyablePlanets;
     public GameObject shieldObject;
     private LineRenderer deathRay;
+    private DialogueTriggerMultiple dialogueTrigger;
 
     private bool canAttack = true;
 
@@ -53,6 +54,7 @@ public class BossAI : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         enemyShoot = GetComponentInChildren<EnemyShoot>();
         deathRay = GetComponent<LineRenderer>();
+        dialogueTrigger = GetComponent<DialogueTriggerMultiple>();
     }
 
     private void Update() {
@@ -218,14 +220,17 @@ public class BossAI : MonoBehaviour
         // get first planet
         GameObject planet = destroyablePlanets[closestPlanetID];
 
+
+
         // Destroy the planet
         planet.GetComponent<IDamageable>().TakeDamage(100000f);
         destroyablePlanets = destroyablePlanets.Where(val => val != planet).ToArray();
-
+        
         deathRay.enabled = false;
         bossState = BossState.Unshielded;
         shieldObject.SetActive(false);
         canAttack = true;
+        if(destroyablePlanets.Length==5)dialogueTrigger.TriggerDialogue(1);
     } 
 
 

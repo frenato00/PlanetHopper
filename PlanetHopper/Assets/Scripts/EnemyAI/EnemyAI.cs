@@ -10,7 +10,7 @@ public class EnemyAI : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
     public float health;
     public int rotationCorrection;
-    public PlayerGravity playerGravity;
+    public PlayerGravity gravity;
 
     EnemyShoot enemyShoot;
 
@@ -33,6 +33,8 @@ public class EnemyAI : MonoBehaviour
         player = GameObject.FindWithTag("Player")?.transform;
         rb = GetComponent<Rigidbody>();
         enemyShoot = GetComponentInChildren<EnemyShoot>();
+
+        gravity = GetComponent<PlayerGravity>();
     }
 
     private void Update() {

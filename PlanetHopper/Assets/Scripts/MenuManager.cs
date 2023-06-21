@@ -71,6 +71,19 @@ public class MenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        for (int i = 0; i < levels.Length; i++)
+        {
+            if (i == 0) levels[i].EnableLevel();
+            else
+            {
+                if (levels[i-1].level.timeReached < 99999) {
+                    levels[i].EnableLevel();
+                }
+                else {
+                    levels[i].DisableLevel();
+                }
+            }
+        }
 
     }
 }

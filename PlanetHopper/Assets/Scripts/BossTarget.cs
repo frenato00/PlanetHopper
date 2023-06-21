@@ -18,12 +18,14 @@ public class BossTarget : MonoBehaviour, IDamageable
     private float health;
 
     private int timesExploded = 0;
+    private DialogueTriggerMultiple dialogueTrigger;
     // Start is called before the first frame update
     void Start()
     {
+
         health = maxHealth;
         bossAI = GetComponent<BossAI>();
-
+        dialogueTrigger = GetComponent<DialogueTriggerMultiple>();
         bossUI = Instantiate(bossUIPrefab, transform);
         bossUI.GetComponent<BossUI>().bossTarget = this;
 
@@ -51,6 +53,7 @@ public class BossTarget : MonoBehaviour, IDamageable
         }
 
         if(health <= 5*maxHealth/6 && timesExploded == 0){
+            dialogueTrigger.TriggerDialogue(0);
             bossAI.PrepareExplodePlanet();
             timesExploded++;
         }
@@ -73,6 +76,7 @@ public class BossTarget : MonoBehaviour, IDamageable
         if(health <= maxHealth/6 && timesExploded == 4){
             bossAI.PrepareExplodePlanet();
             timesExploded++;
+            dialogueTrigger.TriggerDialogue(2);
         }
 
     }

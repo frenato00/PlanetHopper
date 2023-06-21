@@ -28,7 +28,7 @@ public class MenuLevelInfo : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        SetLevel(level);
+        
     }
 
     public void StartLevel()
@@ -69,6 +69,6 @@ public class MenuLevelInfo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        SetLevel(level);
     }
 }
