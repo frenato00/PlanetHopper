@@ -41,12 +41,13 @@ public class PauseMenu : MonoBehaviour
 
     private void ToggleSiblings(bool active)
     {
-        int selfIndex = pauseMenuUI.transform.GetSiblingIndex();
+        int selfIndex = transform.GetSiblingIndex();
         for (int i = 0; i < parent.transform.childCount; i++)
         {
             if (i != selfIndex)
             {
                 parent.transform.GetChild(i).gameObject.SetActive(active);
+                
             }
         }
     }

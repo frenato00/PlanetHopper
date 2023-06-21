@@ -15,7 +15,6 @@ public class MenuLevelInfo : MonoBehaviour
 
     [SerializeField]
     private TMPro.TextMeshProUGUI levelInfo;
-
     private int TIME_REACHED_DEFAULT = 99999;
 
     void Awake()
