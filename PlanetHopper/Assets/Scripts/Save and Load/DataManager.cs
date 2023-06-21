@@ -36,7 +36,6 @@ public class DataManager : MonoBehaviour
 
     public void LoadData(){
         gameData = fileDataHandler.LoadData();
-        Debug.Log(gameData.level1TimeReached);
 
         if(gameData == null){
             gameData = new GameData(level1, level2, level3);

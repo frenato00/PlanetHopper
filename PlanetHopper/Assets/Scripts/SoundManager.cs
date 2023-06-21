@@ -8,6 +8,8 @@ public class SoundManager : MonoBehaviour
 {
     public Slider volumeSlider;
 
+    public FMOD.Studio.Bus MasterBus;
+
     void Start()
     {
         if (!PlayerPrefs.HasKey("soundVolume"))
@@ -15,12 +17,14 @@ public class SoundManager : MonoBehaviour
             PlayerPrefs.SetFloat("soundVolume", 1);
         }
 
+        MasterBus = FMODUnity.RuntimeManager.GetBus("bus:/");
+
         Load();
     }
 
     public void ChangeVolume()
     {
-        //AudioListener.volume = volumeSlider.value;
+        var result = MasterBus.setVolume(volumeSlider.value);
         Save();
     }
     

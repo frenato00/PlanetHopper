@@ -69,10 +69,10 @@ MonoBehaviour:
   Path: PlanetHopper, teamG, SoundDesign/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638227136776409945
+  lastModified: 638229704798425057
   FileSizes:
   - Name: Desktop
-    Value: 996480
+    Value: 1005504
   Exists: 1
 --- !u!114 &-8325955025157174286
 MonoBehaviour:
@@ -89,10 +89,10 @@ MonoBehaviour:
   Path: PlanetHopper, teamG, SoundDesign/Build/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 638227136775070154
+  lastModified: 638229685480135979
   FileSizes:
   - Name: Desktop
-    Value: 2320320
+    Value: 2320224
   Exists: 1
 --- !u!114 &-8189947831552223165
 MonoBehaviour:
@@ -283,7 +283,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 664
---- !u!114 &-4326951953325209448
+--- !u!114 &-5054840171261675227
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -293,23 +293,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Ambience/Ambience_noise_space
+  m_Name: event:/Enemy/sfx_enemy_floating_distant
   m_EditorClassIdentifier: 
-  Path: event:/Ambience/Ambience_noise_space
+  Path: event:/Enemy/sfx_enemy_floating_distant
   Guid:
-    Data1: 1900883366
-    Data2: 1271842373
-    Data3: 1820047248
-    Data4: -739575700
+    Data1: -1427328809
+    Data2: 1330634189
+    Data3: 1391020203
+    Data4: -1264368278
   Banks:
-  - {fileID: -8325955025157174286}
-  IsStream: 1
-  Is3D: 0
+  - {fileID: -8441013289410011821}
+  IsStream: 0
+  Is3D: 1
   IsOneShot: 0
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
-  Length: 15500
+  MaxDistance: 100
+  Length: 6750
 --- !u!114 &-3936740963490133919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,7 +337,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 70750
---- !u!114 &-3530373419216554962
+--- !u!114 &-3681061819264445748
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -347,23 +347,50 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Ambience/Ambience_planet
+  m_Name: event:/Enemy/sfx_enemy_death_expload_distant
   m_EditorClassIdentifier: 
-  Path: event:/Ambience/Ambience_planet
+  Path: event:/Enemy/sfx_enemy_death_expload_distant
   Guid:
-    Data1: -1335553754
-    Data2: 1260391190
-    Data3: 1675672467
-    Data4: -1497652103
+    Data1: -1387017
+    Data2: 1310842053
+    Data3: 995145647
+    Data4: 532391721
   Banks:
-  - {fileID: -8325955025157174286}
+  - {fileID: -8441013289410011821}
   IsStream: 1
   Is3D: 1
-  IsOneShot: 0
+  IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
-  Length: 30000
+  MaxDistance: 100
+  Length: 2500
+--- !u!114 &-3487137750473286575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/sfx_enemy_death_exhale_distant
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/sfx_enemy_death_exhale_distant
+  Guid:
+    Data1: 1470454385
+    Data2: 1304917777
+    Data3: -454532701
+    Data4: -870615909
+  Banks:
+  - {fileID: -8441013289410011821}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 100
+  Length: 0
 --- !u!114 &-2054358298161325401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,10 +433,10 @@ MonoBehaviour:
   Path: PlanetHopper, teamG, SoundDesign/Build/Desktop/UI.bank
   Name: UI
   StudioPath: bank:/UI
-  lastModified: 638227136775405773
+  lastModified: 638229681423854321
   FileSizes:
   - Name: Desktop
-    Value: 22560
+    Value: 22528
   Exists: 1
 --- !u!114 &-1723153061159432763
 MonoBehaviour:
@@ -519,6 +546,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 820
+--- !u!114 &-504505607785688723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapons/sfx_gun_hitting_enemy_distant
+  m_EditorClassIdentifier: 
+  Path: event:/Weapons/sfx_gun_hitting_enemy_distant
+  Guid:
+    Data1: 489095580
+    Data2: 1098955849
+    Data3: 168425918
+    Data4: 499344648
+  Banks:
+  - {fileID: -8441013289410011821}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 100
+  Length: 685
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,8 +593,6 @@ MonoBehaviour:
   - {fileID: -8441013289410011821}
   - {fileID: -1901004376817813616}
   EditorEvents:
-  - {fileID: -3530373419216554962}
-  - {fileID: -4326951953325209448}
   - {fileID: -3936740963490133919}
   - {fileID: -8189947831552223165}
   - {fileID: 2486233650417125165}
@@ -574,12 +626,19 @@ MonoBehaviour:
   - {fileID: 608803394953880573}
   - {fileID: 1407390152070292765}
   - {fileID: 53484424466911007}
+  - {fileID: -504505607785688723}
+  - {fileID: -3487137750473286575}
+  - {fileID: -3681061819264445748}
+  - {fileID: 3551860209316326514}
+  - {fileID: -5054840171261675227}
+  - {fileID: 3873421118793113786}
+  - {fileID: 4298684132101800400}
   EditorParameters: []
   MasterBanks:
   - {fileID: 436704378197182950}
   StringsBanks:
   - {fileID: 4806553614198525767}
-  cacheTime: 638227136777474584
+  cacheTime: 638229704798425057
   cacheVersion: 131603
 --- !u!114 &45500338043459036
 MonoBehaviour:
@@ -596,7 +655,7 @@ MonoBehaviour:
   Path: PlanetHopper, teamG, SoundDesign/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638227136777474584
+  lastModified: 638229681416254318
   FileSizes:
   - Name: Desktop
     Value: 4136288
@@ -670,7 +729,7 @@ MonoBehaviour:
   Path: PlanetHopper, teamG, SoundDesign/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638227136774199848
+  lastModified: 638229704798065057
   FileSizes:
   - Name: Desktop
     Value: 1036
@@ -945,6 +1004,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1149
+--- !u!114 &3551860209316326514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapons/sfx_gun_enemy_blast_distant
+  m_EditorClassIdentifier: 
+  Path: event:/Weapons/sfx_gun_enemy_blast_distant
+  Guid:
+    Data1: 1783298853
+    Data2: 1097506623
+    Data3: -1234536829
+    Data4: 1847117173
+  Banks:
+  - {fileID: -8441013289410011821}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 100
+  Length: 0
 --- !u!114 &3634807771248201343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1026,6 +1112,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &3873421118793113786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambience/Ambience_planet
+  m_EditorClassIdentifier: 
+  Path: event:/Ambience/Ambience_planet
+  Guid:
+    Data1: -1335553754
+    Data2: 1260391190
+    Data3: 1675672467
+    Data4: -1497652103
+  Banks:
+  - {fileID: -8325955025157174286}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 30000
 --- !u!114 &4167559929180417292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1053,6 +1166,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 14719
+--- !u!114 &4298684132101800400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambience/Ambience_noise_space
+  m_EditorClassIdentifier: 
+  Path: event:/Ambience/Ambience_noise_space
+  Guid:
+    Data1: 1900883366
+    Data2: 1271842373
+    Data3: 1820047248
+    Data4: -739575700
+  Banks:
+  - {fileID: -8325955025157174286}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 15500
 --- !u!114 &4393173110105071170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1095,10 +1235,10 @@ MonoBehaviour:
   Path: PlanetHopper, teamG, SoundDesign/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638227136775791644
+  lastModified: 638229704798065057
   FileSizes:
   - Name: Desktop
-    Value: 2604
+    Value: 2854
   Exists: 1
 --- !u!114 &4903834297968822043
 MonoBehaviour:

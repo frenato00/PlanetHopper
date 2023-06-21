@@ -13,6 +13,9 @@ public class MenuManager : MonoBehaviour
 
     public MenuLevel[] levels;
 
+    [SerializeField]
+    private GameObject dog;
+
 
     // Start is called before the first frame update
 
@@ -31,13 +34,23 @@ public class MenuManager : MonoBehaviour
             if (i == 0) levels[i].EnableLevel();
             else
             {
-                if (levels[i-1].level.timeReached < 99999) {
+                if (levels[i - 1].level.timeReached < 99999)
+                {
                     levels[i].EnableLevel();
                 }
-                else {
+                else
+                {
                     levels[i].DisableLevel();
                 }
             }
+        }
+        if (levels[2].level.timeReached < 99999)
+        {
+            dog.SetActive(true);
+        }
+        else
+        {
+            dog.SetActive(false);
         }
     }
 
@@ -76,14 +89,24 @@ public class MenuManager : MonoBehaviour
             if (i == 0) levels[i].EnableLevel();
             else
             {
-                if (levels[i-1].level.timeReached < 99999) {
+                if (levels[i - 1].level.timeReached < 99999)
+                {
                     levels[i].EnableLevel();
                 }
-                else {
+                else
+                {
                     levels[i].DisableLevel();
                 }
             }
         }
 
+        if (levels[2].level.timeReached < 99999)
+        {
+            dog.SetActive(true);
+        }
+        else
+        {
+            dog.SetActive(false);
+        }
     }
 }

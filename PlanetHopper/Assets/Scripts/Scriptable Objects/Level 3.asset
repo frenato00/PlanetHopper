@@ -20,4 +20,3 @@ MonoBehaviour:
   enemiesKilled: 0
   medalsCollected: 0
   timeReached: 99999
-  isEnabled: 0

@@ -5014,6 +5014,7 @@ MonoBehaviour:
     m_Bits: 128
   health: 100
   rotationCorrection: 0
+  playerGravity: {fileID: 0}
   walkPointRange: 10
   timeBetweenAttacks: 1
   sightRange: 50
@@ -5046,11 +5047,11 @@ MonoBehaviour:
   maxHealth: 50
   hitSFX:
     Guid:
-      Data1: 2074744112
-      Data2: 1126640310
-      Data3: 13906362
-      Data4: 1373242429
-    Path: event:/Weapons/sfx_gun_hitting_enemy
+      Data1: 489095580
+      Data2: 1098955849
+      Data3: 168425918
+      Data4: 499344648
+    Path: event:/Weapons/sfx_gun_hitting_enemy_distant
 --- !u!114 &1361732043574962038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5066,11 +5067,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 1841976810
-      Data2: 1249798219
-      Data3: -1721154405
-      Data4: -237406347
-    Path: event:/Enemy/sfx_enemy_death_exhale
+      Data1: 1470454385
+      Data2: 1304917777
+      Data3: -454532701
+      Data4: -870615909
+    Path: event:/Enemy/sfx_enemy_death_exhale_distant
   Event: 
   PlayEvent: 12
   StopEvent: 0
@@ -5081,7 +5082,7 @@ MonoBehaviour:
   Params: []
   OverrideAttenuation: 0
   OverrideMinDistance: 1
-  OverrideMaxDistance: 20
+  OverrideMaxDistance: 100
 --- !u!65 &7803585444069646218
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5144,11 +5145,11 @@ MonoBehaviour:
   bulletParticle: {fileID: 1511217813}
   shootSFX:
     Guid:
-      Data1: 1220713303
-      Data2: 1152038034
-      Data3: 1780951985
-      Data4: 242997052
-    Path: event:/Weapons/sfx_gun_enemy_blast
+      Data1: 1783298853
+      Data2: 1097506623
+      Data3: -1234536829
+      Data4: 1847117173
+    Path: event:/Weapons/sfx_gun_enemy_blast_distant
 --- !u!1001 &3684182767437051664
 PrefabInstance:
   m_ObjectHideFlags: 0
