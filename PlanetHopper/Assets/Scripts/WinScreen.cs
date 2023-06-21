@@ -19,6 +19,8 @@ public class WinScreen : MonoBehaviour
     public GameObject newRecordTime;
     public GameObject newRecordEnemies;
 
+    public GameObject nextLevelButton;
+
     private LevelInformation levelInformation;
 
     // Start is called before the first frame update
@@ -49,6 +51,8 @@ public class WinScreen : MonoBehaviour
         levelInformation.enemiesKilled = levelInformation.enemiesKilled > enemiesKilled ? levelInformation.enemiesKilled : enemiesKilled;
         levelInformation.medalsCollected = levelInformation.medalsCollected > medalsCollected ? levelInformation.medalsCollected : medalsCollected;
         levelInformation.timeReached = levelInformation.timeReached < timeReached ? levelInformation.timeReached : timeReached;
+
+        nextLevelButton.SetActive(levelInformation.levelNumber < 3);
 
     }
 
