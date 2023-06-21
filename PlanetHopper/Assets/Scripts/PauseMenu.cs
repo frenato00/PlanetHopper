@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
@@ -31,7 +32,7 @@ public class PauseMenu : MonoBehaviour
             {
                 Resume();
             }
-            else
+            else if(GameManager.instance.IsAcceptingPlayerInput())
             {
                 Pause();
             }
@@ -69,6 +70,14 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0f;
         gameIsPaused = true;
+    }
+
+    public void MainMenu()
+    {
+        GameManager.instance.AcceptPlayerInput(true);
+        Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Menu");
     }
 
     public void Quit()

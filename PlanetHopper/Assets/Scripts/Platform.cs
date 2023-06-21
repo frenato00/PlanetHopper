@@ -33,6 +33,8 @@ public class Platform : MonoBehaviour
     private float currentAlpha;
     private float disappearTime = 2;
 
+    private Transform playerParent;
+
     void Start()
     {
         destroying = false;
@@ -188,7 +190,8 @@ public class Platform : MonoBehaviour
                 Physics.Raycast(collision.collider.transform.position, - collision.collider.transform.up, out hitRay);
                 if (hitRay.collider.gameObject == gameObject)
                 {
-                    collision.gameObject.transform.SetParent(transform, true);
+                    playerParent = collision.gameObject.transform.parent;
+                    playerParent.SetParent(transform, true);
                 }
                 
                 if (isDestructable)
@@ -213,7 +216,7 @@ public class Platform : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            collision.gameObject.transform.parent = null;
+            playerParent.SetParent(null, true);
         }
     }
 }

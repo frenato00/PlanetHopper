@@ -10,6 +10,7 @@ public class EnemyAI : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
     public float health;
     public int rotationCorrection;
+    public PlayerGravity playerGravity;
 
     EnemyShoot enemyShoot;
 
@@ -98,7 +99,6 @@ public class EnemyAI : MonoBehaviour
             // Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             // rb.AddForce(orientation.forward * 32f, ForceMode.Impulse);
             // rb.AddForce(transform.up * 8f, ForceMode.Impulse);
-
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);

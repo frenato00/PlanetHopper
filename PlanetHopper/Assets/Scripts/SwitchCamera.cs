@@ -18,8 +18,8 @@ public class SwitchCamera : MonoBehaviour , ISwitchCamera
     GameObject player;
 
     void Start(){
-        Camera_1 = GameObject.FindGameObjectWithTag("MainCamera");
-        player = GameObject.FindGameObjectWithTag("Player").transform.parent.gameObject;
+        Camera_1 = GameObject.FindWithTag("MainCamera");
+        player = GameObject.FindWithTag("Player").transform.parent.gameObject;
     }
 
     public void ChangeCamera(){
