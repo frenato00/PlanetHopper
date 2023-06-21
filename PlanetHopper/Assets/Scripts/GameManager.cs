@@ -31,9 +31,9 @@ public class GameManager : MonoBehaviour
     private BossTarget bossTarget;
 
 
-    private int _enemiesKilled;
-    private int _medalsCollected;
-    private float _timeReached;
+    public int _enemiesKilled;
+    public int _medalsCollected;
+    public float _timeReached;
 
     // Start is called before the first frame update
     
@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
         bossTarget = GetComponent<BossTarget>();
         pauseMenuUI =  Instantiate(pauseMenu);
         pauseMenuUI.transform.SetParent(canvas.transform, false);
+        
     }
 
     public void GameOver(){
@@ -84,15 +85,12 @@ public class GameManager : MonoBehaviour
     }
 
     private void SaveLevelInformation(){
+        Debug.Log("Saving Level Information");
         PlayerLife playerLife = GameObject.FindWithTag("Player").GetComponent<PlayerLife>();
 
         _enemiesKilled = playerLife.GetEnemiesKilled();
         _medalsCollected = playerLife.GetCurrentPoints();
         _timeReached = playerLife.GetCurrentTime();
-
-        levelInformation.enemiesKilled = levelInformation.enemiesKilled > _enemiesKilled ? levelInformation.enemiesKilled : _enemiesKilled;
-        levelInformation.medalsCollected = levelInformation.medalsCollected > _medalsCollected ? levelInformation.medalsCollected : _medalsCollected;
-        levelInformation.timeReached = levelInformation.timeReached < _timeReached ? levelInformation.timeReached : _timeReached;
 
     }
 

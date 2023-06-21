@@ -17,6 +17,7 @@ MonoBehaviour:
   enemiesToKill: 7
   medalsToCollect: 2
   timeToBeBellow: 120
-  enemiesKilled: 0
-  medalsCollected: 0
-  timeReached: 0
+  enemiesKilled: 1
+  medalsCollected: 1
+  timeReached: 8.249826
+  isEnabled: 0
