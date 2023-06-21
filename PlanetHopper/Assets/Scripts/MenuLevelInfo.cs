@@ -16,6 +16,8 @@ public class MenuLevelInfo : MonoBehaviour
     [SerializeField]
     private TMPro.TextMeshProUGUI levelInfo;
 
+    private int TIME_REACHED_DEFAULT = 99999;
+
     void Awake()
     {
         if (instance == null)
@@ -38,7 +40,24 @@ public class MenuLevelInfo : MonoBehaviour
     {
         this.level = level;
         levelTitle.text = "Level " + level.levelNumber;
-        levelInfo.text = "Enemies killed: " + level.enemiesKilled + "\nMedals collected: " + level.medalsCollected + "\nTime reached: " + level.timeReached;
+        levelInfo.text = "Enemies killed: " + level.enemiesKilled + "\nMedals collected: " + level.medalsCollected;
+
+        if( level.timeReached == TIME_REACHED_DEFAULT)
+        {
+            levelInfo.text += "\nTime reached: --:--";
+        }
+        else
+        {
+            levelInfo.text += "\nTime reached: " + FormatTime(level.timeReached);
+        }
+    }
+
+    private string FormatTime(float time)
+    {
+        int minutes = Mathf.FloorToInt(time / 60F);
+        int seconds = Mathf.FloorToInt(time - minutes * 60);
+
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     // Start is called before the first frame update

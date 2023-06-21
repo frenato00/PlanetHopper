@@ -33,6 +33,9 @@ public class WinScreen : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        Time.timeScale = 0f;
 
         levelInformation = GameManager.instance.levelInformation;
         int enemiesKilled = GameManager.instance._enemiesKilled;
@@ -75,13 +78,15 @@ public class WinScreen : MonoBehaviour
     }
 
     public void MainMenu(){
+        Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         SceneManager.LoadScene("Menu");
 
     }
 
     public void NextLevel(){
+        Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
-        SceneManager.LoadScene("Level" + (levelInformation.levelNumber + 1));
+        SceneManager.LoadScene("Level " + (levelInformation.levelNumber + 1));
     }
 }

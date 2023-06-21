@@ -5016,8 +5016,8 @@ MonoBehaviour:
   rotationCorrection: 0
   walkPointRange: 10
   timeBetweenAttacks: 1
-  sightRange: 150
-  attackRange: 150
+  sightRange: 50
+  attackRange: 50
   speed: 0
 --- !u!114 &6551723563032511773
 MonoBehaviour:

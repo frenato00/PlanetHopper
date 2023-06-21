@@ -7,9 +7,11 @@ public class MenuLevel : MonoBehaviour
 {
     public LevelInformation level;
 
+    public LevelInformation previousLevel;
+
     void Awake()
     {
-        if (level.levelNumber != 1 && level.timeReached == 0) {
+        if (level.levelNumber != 1 && level.timeReached == 99999) {
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(true);
         }
@@ -17,6 +19,19 @@ public class MenuLevel : MonoBehaviour
             transform.GetChild(1).gameObject.SetActive(false);
             transform.GetChild(0).gameObject.SetActive(true);
         }
+
+        if(previousLevel != null){
+            if (previousLevel.timeReached == 99999) {
+                transform.GetChild(0).gameObject.SetActive(false);
+                transform.GetChild(1).gameObject.SetActive(true);
+            }
+            else {
+                transform.GetChild(1).gameObject.SetActive(false);
+                transform.GetChild(0).gameObject.SetActive(true);
+            }
+        }
+
+
     }
 
     public void SetInfo() {

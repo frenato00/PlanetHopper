@@ -32,7 +32,7 @@ public class PauseMenu : MonoBehaviour
             {
                 Resume();
             }
-            else
+            else if(GameManager.instance.IsAcceptingPlayerInput())
             {
                 Pause();
             }
