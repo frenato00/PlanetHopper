@@ -2292,6 +2292,72 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &257798224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 257798227}
+  - component: {fileID: 257798226}
+  - component: {fileID: 257798225}
+  m_Layer: 0
+  m_Name: Dialogue1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &257798225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257798224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04231017d0229b449a9c2f5614fded1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCollider: 1
+  dialogue:
+    name: Friendly Voice
+    sentences:
+    - Look! That shoud be their boss. I guess this is the final showdown. If we defeat
+      it we may just finally rescue your dog.
+    - It seems to have a defensive shield that is fed by some beacons. Destroy them
+      to weaken its defense. But be mindfull of the minions.
+--- !u!65 &257798226
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257798224}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 406.07, z: 868.53}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &257798227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257798224}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -184, y: -16, z: -280}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &257879443 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 66a0e61120cf33440bd8b7b1ecb68812,
@@ -22238,6 +22304,7 @@ GameObject:
   - component: {fileID: 4299522011360357571}
   - component: {fileID: 4299522011360357572}
   - component: {fileID: 4299522011360357573}
+  - component: {fileID: 4299522011360357574}
   m_Layer: 0
   m_Name: AlienEnemyBoss
   m_TagString: Finish
@@ -22432,6 +22499,29 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &4299522011360357574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4299522011360357566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcbe9d770cb4a8c44a9fe192d9591482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+  - name: The voice
+    sentences:
+    - "What is that? It\xB4s aiming something at us! You better run! RUN FOREST!
+      RUN!"
+  - name: Broski
+    sentences:
+    - Damn! We'd be toast if you din't run. Keep up the good work.
+  - name: "#!%$&\u20AC"
+    sentences:
+    - That's it! It's almost. It dead. You can do it.
 --- !u!4 &4457963599499199202
 Transform:
   m_ObjectHideFlags: 0
